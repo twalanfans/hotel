@@ -1,0 +1,37 @@
+ /*
+ * @Description:数据分析CSS样式
+ * @Date:2017-3-23
+ * @Author:陈沐雨
+ * */
+@charset "UTF-8";
+
+.calender{ width:255px;margin:50px auto;top:0;left:0;border:4px #D6D6D6 solid;background:#EBEBEB;position:absolute;display:none;z-index:999;}
+.calendertb{width:100%;}
+.calendertb td{width:35px;height:35px;border:1px #CCCCCC solid;text-align:center;vertical-align:middle;cursor:pointer;font-size:14px;font-weight:bold;}
+.calendertb td.hover,.calendertb td.weekendhover{background:#D6D6D6;}
+.calendertb th{width:35px;height:30px;border:1px #CCCCCC solid;text-align:center;vertical-align:middle;cursor:pointer;color:#979797;}
+.tdtoday{ background:#0080FF;color:#fff;width:35px;height:35px;border:1px #CCCCCC solid;text-align:center;vertical-align:middle;cursor:pointer;font-size:14px;font-weight:bold;}
+.getyear{ height:35px;line-height:35px;width:100%;text-align:center;}
+.preMonth{ font-size:14px;font-weight:bold;cursor:pointer;margin-right:18px;color:#0080FF;}
+.nextMonth{ font-size:14px;font-weight:bold;cursor:pointer;margin-left:18px;color:#0080FF;}
+.mh_date{width:249px;height:20px;line-height:20px;padding:5px;border:2px #AA9FFF solid;cursor:pointer;background:url(dateIco.png) no-repeat right center;}
+.zhezhao{width:100%;height:100%;position:fixed;z-index:998;background:#fff;filter:alpha(opacity=10);opacity:0.1;display:none;}
+.inpt{width:120px;height:25px;outline:none;}
+.inpts{width:200px;height:25px;border:1px solid #ccc;outline:none;}
+.mb8{margin-bottom:8px;display:inline-block;}
+.mr5{margin-right:5px;}
+.active{color:#1278f6;border-bottom:2px solid #1278f6;}
+.searchBeaf{margin-bottom:15px;}
+.searchBeaf  form span{height:25px;display:inline-block;}
+.searchBtn{width:100px;height:30px;background-color:#1278f6;color:#fff;text-align:center;line-height:30px;display:inline-block;cursor:pointer;}
+.dataNav{margin:10px 0;width:80%;font-size:14px;}
+.dataNav li{float:left;padding:0 10px;height:26px;text-align:center;line-height:26px;}
+.dataNav li a{display:block;}
+.dataNav li:hover{background-color:#65cea7;}
+.dataNav li:hover a{color:#fff;}
+.dataNav li.on{background-color:#65cea7;}
+.dataNav li.on a{color:#fff;}
+.dataBox li{display:none;overflow:auto;width:99%;}
+.dataBox li.dataShow{display:block;}
+.dataSheet{margin:0 auto;width:700px;min-height:600px;}
+.dataBox .searchBeaf{width:80%;}

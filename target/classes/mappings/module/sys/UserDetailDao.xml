@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.sys.dao.UserDetailDao">
+	
+	<select id="queryUserList" resultType="UserDetail" parameterType="UserDetail">
+			SELECT  a.user_id, 
+						 a.user_name, 
+						 a.sex, 
+						 b.login_name,
+						 b.user_type,
+						 b.status,
+						 a.phone, 
+						 a.email, 
+						 a.birthday, 
+						 a.address, 
+						 a.postcode, 
+						 a.update_time,
+						 b.create_time, 
+						 c.depart_name AS "gradeName",
+						 d.depart_name AS "professionName",
+						 e.depart_name AS "departName",
+						 a.remark
+			 FROM hotel_userdetail a, hotel_user b, hotel_department c
+			 LEFT JOIN hotel_department d ON d.depart_id=c.parent_id
+			 LEFT JOIN hotel_department e ON e.depart_id=d.parent_id 
+			 WHERE a.user_id = b.user_id AND b.depart_id=c.depart_id
+		<if test="userName != null and userName !='' ">
+	   		AND a.user_name LIKE CONCAT('%', #{userName}, '%')
+		</if>
+		<if test="loginName != null and loginName !='' ">
+	   		AND b.login_name LIKE CONCAT('%', #{loginName}, '%')
+		</if>
+		<if test="userType != null and userType !='' ">
+	   		AND b.user_type = #{userType}
+		</if>
+		<if test="status != null and status !='' ">
+	   		AND b.status = #{status}
+		</if>
+			ORDER BY b.create_time  DESC
+	</select>
+	
+	<select id="get" resultType="UserDetail" >
+		SELECT  	 a.user_id, 
+						 a.user_name, 
+						 a.sex, 
+						 a.photo,
+						 b.login_name,
+						 b.user_type,
+						 b.status,
+						 b.lastlogin_time,
+						 a.phone, 
+						 a.email, 
+						 a.birthday, 
+						 a.address, 
+						 a.postcode, 
+						 c.depart_name AS "gradeName",
+						 d.depart_name AS "professionName",
+						 e.depart_name AS "departName",
+						 a.remark
+			 FROM hotel_userdetail a, hotel_user b
+			 LEFT JOIN hotel_department c ON b.depart_id=c.depart_id
+			 LEFT JOIN hotel_department d ON d.depart_id=c.parent_id
+			 LEFT JOIN hotel_department e ON e.depart_id=d.parent_id
+			 WHERE a.user_id = b.user_id  AND a.user_id = #{id}
+	</select>
+	
+	<select id="getEmail" resultType="java.lang.String">
+		SELECT a.email FROM hotel_userdetail a, hotel_user b WHERE a.user_id = b.user_id AND b.login_name = #{loginName}
+	</select>
+	<!-- 用户注册时,保存用户详情信息 -->
+	<insert id="insertUserDetail" parameterType="UserDetail">
+	   INSERT INTO hotel_userdetail (
+	   						user_id, 
+							user_name, 
+							sex, 
+							phone, 
+							email, 
+							birthday, 
+							address, 
+							postcode, 
+							update_time, 
+							remark
+							)
+							VALUES
+							(#{userId}, 
+							#{userName}, 
+							#{sex}, 
+							#{phone}, 
+							#{email}, 
+							#{birthday}, 
+							#{address}, 
+							#{postCode}, 
+							#{updateTime}, 
+							#{remark}
+							);
+	</insert>
+	
+	<insert id="insertUser" parameterType="User">
+			INSERT INTO hotel_user(user_id, login_name,password,depart_id,
+				user_type,create_time,status)
+			VALUES(#{userId},#{loginName},#{password},#{departId},
+				#{userType},#{createTime},'1') 	
+	</insert>
+	
+	<select id="queryUserByRole" parameterType="UserDetail" resultType="UserDetail" >
+			SELECT 
+				  a.user_id,
+				  a.user_name,
+				  a.phone,
+				  a.email,
+				  a.birthday,
+				  a.address, 
+				  a.sex,
+				  c.depart_name AS "gradeName",
+				  d.depart_name AS "professionName",
+				  e.depart_name AS "departName",
+				  a.remark
+			 FROM (hotel_userdetail a, hotel_user b, hotel_department c)
+			 LEFT JOIN hotel_department d ON d.depart_id=c.parent_id
+			 LEFT JOIN hotel_department e ON e.depart_id=d.parent_id
+			 LEFT JOIN hotel_user_role f ON f.user_id=a.user_id
+			 WHERE  a.user_id = b.user_id AND b.depart_id=c.depart_id AND b.user_type = '1' AND f.role_id=#{roleId}
+		<if test="userName != null and userName !='' ">
+	   		AND a.user_name LIKE CONCAT('%', #{userName}, '%')
+		</if>
+	</select>
+	
+	<update id="insertLoginCount" parameterType="UserDetail" >
+		UPDATE hotel_user SET logincount = #{loginCount} WHERE user_id = #{userId}
+	</update>
+	
+	<delete id="delete" parameterType="User">
+			DELETE FROM hotel_userdetail WHERE user_id = #{userId}
+	</delete>
+</mapper>

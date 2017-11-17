@@ -1,0 +1,77 @@
+ /*
+ * @Description:在线解答CSS样式
+ * @Date:2017-3-23
+ * @Author:陈沐雨
+ * */
+@charset "UTF-8";
+.askWindow{position:absolute;top:10%;z-index:10000;display:none;overflow:hidden;padding:10px;width:290px;border:1px solid #ccc;border-radius:5px;background-color:#fff;cursor:move;}
+.askWindow input,.askWindow textarea{margin-bottom:15px;padding-left:1%;width:99%;height:35px;border:1px solid #eaeaec;border-radius:6px;background-color:#eaeaec;}
+.askWindow textarea{height:150px;resize:none;}
+.answerContent:nth-child(odd){background-color:#6bc5a4;}
+.answerContent:nth-child(even){background-color:#688ac2;}
+.showList .publishInfo{margin-right:15px;color:#585858;font-size:12px;}
+.askTit{margin-bottom:10px;padding:10px 0;border-bottom:1px solid #65cea7;}
+.showList ul li{height:auto;}
+.fl{float:left;display:inline;}
+.fr{float:right;display:inline;}
+.uploadImgBox{cursor:auto;}
+.uploadImgTit{margin-bottom:20px;}
+.uploadImgBox li{position:relative;float:left;margin-left:10px;padding-top:20px;padding-right:20px;}
+.uploadImgBox li .imgBtn{position:absolute;top:20px;right:20px;width:60px;height:50px;cursor:pointer;}
+.uploadImgBox li input{position:relative;width:60px;height:50px;opacity:0;cursor:pointer;filter:alpha(opacity=0);}
+.uploadImgBox li .clearImgBtn{position:absolute;top:0;right:0;display:none;width:20px;height:20px;cursor:pointer;}
+.addQuestionUserInfo{margin:0 auto;width:414px;}
+.addQuestionTit{height:30px;font-size:14px;line-height:30px;}
+.articleTitle h3{height:30px;line-height:30px;}
+.addQuestionUserInfo li{margin-right:10px;height:20px;line-height:20px;}
+.userInfo p{line-height:20px;}
+.userInfo{margin-left:10px;text-align:left;}
+.userPic{width:20px;height:20px;}
+.answerContentNull{height:200px;text-align:center;line-height:200px;}
+.addMoreBtnBox{position:relative;border-bottom:1px solid #6bc5a4;}
+.addMoreBtn,.pageList .addMoreBtn{position:absolute;top:-15px;left:50%;margin-left:-50px;width:100px;height:30px;background-color:#fff;color:#000;text-align:center;text-decoration:none;font-size:14px;line-height:30px;}
+.pageListBar{line-height:40px;}
+.answerContent{padding:0 10px 0 4px;line-height:20px;}
+.commentUserInfo{width:120px;text-align:center;}
+.commentUserInfo .userInfo{margin:0;text-align:center;}
+.commentUserInfo img{display:block;margin:10px auto 10px;width:80px;height:80px;}
+.figure{margin:0 6px 6px 0;width:100px;height:100px;}
+.articleContent{text-indent:1em;}
+.commentContentBox{width:88%;min-height:150px;line-height:20px;}
+.commentContent{padding:10px;min-height:100px;line-height:20px;}
+.replyUserInfo{height:20px;line-height:20px;}
+.addReply{margin:0 10px;}
+.replyContent{margin-bottom:10px;margin-left:120px;background-color:#fff;}
+.replyContent>li{padding:4px 10px;border-bottom:1px dashed #ccc;}
+.replyUserImg{width:40px;}
+.addCommentBox{margin:20px 0;}
+.addCommentBox fieldset{padding:20px 10px;}
+.addCommentBox legend{margin-left:20px;font-size:16px;}
+.addCommentBox label{display:inline-block;line-height:30px;}
+.addCommentContent,.addCommentTit{margin-bottom:10px;}
+.addCommentTit{line-height:30px;}
+.addCommentTit input{margin-left:10px;padding:0 10px;width:200px;}
+.addCommentContent textarea{margin-left:10px;padding:4px;width:78%;height:140px;min-height:140px;resize:none;}
+.addCommentBtnBox{padding-left:68px;}
+.qqFace{margin-top:4px;padding:2px;border:1px #dfe6f6 solid;background:#fff;}
+.qqFace table td{padding:0;height:auto;line-height:100%;}
+.qqFace table td img{border:1px #fff solid;cursor:pointer;}
+.qqFace table td img:hover{border:1px #06c solid;}
+.answertext{padding:10px;width:98%;min-height:120px;line-height:20px;resize:none;}
+.mr20{margin-right:20px;}
+.btnCol_purple{background-color:#584dbb;}
+@media only screen and (max-width:768px){
+	.askWindow{left:50%;margin-left:-157px;}
+	.addQuestionUserInfo{width:99%;}
+	.addCommentBtnBox>input{margin-right:2px;margin-bottom:10px;width:70px;}
+	.commentContentBox{width:80%;min-height:90px;}
+	.answerContent>div{margin-bottom:10px;}
+	.replyContent{margin-left:56px;}
+	.replyUser .fl{float:none;}
+	.commentContent{min-height:40px;}
+	.commentContent>p{width:110px;}
+	.commentUserInfo{width:50px;}
+	.commentUserInfo img{width:40px;height:40px;}
+	.addCommentBtnBox{padding-left:0;}
+	.addCommentContent textarea{width:94%;}
+}

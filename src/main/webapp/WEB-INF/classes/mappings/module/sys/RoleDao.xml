@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.sys.dao.RoleDao">
+	
+    <sql id="roleDate">
+    	a.role_id,
+    	a.name,
+		a.remark,
+		a.create_by,
+		a.create_time,
+		a.update_by,
+		a.update_time,
+		a.del_flag AS "status"
+    </sql>
+	
+	<select id="getByName" resultType="Role">
+		SELECT
+			<include refid="roleDate"/>
+		FROM hotel_role a
+		WHERE a.name = #{name} 
+	</select>
+	
+	<select id="queryAllRoleByUserId" resultType="Role">
+		SELECT 	DISTINCT
+				<include refid="roleDate"/>
+		FROM 		hotel_role a
+	   	WHERE 	a.create_by =#{userId}
+	   	ORDER BY a.create_time  DESC
+	</select>
+	
+	<select id="findList"  resultType="Role">
+		SELECT
+			<include refid="roleDate"/>
+		FROM hotel_role a,hotel_user_role ab
+		where a.role_id= ab.role_id
+		and ab.user_id=#{userId}
+	</select>	
+	
+	<!-- 插入角色 -->
+	<insert id="insert" parameterType="Role" useGeneratedKeys="true" keyProperty="roleId">
+		insert into hotel_role (
+			name,
+			create_by,
+			create_time,
+			remark
+		)values(
+			#{name},
+			#{createUser},
+			#{createTime},
+			#{remark}
+		)
+	</insert>
+	
+	<!-- 删除角色 -->
+	<delete id="delete" parameterType="Role">
+		delete from hotel_role where ROLE_ID = #{roleId}
+	</delete>
+	
+ <!-- 角色参数修改 -->
+    <update id="update" parameterType="Role">
+        UPDATE hotel_role a SET
+            a.name = #{name},
+            a.remark = #{remark} 
+        WHERE 
+            a.role_id= #{roleId}
+    </update>
+    
+  <!-- 插入用户和角色关联表数据-->
+    <insert id="addUserToRole" parameterType="Role">
+        INSERT INTO hotel_user_role(
+            USER_ID,
+            ROLE_ID
+        )
+        VALUES(
+            #{userId},
+            #{roleId}
+       )
+    </insert>
+	
+   <!-- 删除用户和角色关联表数据 -->
+    <delete id="removeStudent" parameterType="Role">
+        DELETE FROM 
+            hotel_user_role 
+        WHERE 
+            role_id = #{roleId} 
+             <if test="userId!='' and userId!=null">
+            	AND user_id = #{userId}
+            </if>
+    </delete>
+    
+     <!-- 角色权限对应信息维护(增加) -->
+    <insert id="insertRoleMenu" parameterType="Role">
+        INSERT INTO hotel_role_menu(
+            ROLE_ID,
+            MENU_ID
+        )
+        VALUES(
+            #{roleId},
+            #{menuId}
+        )
+    </insert>
+    
+  <!-- 角色权限对应信息维护(删除) -->
+    <delete id="deleteRoleResource" parameterType="Role">
+        DELETE FROM
+            hotel_role_resource
+        WHERE
+            role_id = #{roleId} 
+            AND resource_id =#{resourceId}
+    </delete>
+    
+    <!-- 角色权限对应信息维护(更新) -->
+    <update id="updateRoleMenu" parameterType="Role">
+         UPDATE hotel_role_menu SET
+            role_Id = #{roleId}
+        WHERE 
+            menu_id= #{menuId}
+    </update>
+    
+    <update id="changeUserStatus" parameterType="Role">
+    	UPDATE hotel_user SET status = '1' WHERE user_id = #{userId}
+    </update>
+    <!-- 角色权限对应信息维护(查询) -->
+    <select id="showAllRoleMenu" resultType="Role">
+    	SELECT
+    		ROLE_ID,
+    		MENU_ID
+    	FROM hotel_role_menu
+    	WHERE role_id = #{roleId}
+    </select>
+
+</mapper>

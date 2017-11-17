@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.module.course.dao.StudyPlanDetailDao" >
+  <resultMap id="StudyPlanDetailResultMap" type="com.module.course.entity.StudyPlanDetail" >
+    <result column="id" property="id" />
+    <result column="plan_id" property="planId" />
+    <result column="course_list" property="courseList" />
+    <result column="course_count" property="courseCount" />
+    <result column="test_count" property="testCount" />
+    <result column="ask_count" property="askCount" />
+    <result column="plan_time" property="planTime"/>
+    <result column="update_time" property="updateTime" />
+    <result column="course_name_list" property="courseNameList" />
+</resultMap>
+  <select id="selectMyStudyPlanDetailByPlanId" resultMap="StudyPlanDetailResultMap" >
+    	SELECT a.id,
+    				a.plan_id,
+    				a.course_list,
+    				a.course_count,
+    				a.test_count,
+    				a.ask_count,
+    				a.plan_time,
+    				a.update_time,
+    				a.course_name_list
+   		FROM hotel_mystudy_plan_detail a
+    	WHERE  a.plan_id = #{planId}
+  </select>
+  
+  <select id="queryStudyPlanDetail" resultMap="StudyPlanDetailResultMap" >
+  		SELECT a.id,
+    				a.plan_id,
+    				a.course_list,
+    				a.course_count,
+    				a.test_count,
+    				a.ask_count,
+    				a.plan_time,
+    				a.update_time,
+    				a.course_name_list
+   		FROM hotel_mystudy_plan_detail a
+   		LEFT JOIN hotel_mystudy_plan b ON b.id = a.plan_id 
+   		WHERE b.userid = #{userid} AND a.plan_time = #{startTime} 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+	    DELETE FROM hotel_mystudy_plan_detail
+	    WHERE id = #{id}
+  </delete>
+  <insert id="insertMyStudyPlanDetail" parameterType="com.module.course.entity.StudyPlanDetail" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO hotel_mystudy_plan_detail (id, plan_id, course_list,  course_count, test_count, ask_count, plan_time, update_time)
+	    VALUES (#{id}, #{planId}, #{courseList}, 
+	      #{courseCount}, #{testCount}, #{askCount}, 
+	     #{planTime}, #{updateTime})
+  </insert>
+  
+  <update id="updateMyStudyPlanDetailByDetailId" parameterType="com.module.course.entity.StudyPlanDetail" >
+	    UPDATE hotel_mystudy_plan_detail
+	    SET 	course_list = #{courseList},
+	    		course_name_list = #{courseNameList},
+		    	course_count = #{courseCount},
+		        test_count = #{testCount},
+		        ask_count = #{askCount},
+		        update_time = #{updateTime}
+	    WHERE id = #{id}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.module.course.entity.StudyPlanDetail" >
+	    UPDATE hotel_mystudy_plan_detail
+	    SET 	plan_id = #{planId},
+		     	subject_list = #{subjectList},
+		     	course_count = #{courseCount},
+		      	test_count = #{testCount},
+		      	ask_count = #{askCount},
+		      	plan_time = #{planTime},
+		      	update_time = #{updateTime}
+	    WHERE id = #{id}
+  </update>
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.resource.dao.ResourceDao">
+
+	<sql id="resourceData">
+			a.resource_id, 
+			a.resource_type, 
+			a.relation_id, 
+			a.description, 
+			a.href, 
+			a.permission, 
+			a.create_by, 
+			a.create_time, 
+			a.update_user, 
+			a.update_time
+	</sql>
+	
+	<select id="findAllList" parameterType="Resource" resultType="Resource">
+		SELECT DISTINCT	
+					a.resource_id, 
+					a.resource_type, 
+					a.relation_id, 
+					a.description, 
+					b.course_name AS "resourceName", 
+					a.permission, 
+					a.create_by, 
+					a.create_time AS "createTime", 
+					a.update_user, 
+					a.update_time AS "updateTime"
+		FROM  hotel_resource a 
+			LEFT JOIN hotel_course b ON a.relation_id=b.course_id	
+		<if test="roleId =='' ">
+			WHERE 1=1
+			<if test="resourceName != null and resourceName !='' ">
+				AND b.course_name LIKE CONCAT('%',#{resourceName},'%')
+			</if>
+			<if test="resourceType != null and resourceType !='' ">
+				AND a.resource_type = #{resourceType}
+			</if>
+		</if>
+		<if test="roleId != null and roleId !='' ">
+			LEFT JOIN hotel_role_resource c ON c.resource_id = a.resource_id			
+			WHERE  a.resource_id NOT IN(SELECT d.resource_id FROM hotel_role_resource d WHERE d.role_id=#{roleId})
+			<if test="resourceName != null and resourceName !='' ">
+				AND b.course_name LIKE CONCAT('%',#{resourceName},'%')
+			</if>
+			<if test="resourceType != null and resourceType !='' ">
+				AND a.resource_type = #{resourceType}
+			</if>
+		</if>
+		ORDER BY a.create_time  DESC
+	</select>
+
+	<select id="queryRoleDetail" parameterType="Resource" resultType="Resource">
+		    SELECT    c.name AS "roleName",
+							c.remark AS "remark",
+							a.resource_id, 
+							a.resource_type, 
+							a.relation_id, 
+							e.course_name AS "resourceName",
+							a.description, 
+							a.permission, 
+							a.create_by AS "createUser", 
+							a.create_time,
+							a.update_time
+		   FROM 
+						hotel_role c 
+						LEFT JOIN hotel_role_resource b ON c.role_id = b.ROLE_ID
+						LEFT JOIN hotel_resource a ON a.resource_id = b.resource_id
+						LEFT JOIN hotel_course e ON e.course_id = a.relation_id
+						WHERE  c.role_id=#{roleId}
+			<if test="resourceName !='' and resourceName!=null">
+						AND e.course_name LIKE CONCAT('%',#{resourceName},'%')
+			</if>
+	</select>
+	
+	<insert id="insertResourceToRole">
+			INSERT INTO hotel_role_resource (role_id , resource_id) VALUES (#{roleId},#{resourceId})
+	</insert>
+	
+	<insert id="saveNewResource">
+			INSERT INTO hotel_resource (resource_type, relation_id, description, create_by, create_time)
+			VALUES (#{resourceType}, #{relationId},#{description},#{createUser}, #{createTime} )
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM hotel_resource WHERE resource_id = #{resourceId}
+	</delete>
+</mapper>

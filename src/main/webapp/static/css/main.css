@@ -1,0 +1,69 @@
+/*
+ * @Description:酒店后台主框架css样式
+ * @Date:2017-2-1
+ * @Author:赵一鸣
+ */
+ 
+@charset "UTF-8";
+.wrapLeft{width:230px;height:100%;position:fixed;z-index:100;overflow-x:hidden;background-color:#424f63;}
+
+/*logo*/
+.logo{width:220px;height:50px;padding-top:10px;}
+.logo a{display:block;margin-left:15px;}
+
+/*左侧固定宽度导航*/
+.nav li{padding:5px 0;}
+.nav a{height:35px;display:block;padding-left:15px;line-height:35px;color:#fff;}
+.nav a:hover{color:#65cea7}
+.nav .fa{width:16px;font-size:16px;vertical-align:middle;margin-right:10px;text-align:center;}
+.navList{padding-left:27px;}
+.slide{display:inline-block;}
+.slide.on{color:#65cea7;background-color:#353f4f;background-image:url("../images/hide.png")}
+.tmp.slide{color:#65cea7;}
+
+/*右侧顶部*/
+.header{height:50px;position:fixed;top:0;z-index:100;background-color:#fff;box-shadow:3px 3px 3px #ccc;border-bottom:1px solid #eff0f4;}
+.navBar{width:50px;height:50px;float:left;text-align:center;line-height:50px;font-size:20px;cursor:pointer;}
+.navBar:hover{background-color:#5fc9a1;color:#fff;}
+.menu{float:right;margin-right:15px;}
+.menu a{display:block;padding:12px 10px;}
+.menu .menuBtn{color:#000;}
+.menu .menuBtn img{border-radius:50%;vertical-align:middle;margin-right:5px;}
+.menu .menuBtn:hover{background-color:#424f63;color:#65cea7;}
+.menu .menuList{display:none;background-color:#65cea7;}
+.menu .menuList li a{color:#fff;}
+.menu .menuList li a i{margin-right:5px;}
+.menu .menuList li a:hover{background-color:#353f4f;}
+
+.main{margin-bottom:30px;}
+
+/*栏目说明*/
+.navExplain {height: 30px;line-height: 30px;margin:0 0 10px 0;}
+.navExplain span {border-left: 2px solid #1278f6;font-size: 16px;padding-left: 10px;}
+
+/*************媒体查询*************/
+/*PC*/
+@media only screen and (min-width:1000px){
+	.main{padding:65px 10px 0 15px;}
+	.wrapLeft{left:0px;}
+	.header{left:230px;right:0}
+	.wrapRight{margin-left:230px;}
+}
+/*pad或mobile*/
+@media only screen and (max-width:768px){
+	.nav{height:100%;max-height:480px;overflow-y:auto;}
+	.wrapLeft{left:-230px;}
+	.header{width:100%;}
+	.wrapRight{margin-left:0px;}
+	.main{width:100%;z-index:99;position:fixed;padding:65px 0 0 0;overflow:auto;}
+	.main.fix{position:fixed;}
+}
+
+@media only screen and (min-width:768px) and (max-width:999px){
+	.nav{height:100%;max-height:480px;overflow-y:auto;}
+	.wrapLeft{left:-230px;}
+	.header{width:100%;}
+	.wrapRight{margin-left:0px;}
+	.main{width:100%;max-height:810px;z-index:99;position:fixed;padding:65px 0 0 0;overflow:auto;}
+	.main.fix{position:fixed;}
+}

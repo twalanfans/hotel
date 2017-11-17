@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+.sendType{
+	padding:10px 0 0 10px;
+}
+.sendOption{
+	width:28.3%;
+	line-height:30px;
+	padding:0 6px;
+	margin-bottom:10px;
+	display:inline-block;
+	background-color:#6bc5a4;
+	color:#fff;
+	text-align:center;
+	
+}
+.userSend.on,.groupSend.on{
+	background-color:#2ca6f3;
+}
+.groupUser{padding:0 0 0 15px;}
+.groupUser ul li{height:30px;line-height:30px;border-bottom:1px dashed #ccc;}

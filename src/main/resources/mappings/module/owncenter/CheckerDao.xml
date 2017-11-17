@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.owncenter.dao.CheckerDao">
+		
+<select id="queryNeedDeal"  resultType="CourseFile">
+		SELECT 	a.file_id, 
+						a.file_name, 
+						a.file_type, 
+						a.file_size, 
+						a.status, 
+						a.create_time, 
+						a.file_path
+		FROM 
+						hotel_course_file a
+		WHERE    a.status = '0'
+		ORDER BY a.create_time DESC
+</select>
+
+<select id="findAllList" parameterType="CourseFile" resultType="CourseFile">
+		SELECT 	a.file_id, 
+						a.file_name, 
+						a.file_size, 
+						a.status, 
+						a.create_time, 
+						a.file_path
+		FROM 
+						hotel_course_file a
+		WHERE 1=1
+		<if test="status == null || status =='' || status=='0'">
+	   		AND a.status ='0'
+		</if>
+		<if test="status !=null and status !=''">
+	   		AND a.status in('1','2')
+		</if>
+		<if test="fileName != null and fileName !='' ">
+	   		AND a.file_name LIKE CONCAT('%',#{fileName},'%')
+		</if>
+		ORDER BY a.create_time DESC
+</select>
+
+<update id="changFileStatus" parameterType="CourseFile">
+		UPDATE hotel_course_file SET status =#{status} WHERE file_id = #{fileId}
+</update>
+
+</mapper>

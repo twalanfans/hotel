@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.module.course.dao.CoursefileKnowledgeDao">
+
+	<select id="findAllList" parameterType="CoursefileKnowledge" resultType="CoursefileKnowledge">
+			SELECT		a.class_id,
+							a.parent_id,
+							a.class_name,
+							a.data_type,
+							a.course_id,
+							b.course_name,
+							a.level,
+							a.create_user
+			FROM hotel_coursefile_class a
+			LEFT JOIN hotel_course b ON b.course_id = a.course_id
+			WHERE a.data_type = #{dataType}
+		<if test="courseId != null and courseId !='' ">
+			AND a.course_id = #{courseId}
+		</if>
+	</select>
+	
+	<insert id="addFileClass" parameterType="CoursefileKnowledge" useGeneratedKeys="true" keyProperty="classId">
+		INSERT INTO hotel_coursefile_class(
+			parent_id,
+			class_name,
+			data_type,
+			create_user,
+			course_id,
+			level)
+		VALUES(
+			#{classId},
+			#{className},
+			#{dataType},
+			#{createUser},
+			#{courseId},
+			#{level}	
+		)
+	</insert>
+	
+	<update id="updateClassFileName" parameterType="CoursefileKnowledge" >
+		UPDATE hotel_coursefile_class
+		SET class_name = #{className}
+		WHERE class_id = #{classId}
+	</update>
+	
+	<delete id="delete" parameterType="CoursefileKnowledge">
+		DELETE FROM hotel_coursefile_class WHERE class_id =#{classId}
+	</delete>
+</mapper>
+
+ 

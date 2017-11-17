@@ -1,0 +1,58 @@
+@charset "UTF-8";
+.testStart,.testStartShowResult{
+	display:none;
+}
+.testStartOn{
+	display:block;
+}
+/*教师试卷判分*/
+.examinationPaper,.testSearchResult{
+	margin-left:10px;
+}
+.testSearchResult{
+	margin-bottom:20px;
+}
+.testSearchResult table{/* min-width:600px; */}
+.testSearchResult .searchBtn{
+	margin:20px 10px;
+}
+.examinationPaper div{
+	line-height:30px;
+}
+.examinationPaper h3{
+	line-height:30px;
+	font-size:14px;
+}
+/*显示测试结果*/
+.showTestResult{
+	width:90%;
+	margin:10px auto;
+}
+.showTestResult  .showTestTit{
+	background-color: #0099cc;
+    color: #fff;
+}
+.showTestResult td,.showTestResult .showTestTit {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #b0cedd;
+}
+.showTestResult  td input{
+	width:80%;
+	border:1px solid #b0cedd;
+}
+.addBtutton{
+		padding:6px 10px; 
+		height:30px;
+		background:#0099cc;
+		color:#fff;
+		margin:10px  0 10px 40px;
+		border-radius: 4px;
+}
+.right{
+	color:green;
+}
+.error{
+	color:red;
+}

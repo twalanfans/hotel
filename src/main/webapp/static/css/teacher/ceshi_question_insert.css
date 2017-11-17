@@ -1,0 +1,9 @@
+/* ceshi_question_insert.css */
+@charset "UTF-8";
+.editContent div{margin-bottom:20px;}
+.editContent span,.editTitle span{font-weight:bold;}
+.relateKnowledge{width:280px;padding:15px;background-color:#fff;position:fixed;top:10%;z-index:9999;display:none;}
+.checkAnswerText{color:#f00;}
+@media only screen and (min-width:600px){
+	.relateKnowledge{left:30%;}
+}

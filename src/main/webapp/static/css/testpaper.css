@@ -1,0 +1,66 @@
+ /*
+ * @Description:在线解答、考证自测等页面CSS样式
+ * @Date:2017-3-23
+ * @Author:陈沐雨
+ * */
+ @charset "UTF-8";
+.testPaper{background-color:#fff;}
+.testPaper p{margin-bottom:10px;}
+.testPaperList p{width:100%;overflow:auto;line-height:30px;font-size:14px;}
+.testContentBox dt h4,.testOnlineTit{padding-left:10px;height:40px;line-height:40px;}
+.pageHeading{float:none;}
+.pageHeading h3{height:40px;line-height:40px;}
+.bookListBox>li{float:left;display:inline;margin-bottom:10px;padding:4px;height:206px;border:1px solid #000;}
+.bookListBox>li>h4,.bookListBox>li>p{text-align:center;}
+.bookListBox img{height:120px;border:0;}
+.imgShowBox{position:relative;}
+.imgShadow{position:absolute;top:0;left:0;width:100%;height:120px;}
+.imgShowBox .imgShadowOn{background-color:rgba(0,0,0,.6);}
+.searchPanel>span{display:inline-block;margin-bottom:10px;}
+.changeBtnBox{display:none;margin:10px 0;border:1px solid #fff;}
+.changeBtnBoxShow{display:block;}
+.changeBtn{margin-right:0;padding:0 4px;width:auto;}
+.showIframeBox{width:99%;height:99%;}
+.iframeBox{overflow:auto;width:100%;height:90%;}
+.iframeBox>h5{height:40px;text-align:center;font-size:16px;line-height:40px;}
+.iframeBox>h5>a{margin-top:6px;line-height:100%;}
+.addTestBox{padding:10px;}
+.addTestText{width:260px;height:100px;resize:none;}
+.mb10{margin-bottom:10px;}
+.mr0{margin-right:0;}
+.questionTit,.selAnswer{font-size:16px;line-height:30px;}
+.questionTit{overflow:auto;padding:5px;border:1px solid #ccc;}
+.iframeBox .closeBtn{float:right;display:inline;margin-top:10px;margin-right:10px;}
+.questionFrame{border:0;}
+#testOnlineFrame,#testPaperFrame{overflow:auto;width:100%;border:0;font-size:16px;}
+.testContentBox{padding:4px;font-size:16px;line-height:30px;}
+.testContentBox dd{padding-left:10px;}
+.standarAnswer{margin-bottom:10px;line-height:30px;}
+.standarAnswerContent{margin-bottom:10px;min-height:100px;background-color:#ccc;}
+.standarAnswerContent span{color:green;}
+.status_readOnly{display:inline-block;margin-right:6px;width:100px;height:30px;background-color:#ccc;color:#fff;text-align:center;font-size:14px;cursor:pointer;}
+.closeBtn{margin-top:6px;width:30px;height:30px;color:#000;text-decoration:none;font-size:20px;}
+.testContentTit .closeBtn{position:absolute;top:2px;right:10px;}
+.AnswerContent>li{margin-right:10px;}
+.testAnswer h4,.testAnswer h5{line-height:30px;}
+.testAnswer p{padding:10px 4px;height:auto;background-color:#f0f0f0;}
+.defaultPaper{margin:10px auto;width:320px;}
+.selTestBox>div{margin-bottom:10px;border:1px solid #ddd;}
+.selTestBox h3{line-height:30px;}
+.activeBtn{display:inline-block;margin-right:15px;padding:8px 16px;background-color:#688ac2;color:#fff;font-size:14px;cursor:pointer;}
+#knowledgeId,#selectCourse,.selTestType,.startTestBtn{margin:15px 0 15px 15px;}
+.showTestBox{display:none;background-color:#fff;}
+.makePaperChooseKnowledge{display:block;margin-bottom:10px;padding-left:15px;height:30px;border-bottom:1px solid #ddd;background:#F9F9F9;font-weight:700;line-height:30px;}
+.textAnswer{width:100%;min-height:100px;border:1px solid #ccc;resize:none;}
+.selCheckBox{text-align:center;}
+.selCheckBox>input{width:16px;height:16px;cursor:pointer;}
+.selAll label{display:block;text-align:center;cursor:pointer;}
+.selAll>input{display:none;}
+.br1_white{border-right:1px solid #fff;}
+.m0_10{margin:0 10px;}
+.ml0{margin-left:0;}
+@media only screen and (min-width:100px) and (max-width:1024px){
+	.commonBtn{margin-right:6px;margin-bottom:10px;}
+	.showIframeBox{width:100%;}
+	.textAnswer{width:98%;}
+}

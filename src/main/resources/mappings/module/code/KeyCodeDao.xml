@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.code.dao.KeyCodeDao">
+
+	<select id="queryCodeList" resultType="KeyCode" parameterType="KeyCode">
+		SELECT		a.key_id,
+						a.use_num,
+						b.school_name,
+						a.code_path AS "qrCodePath",
+						a.status,
+						a.create_time
+		FROM key_code a
+		LEFT JOIN school b ON a.school_id = b.school_id
+		WHERE 1=1
+		<if test="useNum !='' and useNum !=null">
+			AND a.use_num = #{useNum}
+		</if>
+		<if test="keyId !='' and keyId !=null">
+			AND a.key_id = #{keyId}
+		</if>
+		<if test="schoolName !='' and schoolName !=null">
+			AND b.school_name LIKE CONCAT('%', #{schoolName}, '%')
+		</if>
+		<if test="schoolId !='' and schoolId !=null">
+			AND a.school_id =#{schoolId}
+		</if>
+		ORDER BY a.create_time DESC
+	</select>
+	
+	<select id="getCodeById" resultType="KeyCode" >
+		SELECT 	a.key_id,
+						a.use_num,
+						a.code_path AS "qrCodePath",
+						a.status,
+						a.create_time
+		FROM 		key_code   a
+		WHERE 	a.key_id=#{keyId}
+		ORDER BY a.create_time DESC
+	</select>
+	
+	<delete id="deleteById">
+		DELETE FROM key_code WHERE key_id = #{keyId}
+	</delete>
+	
+	<insert id="createCode">
+		INSERT INTO key_code(key_id, use_num,school_id,code_path,status,create_time)
+		VALUES(#{keyId},#{useNum},#{schoolId},#{qrCodePath},#{status},#{createTime}) 
+	</insert>
+	
+	
+	<!-- AprWu -->
+	<insert id="insertCode">
+		INSERT INTO key_code(key_id, use_num,school_id,code_path,create_time)
+		VALUES
+		<foreach collection="list" item="keyCode" index="index" separator=",">
+			(
+				#{keyCode.keyId},
+				#{keyCode.useNum},
+				#{keyCode.schoolId},
+				#{keyCode.qrCodePath},
+				#{keyCode.createTime}
+			)
+		</foreach>
+	</insert>
+	
+	<update id="updateCodeInfo">
+		UPDATE 	key_code
+		SET 		  	use_num = #{useNum},
+						status = #{status}
+		WHERE 	key_id =#{keyId}
+	</update>
+	<select id="queryExcel" resultType="KeyCode" parameterType="KeyCode">
+	<!-- select * from tbl limit 100;  -->
+		SELECT 	 a.key_id,
+				 a.use_num,
+				 a.school_id,
+				 b.school_name,
+				 a.code_path AS "qrCodePath",
+				 a.status,
+				 a.create_time
+		FROM 	 key_code a
+		LEFT JOIN school b ON a.school_id = b.school_id
+		ORDER BY a.create_time DESC
+		
+		LIMIT	 ${num} 	
+	</select>
+</mapper>

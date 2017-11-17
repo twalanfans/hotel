@@ -1,0 +1,54 @@
+/*
+ * @Description:登录、注册页面等公用CSS样式
+ * @Date:2017-5-29
+ * @Author:赵一鸣
+ * */
+ 
+ @charset "UTF-8";
+ 
+*{margin:0;padding:0;}
+body{overflow-x:hidden;overflow-y:auto;background-image:url(../images/login-bg.jpg);background-position:center top;background-size:cover;background-repeat:no-repeat;background-attachment:fixed;font-size:12px;font-family:"Microsoft Yahei";}
+li{list-style:none;}
+img{border:none;}
+a{text-decoration:none;}
+.clear:after{clear:both;display:block;height:0;content:"";}
+.registWrap{position:absolute;top:50px;left:50%;margin-left:-155px;width:100%;max-width:310px;}
+h1{display:block;margin-bottom:20px;color:#fff;text-align:center;font-size:20px;}
+.registContent{margin-bottom:10px;padding:20px 0;border-radius:5px;background-color:#fff;}
+.logo{margin-bottom:20px;text-align:center;}
+.logo img{vertical-align:middle;}
+.promptTxt{margin-bottom:20px;padding:0 15px;height:30px;color:#b6b6b6;font-size:16px;line-height:30px;}
+.registMessage{padding:0 15px;}
+input{margin-bottom:15px;padding-left:1%;width:99%;height:35px;border:1px solid #eaeaec;border-radius:6px;background-color:#eaeaec;}
+select{margin-bottom:15px;width:100%;height:35px;border:1px solid #eaeaec;border-radius:6px;background-color:#eaeaec;}
+.loginBtn,.registBtn{width:100%;height:40px;border-radius:6px;background-color:#6bc5a4;color:#fff;text-align:center;font-size:18px;line-height:40px;cursor:pointer;}
+.loginBtn:hover,.registBtn:hover{background-color:#688ac2;}
+.registWrap p a{color:#fff;}
+.registWrap p a:nth-child(1){float:left;}
+.registWrap p a:nth-child(2){float:right;}
+.registWrap p a:hover{text-decoration:underline;}
+.validateCode{line-height:35px;cursor:pointer;}
+.validateCodeInpt{float:left;width:50%;}
+input[type=checkbox]{width:14px;height:14px;}
+.hint{color:#444;font-size:12px;}
+.hint a{color:#444;}
+.hint a:hover{text-decoration:underline;}
+.hint ul li:nth-child(1){float:left;}
+.hint ul li:nth-child(2){float:right;}
+.hint ul li:nth-child(2) a{padding:0 10px;}
+.error{margin-bottom:10px;color:red;}
+.refresh{margin-left:20px;color:#8b8c8b;font-size:16px;cursor:pointer;transition:.5s;}
+.refresh:hover{transform:rotateZ(360deg);}
+.show{display:block;}
+.hide{display:none;}
+.green{color:#299c15;}
+.red{color:red;}
+.departOption{position:fixed;top:30%;left:50%;z-index:9999;overflow:hidden;margin-left:-150px;padding:10px;width:280px;border:1px solid #ccc;background-color:#fff;}
+.departOption input[type=radio]{width:14px;height:14px;}
+#chooseDepart{cursor:pointer;}
+#clear{position:fixed;width:100%;height:100%;background:rgba(0,0,0,.3);}
+.bj,.zys{display:none;margin-left:15px;}
+.list li{line-height:30px;cursor:pointer;}
+.getCode input{float:left;width:48%;}
+#validateCode{float:left;}
+#codeBtn{float:right;cursor:pointer;}

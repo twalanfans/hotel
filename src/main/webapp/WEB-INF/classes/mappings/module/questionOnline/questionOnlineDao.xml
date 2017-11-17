@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.questiononline.dao.QuestionOnlineDao">
+
+<select id="queryQuestionOnline" parameterType="QuestionOnline" resultType="QuestionOnline">
+	SELECT 	a.id AS "questionId",
+			a.title,
+			a.content,
+			a.attach_img,
+			a.click_num,
+			a.create_time,
+			a.create_user,
+			b.user_name AS "createUser"
+	FROM all_question_online a
+	LEFT JOIN hotel_userdetail b ON a.create_user = b.user_id
+	WHERE 1 = 1
+	<if test="title != null and title !='' ">
+   		AND a.title LIKE CONCAT('%', #{title},'%' )
+	</if>
+	<if test="createUser!= null and createUser!='' ">
+   		AND b.user_name LIKE CONCAT('%', #{createUser},'%' )
+	</if>
+	ORDER BY a.create_time DESC
+</select>
+
+<select id="queryCommentOnline" parameterType="QuestionOnline" resultType="QuestionOnline">
+	SELECT  a.comment_id,
+			a.question_id,
+			a.content,
+			a.reply_id,
+			a.create_time,
+			e.title,
+			e.click_num,
+			c.user_name AS "createUser",
+			c.photo,
+			d.user_name AS "replyUser",
+			a.think_good
+	FROM question_comment_online a
+	LEFT JOIN question_comment_online b ON b.comment_id = a.reply_id
+	LEFT JOIN hotel_userdetail c ON c.user_id = a.create_user
+	LEFT JOIN hotel_userdetail d ON d.user_id = b.create_user
+	LEFT JOIN all_question_online e ON e.id = a.question_id
+	WHERE 1=1
+	<if test="createUser != null and createUser !='' ">
+		AND a.create_user =#{createUser}
+	</if>
+	<if test="questionId != null and questionId !='' ">
+		AND a.question_id =#{questionId}
+	</if>
+	<if test="title != null and title !='' ">
+   		AND e.title LIKE CONCAT('%', #{title},'%' )
+	</if>
+</select>
+
+<select id="questionDetail" parameterType="QuestionOnline" resultType="QuestionOnline">
+	SELECT  a.id AS "questionId",
+			a.title,
+			a.content,
+			a.attach_img,
+			a.click_num,
+			a.create_time,
+			a.create_user,
+			b.photo,
+			b.user_name AS "createUser"
+	FROM all_question_online a
+	LEFT JOIN hotel_userdetail b ON a.create_user = b.user_id
+	WHERE a.id = #{questionId}
+</select>
+
+<select id="commentList" parameterType="QuestionOnline" resultType="QuestionOnline">
+	SELECT     a.comment_id,
+					a.content,
+					a.create_time,
+					b.user_name AS "createUser"
+	FROM question_comment_online a
+	LEFT JOIN hotel_userdetail b ON a.create_user = b.user_id
+	WHERE 1=1
+	<if test="createUser != null and createUser !='' ">
+   		AND b.user_name LIKE CONCAT('%', #{createUser},'%' )
+	</if>
+	<if test="content != null and content !='' ">
+   		AND a.content LIKE CONCAT('%', #{content},'%' )
+	</if>
+</select>
+
+<delete id="deleteQuestionOnline">
+	DELETE FROM all_question_online WHERE id=#{questionId}
+</delete>
+
+<delete id="deleteCommentByQue">
+	DELETE FROM question_comment_online WHERE question_id =#{questionId}
+</delete>
+
+<delete id="deleteCommentById">
+	DELETE FROM question_comment_online WHERE comment_id =#{commentId}
+</delete>
+
+<update id="updateClickNum">
+	UPDATE all_question_online SET click_num = #{clickNum} WHERE id = #{questionId}
+</update>
+
+<update id="commentUpTG">
+	UPDATE question_comment_online SET think_good = #{thinkGood} WHERE comment_id = #{commentId}
+</update>
+
+<insert id="saveNewQuestion">
+	INSERT INTO all_question_online(title, content, attach_img,create_time, create_user)
+	VALUES(#{title},#{content},#{attachImg},#{createTime},#{createUser})
+</insert>
+
+<insert id="saveComment">
+	INSERT INTO question_comment_online(question_id, content, reply_id,create_time, create_user)
+	VALUES(#{questionId},#{content},#{replyId},#{createTime},#{createUser})
+</insert>
+
+</mapper>

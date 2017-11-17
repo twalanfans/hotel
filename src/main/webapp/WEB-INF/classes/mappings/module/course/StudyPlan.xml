@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.module.course.dao.StudyPlanDao" >
+  <resultMap id="StudyPlanResultMap" type="com.module.course.entity.StudyPlan" >
+    <result column="id" property="id" />
+    <result column="userid" property="userid" />
+    <result column="title" property="title" />
+    <result column="type" property="type" />
+    <result column="start_time" property="startTime"  />
+    <result column="end_time" property="endTime"  />
+    <result column="send_message" property="sendMessage" />
+    <result column="createtime"  property="createtime"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, title, type, start_time, end_time, send_message, createtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="StudyPlanResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from hotel_mystudy_plan
+    where id = #{planId}
+  </select>
+  
+  <select id="fetchStudyPlanByUserId" parameterType="com.module.course.entity.StudyPlan" resultMap="StudyPlanResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM hotel_mystudy_plan
+    WHERE userid = #{userid}
+    <if test="title != null and title !=''" >
+        AND title like CONCAT('%',#{title},'%')
+    </if>
+    <if test="startTime != null and startTime !=''" >
+     	AND start_time >= #{startTime}
+    </if>
+     ORDER BY createtime DESC
+  </select>
+  
+  <delete id="deletePlan">
+    DELETE FROM hotel_mystudy_plan
+    WHERE id = #{id} AND userid = #{userid}
+  </delete>
+  
+  <delete id="deletePlanDetail" >
+  	DELETE FROM hotel_mystudy_plan_detail
+    WHERE plan_id = #{id}
+  </delete>
+  
+  <insert id="insertStudyPlan" parameterType="com.module.course.entity.StudyPlan"  useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO hotel_mystudy_plan (userid, title, 
+      type, start_time, end_time, 
+      send_message, createtime)
+    VALUES (#{userid}, #{title}, 
+      #{type}, #{startTime}, #{endTime}, 
+      #{sendMessage}, #{createtime})
+  </insert>
+ 
+  <update id="updateByPrimaryKey" parameterType="com.module.course.entity.StudyPlan" >
+    update hotel_mystudy_plan
+    set userid = #{userid,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      start_time = #{startTime,jdbcType=INTEGER},
+      end_time = #{endTime,jdbcType=INTEGER},
+      send_message = #{sendMessage,jdbcType=TINYINT},
+      createtime = #{createtime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

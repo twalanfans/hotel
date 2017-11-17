@@ -1,0 +1,46 @@
+/*
+ * @Description：CSS样式（原为整个hotel项目的主css文件，改版后，删除其余代码，现只用于问答详情等几个页面）
+ * @Date：2017-5-15
+ * @Author：赵一鸣
+ * */
+@charset "UTF-8";
+*{margin:0;padding:0;}
+li{list-style:none;}
+.btn{background:#4e94ff;}
+.btn:hover{background:#4786e6;}
+.softTitle{height:40px;color:#fff;text-align:center;font-weight:700;font-size:18px;line-height:40px;}
+.login{padding:0 20px 20px 20px;}
+.login .loginWrap .loginTitle{height:40px;color:#fff;font-size:22px;line-height:40px;}
+.loginContent .code,.loginContent .inputBox{overflow:hidden;margin:15px auto 20px auto;height:40px;}
+.loginContent .code input:nth-child(1){float:left;width:49%;border:none;}
+.loginContent .code input:nth-child(2){float:right;width:49%;border:1px solid #4e94ff;color:#fff;cursor:pointer;}
+.loginContent .code input{height:38px;outline:0;}
+.loginContent .inputBox span{float:left;display:block;width:100%;height:38px;max-width:38px;border:1px solid #ccc;border-right:none;}
+.loginContent .inputBox .account{background:url(../images/icons.png) no-repeat 0 0;}
+.loginContent .inputBox .pwd{background:url(../images/icons.png) no-repeat -48px 0;}
+.loginContent .correct span.account{border:1px solid #84bcdf;border-right:none;background-image:url(../images/icons.png);background-position:0 -48px;background-repeat:no-repeat;}
+.loginContent .correct span.pwd{border:1px solid #84bcdf;border-right:none;background-image:url(../images/icons.png);background-position:-48px -48px;background-repeat:no-repeat;}
+.loginContent .correct input{border:1px solid #84bcdf;}
+.loginContent .error span.account{border:1px solid #ff8471;border-right:none;background-image:url(../images/icons.png);background-position:0 -96px;background-repeat:no-repeat;}
+.loginContent .error span.pwd{border:1px solid #ff8471;border-right:none;background-image:url(../images/icons.png);background-position:-48px -96px;background-repeat:no-repeat;}
+.loginContent .error input{border:1px solid #ff8471;}
+.hint{margin-top:20px;height:20px;color:#fff;font-size:12px;}
+.hint ul{overflow:hidden;}
+.hint ul li:nth-child(1){float:left;color:#fff;}
+.hint ul li:nth-child(2){float:right;}
+.hint ul li:nth-child(2) a{padding:0 10px;color:#fff;font-size:12px;}
+.hint ul li:nth-child(2) a:hover{text-decoration:underline;}
+.sub{margin-top:20px;}
+.sub input{display:block;width:100%;height:40px;outline:0;border:none;background:#4e94ff;color:#fff;text-align:center;font-size:18px;cursor:pointer;}
+@media only screen and (min-width:1000px){
+	.loginBox{margin:140px auto;padding:20px 0;width:100%;max-width:440px;background:rgba(0,0,0,.5);}
+	.loginContent .inputBox input{width:100%;height:38px;max-width:358px;outline:0;border:1px solid #ccc;}
+}
+@media only screen and (min-width:415px) and (max-width:1000px){
+	.loginBox{margin:50px auto;padding:20px 0;width:100%;max-width:350px;background:rgba(0,0,0,.5);}
+	.loginContent .inputBox input{width:100%;height:38px;max-width:268px;outline:0;border:1px solid #ccc;}
+}
+@media only screen and (max-width:414px){
+	.loginBox{margin:50px auto;padding:20px 0;width:100%;max-width:305px;background:rgba(0,0,0,.5);}
+	.loginContent .inputBox input{width:100%;height:38px;max-width:223px;outline:0;border:1px solid #ccc;}
+}

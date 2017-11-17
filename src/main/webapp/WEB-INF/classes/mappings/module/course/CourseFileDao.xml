@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.course.dao.CourseFileDao">
+
+<select id="findAllList" parameterType="com.module.course.entity.CourseFile" resultType="com.module.course.entity.CourseFile">
+		SELECT 	a.file_id, 
+						a.course_id, 
+						b.course_name,
+						b.teacher_id,
+						a.file_name, 
+						a.video_introduce,
+						a.course_type, 
+						a.file_size, 
+						a.status, 
+						a.create_time, 
+						a.file_path
+		FROM 
+						hotel_course_file a
+		LEFT JOIN hotel_course b ON a.course_id = b.course_id WHERE a.status !='9'
+		<if test=" fileName != null and fileName !='' ">
+	   		AND a.file_name LIKE CONCAT('%', #{fileName}, '%')
+		</if>
+		<if test="status != null and status !='' ">
+	   		AND a.status =#{status}
+		</if>
+		<if test="courseType != null and courseType !='' ">
+	   		AND a.course_type =#{courseType}
+		</if>
+		ORDER BY a.create_time DESC
+</select>
+
+<select id="queryNeedDeal"  resultType="com.module.course.entity.CourseFile">
+		SELECT 	a.file_id, 
+						a.file_name, 
+						a.file_size, 
+						a.status, 
+						a.create_time, 
+						a.file_path
+		FROM 
+						hotel_course_file a
+		WHERE    a.status = '0'
+		ORDER BY a.create_time DESC
+</select>
+
+<select id="getCourseFileById" parameterType="CourseFile" resultType="CourseFile">
+		SELECT a.file_id, 
+					a.course_id, 
+					a.video_introduce,
+					a.video_timelong,
+					a.video_img,
+					a.file_name, 
+					a.file_path,
+					a.course_type, 
+					a.file_size, 
+					a.create_time,
+					b.log_id AS "logId",
+					c.course_id AS "courseId",
+					c.course_name AS "courseName"
+		FROM hotel_course_file a 
+		LEFT JOIN hotel_course_studylog b ON b.course_file_id = a.file_id 
+		<if test="userId != null and userId !='' ">
+			AND b.user_id = #{userId}
+		</if>
+		LEFT JOIN hotel_course c ON c.course_id = a.course_id	
+			WHERE 1= 1
+		<if test="fileId != null and fileId !='' ">
+	   		AND  a.file_id =#{fileId}
+		</if>
+		<if test="courseType != null and courseType !='' ">
+	   		AND  a.course_type =#{courseType}
+		</if>
+</select>
+
+<select id="getCourseFileByCourseId" parameterType="CourseFile" resultType="CourseFile">
+		SELECT 	a.file_id, 
+						a.course_id, 
+						a.video_introduce,
+						a.video_timelong,
+						a.video_img,
+						b.course_name AS "course_name",
+						a.file_name, 
+						a.file_path,
+						a.course_type, 
+						a.file_size, 
+						a.status, 
+						a.create_time
+		FROM 
+						hotel_course_file a
+		LEFT JOIN hotel_course b ON a.course_id = b.course_id 
+		WHERE  a.course_id =#{courseId}
+		<if test="status !=null and status!='' ">
+			AND  a.status =#{status}
+		</if>
+		<if test="courseId =='' and courseType=='' ">
+			AND  a.course_type ='1'
+		</if>
+		<if test=" courseId !='' and courseType =='' ">
+	   		AND a.course_type = '1'
+		</if>
+		<if test=" courseType !=null and courseType !='' ">
+	   		AND a.course_type = #{courseType}
+		</if>
+		<if test="fileName != null and fileName !='' ">
+	   		AND a.file_name LIKE CONCAT('%', #{fileName}, '%')
+		</if>
+		ORDER BY a.file_id DESC
+</select>
+<!-- 学习日志表的历史播放记录 -->
+<select id="historyVideoList" resultType="CourseFile">
+		SELECT a.file_id,
+					a.file_name,
+					a.file_path,
+					a.video_img,
+					b.video_play_time,
+					a.video_introduce
+		FROM  hotel_course_file a, hotel_course_studylog b
+		WHERE a.file_id = b.course_file_id 
+		AND course_type = '1'
+		AND a.status = '1'
+		AND b.user_id = #{userId}
+</select>
+
+<delete id="deleteCourseFileById" parameterType="com.module.course.entity.CourseFile">
+			delete  from hotel_course_file where file_id =#{fileId}
+</delete>
+<delete id="deleteCourseFileByCourseId" parameterType="com.module.course.entity.CourseFile">
+			delete  from hotel_course_file where  course_id =#{courseId}
+</delete>
+
+<insert id="insertCourseFile" useGeneratedKeys="true" keyProperty="fileId" >
+			INSERT INTO hotel_course_file (course_id, file_name, course_type, video_img, video_introduce, file_size, status, create_time, file_path) 
+			VALUES (#{courseId}, #{fileName}, #{courseType}, #{videoImg}, #{videoIntroduce},#{fileSize}, #{status}, #{createTime}, #{filePath})
+</insert>
+
+ <update id="updateCourseFileByFileId" parameterType="com.module.course.entity.CourseFile" >
+    UPDATE hotel_course_file SET
+      <if test="fileName != null and fileName!='' " >
+        file_name = #{fileName},
+      </if>
+      <if test="videoIntroduce != null and videoIntroduce!='' " >
+        video_introduce = #{videoIntroduce},
+      </if>
+        create_time = #{createTime}
+    WHERE file_id = #{fileId}
+  </update>
+
+<select id="findAllListChk" parameterType="com.module.course.entity.CourseFile" resultType="com.module.course.entity.CourseFile">
+		SELECT 	a.file_id, 
+						a.file_name, 
+						a.file_size, 
+						a.status, 
+						a.create_time, 
+						b.teacher_id		AS "userId",
+						a.file_path
+		FROM 
+						hotel_course_file a
+		LEFT JOIN hotel_course b ON a.course_id = b.course_id
+		WHERE a.status != '9' 
+		<if test="status == null || status =='' || status=='0'">
+	   		AND a.status ='0'
+		</if>
+		<if test="status !=null and status !=''">
+	   		AND a.status in('1','2')
+		</if>
+		<if test="fileName != null and fileName !='' ">
+	   		AND a.file_name LIKE CONCAT('%',#{fileName},'%')
+		</if>
+		ORDER BY a.create_time DESC
+</select>
+
+<update id="changFileStatus" parameterType="com.module.course.entity.CourseFile">
+		UPDATE hotel_course_file SET status =#{status} WHERE file_id = #{fileId}
+</update>
+
+<update id="updateFileTimeLong" >
+		UPDATE hotel_course_file SET video_timelong =#{videoTimeLong} WHERE file_id = #{fileId}
+</update>
+
+<delete id="deleteSource" parameterType="com.module.course.entity.CourseFile">
+		DELETE FROM hotel_resource  WHERE  relation_id = #{courseId}
+</delete>
+
+</mapper>

@@ -1,0 +1,26 @@
+/*
+ * @Description:管理员创建用户
+ * @Date:2017-5-27
+ * @Author:陈沐雨
+ */
+@charset "UTF-8";
+.editInfoPrompt{margin-bottom:15px;padding-left:10px;height:35px;border:1px solid #ddd;background-color:hsla(0,0%,98%,.6);color:#555;line-height:35px}
+.required{margin-bottom:10px}
+.basicInfos{overflow:hidden;padding:10px 0 0 10px;background-color:#fff}
+.basicInfos label>i{margin-right:10px;color:red}
+.bj li input{width:20px}
+.selectIde,.selectSex{margin:0 10px}
+.choose{position:relative;margin-bottom:10px;line-height:24px}
+.choose span:nth-child(1){color:#fff}
+.list{position:absolute;top:20px;left:145px;z-index:999;display:none;width:100%;max-width:200px;background:rgba(0,0,0,.5)}
+.list li{padding-left:10px;color:#fff;line-height:30px;cursor:pointer}
+.list li input{margin-top:10px}
+.list li span{color:#fff}
+.list li ul{display:none}
+.xi{border-bottom:1px solid #fff}
+.bj{display:none}
+.bv.correct{border:1px solid #84bcdf}
+.bv.error{border:1px solid #ff8471}
+@media all and (max-width:767px){
+	.list{top:50px;left:20px;overflow-y:auto;height:280px}
+}

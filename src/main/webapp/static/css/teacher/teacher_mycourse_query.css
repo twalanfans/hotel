@@ -1,0 +1,8 @@
+/* teacher_mycourse_query.css */
+@charset "UTF-8";
+.editCourseBox{width:280px;padding:15px;z-index:9999;position:fixed;display:none;background-color:#fff;margin-left:-154px;left:50%;top:70px;}
+.editTitle{height:30px;line-height:30px;}
+.editContent p{margin-bottom:10px;}
+@media only screen and (min-width:1000px){
+	.editCourseBox{top:30%;left:50%;}
+}

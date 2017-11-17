@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.owncenter.dao.StudentDao">
+
+	<select id="findList"  parameterType="UserDetail"  resultType="UserDetail">
+			SELECT 
+					a.user_id,
+					a.user_name,
+					a.sex,
+					a.phone,
+					a.email,
+					a.birthday,
+					a.address,
+					a.remark,
+					(SELECT  c.depart_name  FROM hotel_department c WHERE c.parent_id = '0') AS "collegeName",
+					
+					(SELECT  e.depart_name FROM (hotel_department e,hotel_user b)
+					LEFT JOIN hotel_department d ON d.parent_id = e.depart_id
+					LEFT JOIN hotel_department c ON c.parent_id = d.depart_id
+					WHERE  b.depart_id=c.depart_id AND b.user_id =#{userId} 
+					) AS "departName",
+					
+					(SELECT d.depart_name FROM (hotel_department d,hotel_user b)
+					LEFT JOIN hotel_department c ON d.depart_id = c.parent_id
+					WHERE  b.depart_id=c.depart_id AND b.user_id =#{userId} 
+					)AS "professionName",
+					
+					(SELECT c.depart_name  FROM (hotel_department c,hotel_user b)
+					WHERE  b.depart_id=c.depart_id AND b.user_id =#{userId} 
+					) AS "gradeName"
+			FROM   
+				hotel_userdetail a
+			WHERE a.user_id = #{userId}
+	</select>
+	
+	<!-- 管理员发送短消息展示全校所有人员 -->
+	<select id="findAllList"  parameterType="UserDetail"  resultType="UserDetail">
+		SELECT 
+			  a.user_id,
+			  a.user_name,
+			  a.sex,
+			  b.user_type AS "userType",
+			  a.phone,
+			  a.email,
+			  a.birthday,
+			  a.address, 
+			  c.depart_name AS "gradeName",
+			  d.depart_name AS "professionName",
+			  e.depart_name AS "departName",
+			  a.remark
+		 FROM hotel_userdetail a, hotel_user b, hotel_department c
+		 LEFT JOIN hotel_department d ON d.depart_id=c.parent_id
+		 LEFT JOIN hotel_department e ON e.depart_id=d.parent_id
+		 WHERE a.user_id = b.user_id AND b.depart_id=c.depart_id
+ 		<if test="departName != null and departName !='' ">
+	   		AND e.depart_name LIKE CONCAT('%',#{departName},'%')
+		</if>
+ 		<if test="gradeName != null and gradeName !='' ">
+	   		AND c.depart_name LIKE CONCAT('%', #{gradeName}, '%')
+		</if>
+ 		<if test="professionName != null and professionName !='' ">
+	   		AND d.depart_name LIKE CONCAT('%', #{professionName}, '%')
+		</if>
+ 		<if test="userName != null and userName !='' ">
+	   		AND a.user_name LIKE CONCAT('%', #{userName}, '%')
+		</if>
+ 		<if test="userType != null and userType !='' ">
+	   		AND b.user_type = #{userType}
+		</if>
+	</select>
+	
+	<select id="queryAllStudent"  parameterType="UserDetail"  resultType="UserDetail">
+		SELECT 
+			  a.user_id,
+			  a.user_name,
+			  a.phone,
+			  a.email,
+			  a.birthday,
+			  a.address, 
+			  a.sex,
+			  c.depart_name AS "gradeName",
+			  d.depart_name AS "professionName",
+			  e.depart_name AS "departName",
+			  a.remark
+		 FROM hotel_userdetail a, hotel_user b, hotel_department c
+		 LEFT JOIN hotel_department d ON d.depart_id=c.parent_id
+		 LEFT JOIN hotel_department e ON e.depart_id=d.parent_id
+		 WHERE a.user_id = b.user_id AND b.depart_id=c.depart_id AND b.user_type = '1'
+ 		<if test="gradeName != null and gradeName !='' ">
+	   		AND c.depart_name LIKE CONCAT('%', #{gradeName}, '%')
+		</if>
+ 		<if test="professionName != null and professionName !='' ">
+	   		AND d.depart_name LIKE CONCAT('%', #{professionName}, '%')
+		</if>
+ 		<if test="userName != null and userName !='' ">
+	   		AND a.user_name LIKE CONCAT('%', #{userName}, '%')
+		</if>
+	</select>
+	
+	<select id="userNameAndId"  parameterType="UserDetail"  resultType="UserDetail">
+			SELECT 
+					a.user_name AS "userName",
+					b.login_name AS "phone"
+			FROM 
+					hotel_userdetail a, hotel_user b
+			WHERE a.user_id = b.user_id	
+			<!-- AND		a.user_id = #{userId} -->				
+	</select>
+	
+	<update id="update"  parameterType="UserDetail" >
+			UPDATE hotel_userdetail SET
+					user_name = #{userName},
+					phone = #{phone},
+				<if test="photo != null and photo !='' ">
+					photo = #{photo},
+				</if>
+					email = #{email},
+					birthday = #{birthday},
+					address = #{address},
+					postcode = #{postCode},
+					update_time = #{updateTime},
+					remark = #{remark}
+			WHERE user_id = #{userId}
+	</update>
+	
+	</mapper>

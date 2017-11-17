@@ -1,0 +1,22 @@
+/*
+ * @Description:管理员课件审核
+ * @Date:2017-5-27
+ * @Author:陈沐雨
+ */
+@charset "UTF-8";
+.textContent{overflow:hidden}
+.textContent a{display:inline-block;white-space:nowrap;text-overflow:ellipsis}
+.checkstatuslist{margin-bottom:15px}
+.checkstatuslist li{height:30px;padding:0 2px;float:left;font-size:14px;font-weight:700;display:block;cursor:pointer;line-height:30px;margin-right:20px}
+.adminReviewHandle{margin-bottom:10px}
+.mainBox{background-color:#fff;padding:10px}
+.videoPlayBox{display:none;position:fixed;top:70px;width:600px;border:1px solid #ccc;background-color:#fff;z-index:9999}
+.videoTit{line-height:30px;border-bottom:1px solid #ccc;font-size:16px;font-weight:400;cursor:move}
+.videoTit span{width:90%;display:inline-block;text-align:center}
+.closeBtn{width:15px;height:30px;line-height:30px;float:right;margin-right:5px;text-align:center;color:#000}
+.videoPlay{width:100%}
+@media only screen and (max-width:768px){
+	.videoPlayBox{left:50%;margin-left:-150px;width:300px}
+	.videoTit span{padding-left:8px}
+	.videoTit{font-size:14px}
+}

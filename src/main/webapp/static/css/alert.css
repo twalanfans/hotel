@@ -1,0 +1,246 @@
+.clearfix:after { display:block; content:''; clear:both;overflow: hidden;}
+.clearfix { zoom:1;}
+
+.fl { float:left; display:inline;}
+.fr { float:right; display:inline;}
+.por { position:relative;}
+table,tr,td{	
+	border:none;
+	border-collapse:collapse;
+}
+.tanbox{
+	position:fixed;
+	left: 0;
+	top: 0;
+	width:100%;
+	height:100%;
+	display: none;
+}
+.tanbox .closeBtn{
+	margin-top: 6px;
+}
+.tanbox .hide{
+	display:none;
+}
+.tanbox .shadow{
+	position: absolute;
+	left: 0;
+	top:0;
+	width:100%;
+	height:100%;
+	background-color: rgba(225,230,235,0.6);
+}
+.tantextbox{
+	width:444px;
+	background-color: #fff;
+	position: absolute;
+	left:50%;
+	top:20%;
+	margin-left: -222px;
+	border: 1px solid #eaeae9;
+	border-radius: 6px;
+	
+}
+.tantit{
+	width:444px;
+	height:36px;
+	text-align: right;
+	line-height: 32px;
+	background-color: #1278f6/* #76bf64 */;
+	border-radius:6px 6px 0 0;
+}
+.tantit h4,.tantit a{
+	/* line-height: 36px; */
+	padding:0 20px;
+	color:#fff;
+}
+.tantit a{font-size: 26px;text-decoration:none;}
+.actbtn{
+	padding:10px;
+	border-radius:0 0 6px 6px;
+}
+.alerttext{
+	width: 80%;
+	/*margin:0 auto;*/
+	height:60px;
+	padding:34px 0 26px 70px;
+	text-align: center;
+	font-size: 15px;
+}
+.alerttext i{
+	font-size:50px;
+}
+.alerttext span{
+	width:64%;
+	/* margin-left:10px; */
+	line-height:16px;
+	padding:12px 0;
+}
+.alerttext i:before{
+	font-size: 50px;
+	color: #18c93a;
+	margin-right: 20px;
+}
+.alerttext i.fa-times-circle:before{
+	color:red;
+}
+.alerttext i.fa-exclamation-circle:before{
+	color:red;
+}
+.saveResult{
+	width:240px;
+	height:130px;
+	line-height:130px;
+	text-align:center;
+	border-radius:10px;
+	border:1px solid #b0cedd;
+	display:none;
+	position:fixed;
+	left:50%;
+	top:20%;
+	margin-left:-120px;
+	background-color:#fff;
+	line-height:175px;
+	background:url(../c-images/loading.gif) center 30px no-repeat  rgba(0,0,0,0.2);
+}
+.cancelbtn,.cancelbtn1{
+	float:right;
+	margin-right:10px;
+}
+.confirmbtn,.confirmbtn1{
+	float:left;
+	margin-left:10px;
+}
+.cancelbtn,.confirmbtn,.confirmbtn1,.cancelbtn1{
+	width: 100px;
+    height: 30px;
+    background-color: #1278f6;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    display: inline-block;
+    cursor: pointer;
+    border:0;
+    text-decoration: none;
+}
+.searchBtn {
+    width: 90px;
+    height: 30px;
+    background-color: #1278f6;
+    color: #fff;
+    text-align: center;
+    /* line-height: 30px; */
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+}
+.disableBtn{
+	background-color:#A0C4D1;
+}
+.showDetail{
+	cursor:pointer;
+}
+.showDetailBox{
+	position: fixed;
+	left:30%;
+	top:20%;
+	min-width:140px;
+	line-height:30px;
+	background-color:#fff;
+	border-radius:8px;
+	padding:10px;
+	border:1px solid #b0cedd;
+	display:none;
+}
+.addAndEditQuetion{
+	padding:20px 10px;
+}
+.searchFileName{
+	height:24px;
+	line-height:24px;
+	padding:0 6px;
+}
+.mb20{
+	margin-bottom:20px;
+}
+.selallimg{
+	width:704px;
+	height:30px;
+	padding-left:20px;
+	margin:0 auto;
+}
+.selallimg label{
+	font-size:20px;
+	cursor:pointer;
+}
+.uploadimglist{
+	/* width:704px; */
+	padding:10px 0 0 10px;
+	margin:20px auto;
+}
+.uploadimglist li{
+	width:150px;
+	margin-right:26px;
+	margin-bottom:20px;
+	position:relative;
+}
+.uploadimglist li>input{
+	position:absolute;
+	right:10px;
+	top:10px;
+	cursor:pointer;
+}
+.uploadimglist li img{
+	display:block;
+	width:150px;
+	height:150px;
+}
+.uploadimgname{
+	display:block;
+	font-size:16px;
+	text-decoration:none;
+	color:#000;
+	text-align:center;
+	line-height:20px;
+}
+.uploadimgbtnbox{
+	width:220px;
+	margin:10px auto;
+}
+#newClassName{
+	height:30px;
+	border:1px solid #ccc;
+}
+.pagebtnbox{
+	width:188px;
+	margin:10px auto;
+}
+.lh20{line-height:20px;}
+.p10_6{padding:10px 6px;}
+.p10_0{padding:10px 0;}
+m0{margin:0;}
+.bgcol_white{background-color:#fff;}
+@media only screen and (max-width: 767px) {
+	.tanbox{
+	width:100%;
+	}
+	.tantit{
+		width:100%;
+		
+	}
+	.tantextbox{
+		width:90%;
+		margin-left:10px;
+		left:0;
+	}
+	.alerttext {
+   		 width: 90%;
+   		 padding:34px 0 26px 30px;
+	}
+	.alerttext span{
+		line-height:16px;
+	}
+	.uploadimglist li{
+		margin-right:4px;
+	}
+}

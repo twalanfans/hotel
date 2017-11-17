@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.exam.dao.CriticismDao">
+
+<select id="queryCriticismFile"  resultType="CriticismExam">
+		SELECT 	a.file_id, 
+						b.course_name AS "courseName",
+						a.video_introduce AS "fileIntroduce",
+						a.file_name, 
+						a.file_path,
+						a.file_size, 
+						a.create_time
+		FROM 
+						hotel_course_file a 
+		LEFT JOIN hotel_course b ON a.course_id = b.course_id
+		WHERE a.course_id = '1' AND a.status = '9' 
+</select>
+
+<select id="queryCriticismKnowledge"  resultType="CriticismExam">
+		SELECT 	a.id AS "knowledgeId", 
+						a.title AS "knowledgeTitle",
+						b.course_name 
+		FROM 
+						hotel_knowledge_item a 
+		LEFT JOIN hotel_course b ON b.course_id = a.course_id
+		WHERE a.course_id = '1' 
+</select>
+	
+<select id="queryCriticismQuestion"  resultType="java.lang.String">
+		SELECT a.question_id FROM hotel_ceshi_knowledge a WHERE a.knowledge_id = #{knowledgeId}
+</select>
+
+<select id="queryCriticismPaperList"  resultType="CriticismExam">
+		SELECT  	paper_id, 
+						paper_name, 
+						course_id, 
+						paper_type, 
+						create_time, 
+						status
+		FROM 
+						hotel_ceshi_paper 
+		WHERE 	status = '1' AND create_by = #{userId} AND paper_type = '3'
+</select>
+
+<insert id="saveCriticismPaper" parameterType="CriticismExam" useGeneratedKeys="true" keyProperty="paperId">
+		INSERT INTO hotel_ceshi_paper(
+				paper_name, 
+				course_id, 
+				questions_total, 
+				paper_type, 
+				knowledge_list, 
+				create_by,
+				create_time, 
+				status
+		)
+		VALUES(
+				#{paperName}, 
+				'1', 
+				#{testTotalNum},
+				'3', 
+				#{knowledgeId},
+				#{createUser},
+				#{createTime},
+				'1'
+		)
+</insert>
+
+<insert id="saveCriticismPaperQuestion">
+		INSERT INTO hotel_ceshi_paper_questions(
+				paper_id, 
+				question_id, 
+				question_score
+		)
+		VALUES(
+				#{paperId}, 
+				#{questionId}, 
+				#{questionScore}
+		)
+</insert>
+
+
+</mapper>

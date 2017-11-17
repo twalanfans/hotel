@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.course.dao.StudyLogDao">
+
+	<sql id="studyLogDate">
+			a.log_id, 
+			a.course_id, 
+			a.user_id, 
+			a.study_progress, 
+			a.log_time, 
+			a.log_ip, 
+			a.study_timelong
+	</sql>
+	
+	<select id="findList"  parameterType="StudyLog"  resultType="StudyLog" >
+			SELECT
+				<include refid="studyLogDate"/>
+			FROM hotel_course_studylog a
+			WHERE a.user_id = #{userId}
+	</select>
+	
+	<insert id="insert">
+			INSERT INTO hotel_course_studylog
+			(	log_id, 
+				course_id, 
+				user_id, 
+				study_progress, 
+				log_time, 
+				log_ip, 
+				study_timelong
+			)VALUES
+			(	#{logId},
+				#{courseId},
+				#{userId},
+				#{studyProgress},
+				#{logTime},
+				#{logIp},
+				#{studyTimeLong}
+			)
+	
+	</insert>
+	</mapper>

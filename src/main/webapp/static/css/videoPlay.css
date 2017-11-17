@@ -1,0 +1,19 @@
+/*
+ * @Description：视频播放窗口
+ * @Date：2017-6-2
+ * @Author：赵一鸣
+ * */
+ 
+@charset "UTF-8";
+
+.videoWindow{position:fixed;top:10%;z-index:10000;overflow:hidden;border:1px solid #ccc;background-color: #fff;}
+.videoWindow .videoName{display:block;width:95%;float:left;height:30px;line-height: 30px;text-align: center;}
+.videoWindow .closebtn{display:block;width:5%;float:right;height:30px;line-height:30px;text-align:center;color:#000;}
+.videoWindow video{width:100%;max-height:340px;border:1px solid #ccc;}
+.videoWindow p{height:30px;background-color:#fafafa;cursor:move;}
+@media only screen and (min-width:769px) {
+	.videoWindow{width:600px;}
+}
+@media only screen and (max-width:768px){
+	.videoWindow{width:310px;left:50%;margin-left:-155px;}
+}

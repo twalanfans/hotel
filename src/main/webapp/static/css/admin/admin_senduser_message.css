@@ -1,0 +1,10 @@
+/*
+ * @Description:管理员发送消息
+ * @Date:2017-5-27
+ * @Author:陈沐雨
+ */
+@charset "UTF-8";
+.formBox{width:280px;position:fixed;top:25%;left:50%;margin-left:-155px;display:none;z-index:9999;padding:15px;background-color:#fff;box-shadow:3px 3px 3px #ccc;}
+.formBox p,.formBox h4{overflow:hidden;margin-bottom:10px;}
+.messagecontent{resize:none;height:150px;}
+.sendMessageContent{line-height:150px;float:left;}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.sys.dao.SysNoticeDao">
+
+	<sql id="noticeDate">
+		a.id AS "noticeId",
+		a.type,
+		a.target,
+		a.title,
+		a.notices,
+		a.pubuser,
+		a.pubtime,
+		a.status,
+		a.file_path,
+		a.file_name
+	</sql>
+	
+	<select id="findAllList" parameterType="Notice" resultType="Notice">
+		SELECT 
+			<include refid="noticeDate"/>
+		FROM hotel_system_notices a
+		<if test="userId!='' and userId!=null">
+			LEFT JOIN hotel_user b ON b.user_type = a.target OR a.target='0'
+		</if>
+		WHERE 1=1
+		<if test="userId!='' and userId!=null">
+			AND b.user_id = #{userId}
+		</if>
+		<if test="title != null and title !='' ">
+	   		AND a.title LIKE CONCAT('%', #{title}, '%')
+		</if>
+		<if test="status != null and status !='' ">
+	   		AND a.status = #{status}
+		</if>
+		<if test="startTime != null and startTime !='' ">
+	   		 <![CDATA[AND DATE_FORMAT(a.pubtime, '%Y-%m-%d')>= DATE_FORMAT(#{startTime}, '%Y-%m-%d')]]>
+		</if>
+		<if test="endTime != null and endTime !='' ">
+	   		<![CDATA[AND DATE_FORMAT(a.pubtime, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')]]>
+		</if>
+		ORDER BY a.pubtime DESC
+	</select>
+	
+	<!-- 用户公告查询 -->
+	<select id="userNotice" resultType="Notice">
+			SELECT 
+				<include refid="noticeDate"/> 
+			FROM hotel_system_notices a
+			LEFT JOIN hotel_user b ON b.user_type = a.target OR a.target='0'
+			WHERE a.status='1' AND b.user_id = #{userId} AND a.pubtime > DATE_ADD(NOW(),INTERVAL -7 DAY)
+	</select>
+	
+	<select id="getNoticeDetail" parameterType="Notice" resultType="Notice">
+			SELECT  	a.id AS "noticeId",
+							a.type,
+							a.target,
+							a.title,
+							a.notices,
+							b.user_name AS "pubUser",
+							a.pubtime,
+							a.status,
+							a.file_path,
+							a.file_name 
+			FROM hotel_system_notices a 
+			LEFT JOIN hotel_userdetail b ON a.pubuser = b.user_id
+			WHERE a.id = #{noticeId}
+	</select>
+	
+	<insert id="insert" parameterType="Notice" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO hotel_system_notices
+			(	type,
+				target,
+				title,
+				notices,
+				pubuser,
+				pubtime,
+				status,
+				file_path,
+				file_name
+			)VALUES(
+				#{type},
+				#{target},
+				#{title},
+				#{notices},
+				#{pubUser},
+				#{pubTime},
+				'1',
+				#{filePath},
+				#{fileName}
+			)
+	</insert>
+	
+	<update id="updateNoticeStatus">
+			UPDATE hotel_system_notices a SET a.status = '2' WHERE a.status='1' AND NOW()>DATE_ADD(a.pubtime, INTERVAL 1 WEEK);
+	</update>
+	
+	<delete  id="delete"  parameterType="Notice">
+			DELETE FROM hotel_system_notices  WHERE  id = #{noticeId}
+	</delete>
+	
+	<update id="update" parameterType="Notice">
+		UPDATE hotel_system_notices a SET 
+			a.status = #{status}
+		WHERE a.id = #{noticeId}
+</update>
+</mapper>

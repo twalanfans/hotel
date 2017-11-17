@@ -1,0 +1,40 @@
+@CHARSET "UTF-8";
+.planTitle{line-height:26px;}
+.allTable td{width:16.666%;text-align:center;}
+.chooseCourse ul{padding:10px 0;}
+.chooseCourse li{line-height:30px;padding-left:10px;text-align:left;}
+.subject{
+	position:relative;
+	clear:both;
+	padding:0;
+}
+.todayCourse {
+	width: 150px;
+	overflow:hidden;
+	white-space:nowrap;
+	margin:0 auto;
+}
+.chooseCourse{
+	display:none;
+	position:absolute;
+	left:50%;
+	right:0px;
+	top: 86%;
+    background: #fff;
+    border: 1px solid #ccc;
+    z-index: 9999;
+    padding: 4px 0;
+    max-width:150px;
+    margin-left:-74px;
+}
+.promptTxt p:nth-child(2) i{
+	line-height:70px;
+}
+.subjectCheck{
+	margin-top:8px;
+	margin-right:4px;
+}
+.courseName{width:100px;white-space:nowrap;}
+.courseName span{display:block;overflow:hidden;}
+.defaultBtn{margin-right:10px;}
+.commonBtn{margin-right:0;}

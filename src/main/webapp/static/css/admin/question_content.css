@@ -1,0 +1,86 @@
+/*
+ * @Description:管理员问答管理
+ * @Date:2017-5-27
+ * @Author:陈沐雨、赵一鸣
+ */
+@charset "UTF-8";
+.questionContent{display:inline;font-size:14px;line-height:34px;overflow:hidden}
+.Content{text-indent:1em;line-height:50px}
+.articleTitle{margin-bottom:10px;text-align:center;line-height:30px}
+.articleTitle h3{font-size:16px;margin-bottom:10px}
+.articleTitle span{color:#585858}
+.articleContent{line-height:25px}
+.newsList{border:1px solid #000}
+.newsList li{position:relative}
+.newsList .delNewBtn{position:absolute;right:20px;top:20px;font-size:20px;color:red;display:none}
+.newsList .delNewBtn:hover{text-decoration:none}
+.newsContent>img{width:200px;height:120px;border:0;margin:0 10px}
+.addQuestionUserInfo li,.addQuestionUserInfo li img{float:left}
+.askWindow{display:none;width:100%;max-width:310px;position:fixed;overflow:hidden;background-color:#bcdce2;border:1px solid #ccc;border-radius:5px;padding:10px;cursor:move;left:20%;top:10%}
+.askWindow input,.askWindow textarea{width:99%;height:35px;background-color:#eaeaec;margin-bottom:15px;border:1px solid #eaeaec;border-radius:6px;padding-left:1%}
+.askWindow textarea{height:150px;resize:none}
+.showList .publishInfo{color:#585858;font-size:12px;margin-right:15px}
+.showList ul li{height:auto}
+.addQuestionUserInfo{width:414px;margin:0 auto}
+.addQuestionTit{line-height:30px;height:30px;font-size:14px}
+.articleTitle h3{line-height:30px}
+.addQuestionUserInfo li{line-height:20px;height:20px;margin-right:10px}
+.userInfo p{line-height:20px}
+.userInfo{text-align:left;margin-left:10px}
+.userPic{width:20px;height:20px}
+.answerContentNull{height:200px;line-height:200px;text-align:center}
+.addMoreBtnBox{position:relative;border-bottom:1px solid #6bc5a4}
+.addMoreBtn,.pageList .addMoreBtn{width:100px;height:30px;position:absolute;text-align:center;line-height:30px;font-size:14px;color:#000;text-decoration:none;left:50%;margin-left:-50px;top:-15px;background-color:#fff}
+.pageListBar{line-height:40px}
+.answer{border-top:1px solid #ccc}
+.answerContent{padding:0 10px 0 4px;line-height:20px;border:1px solid #ccc;border-top:0}
+.answerContent:hover{box-shadow:4px 4px 4px #ccc;background-color:#fffdf5}
+.commentUserInfo{width:120px;text-align:center;float:left;line-height:60px}
+.commentUserInfo .userInfo{text-align:center;margin:0;color:#2d64b6;font-weight:700}
+.commentUserInfo img{display:inline-block;float:left;width:60px;height:60px;margin:10px auto 10px;border-radius:50%}
+.enclosureList{width:100%;}
+.figure{width:200px;height:150px;margin:0 6px 6px 0}
+.articleContent{text-indent:1em}
+.commentContentBox{min-height:150px;line-height:20px;width:88%}
+.commentContent{min-height:100px;line-height:20px;padding:10px}
+.replyUserInfo{line-height:20px;height:20px;color:#989999}
+.addReply{margin:0 10px}
+.replyContent{background-color:#eee;margin-left:120px;margin-bottom:10px}
+.replyContent>li{padding:4px 10px;border-bottom:1px dashed #ccc}
+.replyUserImg{width:40px}
+.addCommentBox{margin:20px 0}
+.addCommentBox fieldset{padding:20px 10px}
+.addCommentBox legend{margin-left:20px;font-size:16px}
+.addCommentBox label{display:inline-block;line-height:30px}
+.addCommentContent,.addCommentTit{margin-bottom:10px}
+.addCommentTit{line-height:30px}
+.addCommentTit input{width:200px;padding:0 10px;margin-left:10px}
+.addCommentContent textarea{height:140px;min-height:140px;width:78%;padding:4px;resize:none;margin-left:10px;border:1px solid #000}
+.addCommentBtnBox{padding-left:68px}
+.qqFace{margin-top:4px;background:#fff;padding:2px;border:1px #dfe6f6 solid}
+.qqFace table td{padding:0;height:auto;line-height:100%}
+.qqFace table td img{cursor:pointer;border:1px #fff solid}
+.qqFace table td img:hover{border:1px #06c solid}
+.answertext{width:98%;min-height:120px;padding:10px;line-height:20px;resize:none}
+.mr20{margin-right:20px;}
+@media only screen and (max-width:767px){
+	.addQuestionUserInfo{width:99%}
+	.addCommentBtnBox>input{margin-bottom:10px;margin-right:2px;width:70px}
+	.commentContentBox{width:80%;min-height:90px}
+	.answerContent>div{margin-bottom:10px}
+	.replyContent{margin-left:56px}
+	.replyUser .fl{float:none}
+	.commentContent{min-height:40px}
+	.commentContent>p{width:110px}
+	.commentUserInfo{width:50px}
+	.commentUserInfo img{width:40px;height:40px}
+	.addCommentBtnBox{padding-left:0}
+	.addCommentContent textarea{width:94%}
+	.askWindow{left:1%;top:1%}
+	.figure{float:none;display:block;}
+	.enclosureList>p{float:none;}
+}
+@media only screen and (min-width:1025px){
+	.askWindow{left:50%;margin-left:-155px;top:20%}
+}
+.btnCol_purple{background-color:#584dbb}

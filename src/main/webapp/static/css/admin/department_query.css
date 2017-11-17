@@ -1,0 +1,28 @@
+/*
+ * @Description:管理员系、专业、班级管理
+ * @Date:2017-5-27
+ * @Author:陈沐雨
+ */
+@charset "UTF-8";
+.classCount{line-height:30px;font-size:14px;margin-bottom:5px}
+.classCount span{font-weight:700;color:#1278f6}
+.classCount span:nth-child(1){color:#222}
+.schoolName{background-color:#ddd;color:#222;margin-bottom:5px}
+.levelExplain{line-height:30px;clear:both;cursor:pointer;margin-bottom:10px}
+.level span a{border-right:1px solid #ccc}
+.levelExplain span:nth-child(1){font-size:14px;color:#222;float:left;padding-left:10px}
+.levelExplain span:nth-child(2){float:right}
+.levelExplain span:nth-child(2) a{padding-right:10px;font-size:12px;color:#222}
+.level1{clear:both;margin-bottom:5px}
+.level1 .explain1{background-color:#ddd}
+.level2{margin:0 0 8px 15px;clear:both;display:none}
+.level2 .explain2{background-color:#ddd}
+.level3{margin:5px 0 0 30px;clear:both;display:none}
+.level3 .explain3{background-color:#ddd}
+.levelCount{border-right:1px solid #fff;margin-right:10px}
+.classEditBox{width:100%;max-width:280px;z-index:100001;position:fixed;background-color:#fff;border:1px solid #ccc;padding:10px;display:none;left:50%;margin-left:-150px;top:50%;margin-top:-50px}
+.classEditBox p{margin-bottom:10px}
+.classEditBox p input{height:25px;border:1px solid #ccc}
+@media only screen and (min-width:1025px){
+	.classEditBox{left:40%;top:25%}
+}

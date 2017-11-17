@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.module.course.dao.CourseStudylogDao" >
+  <resultMap id="CourseStudyLogResultMap" type="com.module.course.entity.CourseStudyLog" >
+    <result column="log_id" property="logId" />
+    <result column="course_id" property="courseId" />
+    <result column="course_file_id" property="courseFileId" />
+    <result column="user_id" property="userId" />
+    <result column="study_progress" property="studyProgress" />
+    <result column="log_time" property="logTime" />
+    <result column="log_ip" property="logIp"  />
+    <result column="study_timelong" property="studyTimeLong"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    	LOG_ID, COURSE_ID, COURSE_FILE_ID, USER_ID, STUDY_PROGRESS, LOG_TIME, LOG_IP, STUDY_TIMELONG
+  </sql>
+  <select id="queryTestQuestionNum" resultType="java.lang.String">
+	    SELECT count(1) FROM student_ceshi_detail a WHERE a.user_id = #{userId} 
+	    AND 	<![CDATA[DATE_FORMAT(a.test_time, '%Y-%m-%d') = DATE_FORMAT(#{logTime}, '%Y-%m-%d')]]>
+  </select>
+  
+  <select id="queryAskQuestionNum" resultType="java.lang.String">
+  	 	SELECT count(1) FROM all_question_online a WHERE a.create_user = #{userId} 
+	    AND 	<![CDATA[DATE_FORMAT(a.create_time, '%Y-%m-%d') = DATE_FORMAT(#{logTime}, '%Y-%m-%d')]]>
+  </select>
+  
+   <select id="fetchUserCourseStudylogByCourseId" resultMap="CourseStudyLogResultMap">
+	    SELECT 
+	    	<include refid="Base_Column_List" />
+	    FROM hotel_course_studylog
+	    WHERE user_id=#{userId} 
+	    AND 	course_id=#{courseId} 
+	    AND 	<![CDATA[DATE_FORMAT(log_time, '%Y-%m-%d') = DATE_FORMAT(#{logTime}, '%Y-%m-%d')]]>
+  </select>
+  
+   <select id="getLogId" resultType="java.lang.String">
+	    SELECT log_id
+	    FROM hotel_course_studylog
+	    WHERE user_id=#{userId} 
+	    AND 	course_file_id = #{courseFileId}
+  </select>
+  
+   <select id="queryUserCourseStudyTime" resultType="java.lang.String">
+	    SELECT study_timelong
+	    FROM hotel_course_studylog
+	    WHERE user_id=#{userId} 
+	    AND 	<![CDATA[DATE_FORMAT(log_time, '%Y-%m-%d') = DATE_FORMAT(#{logTime}, '%Y-%m-%d')]]>
+  </select>
+  
+<insert id="insertCourseStudylog" parameterType="CourseStudylog" useGeneratedKeys="true" keyProperty="logId">
+    	INSERT INTO hotel_course_studylog
+			(	
+				course_id, 
+				course_file_id,
+				user_id, 
+				study_progress, 
+				log_time, 
+				log_ip, 
+				video_play_time,
+				study_timelong
+			)
+		VALUES
+			(	
+				#{courseId},
+				#{courseFileId},
+				#{userId},
+				#{studyProgress},
+				#{logTime},
+				#{logIp},
+				#{videoPlayTime},
+				#{studyTimeLong}
+			)
+</insert>
+  
+ <update id="updateCourseStudylog">
+ 		UPDATE  hotel_course_studylog
+ 		SET log_time = #{logTime},
+ 			   log_ip = #{logIp},
+ 			   video_play_time = #{videoPlayTime},
+ 			   study_timelong = #{studyTimeLong}
+ 		WHERE log_id = #{logId} 
+ </update>
+</mapper>

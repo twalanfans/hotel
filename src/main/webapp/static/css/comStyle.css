@@ -1,0 +1,121 @@
+/*
+ * @Description:酒店后台公共CSS样式
+ * @Date:2017-2-1
+ * @Author:赵一鸣
+ * */
+@charset "UTF-8";
+*{margin:0px;padding:0px}
+html,body{width:100%;height:100%;}
+body{font-family:"Microsoft YaHei",arial,courier new,courier,"\5b8b\4f53",monospace;font-size:12px;}
+li{list-style:none;}
+a{text-decoration:none;}
+img{border:none;}
+input{border:none;}
+textarea{resize:none;border:none;}
+.clearfix:after{display:block;content:"";height:0;overflow:hidden;clear:both;}
+.contentHead{overflow:hidden;margin-bottom:10px;}
+.fl{float:left;display:inline;}
+.fr{float:right;display:inline;}
+
+/*清除浮动*/
+.clear {width: 100%;height: 100%;position: fixed;z-index: 1000;top: 0px;left: 0px;background: rgba(0,0,0,0.5);display: none;}
+
+.pageHeading{float:left;}
+.pageHeading h3{color:#49586e;font-size:16px;}
+
+/*搜索栏*/
+.panel{float:right;}
+.panel span a{display:inline-block;width:36px;height:36px;text-align:center;margin-right:10px;line-height:36px;background-color:#eff0f4;color:#858582;}
+.panel span a:hover{background-color:#65cea7;color:#fff;}
+.panel a{display:inline-block;text-align:center;padding:0 10px;margin-right:10px;line-height:36px;background-color:#6bc5a4;color:#fff;}
+.panel a:hover{background-color:#688ac2;}
+
+/*表格*/
+.allTable{background-color:#fff;padding:10px;margin-bottom:10px;overflow:auto;width:98%;}
+.allTable ul{border-left:1px solid #ccc;border-top:1px solid #ccc;}
+.allTable ul li{border-right:1px solid #ccc;border-bottom:1px solid #ccc;}
+.allTable ul li:hover{background-color:#fffdf5;box-shadow:4px 4px 4px #ccc;}
+.allTable ul li p,.allTable ul li h4{line-height:30px;margin-bottom:-1px;padding-left:4px;}
+.allTable ul li h4 span{font-weight:normal;}
+.allTable ul li p img{vertical-align: middle;}
+.allTable table{width:100%;min-width:650px;border-right:1px solid #ccc;border-bottom:1px solid #ccc;margin-bottom: 10px;}
+.allTable table thead tr td{font-weight:bold;}
+td{height:35px;line-height:35px;text-align:left;padding:0 10px;border:1px solid #ccc;border-right:none;border-bottom:none;font-size:13px;color:#585858;}
+td a{color:#2d64b6;}
+td a:hover{text-decoration:underline;}
+td i{cursor:pointer;}
+
+/*翻页*/
+.pageList{color:#585858;font-size:12px;margin-bottom:15px;}
+.pageList a{margin-right:10px;color:#2d64b6;}
+.pageList span{margin-right:10px;}
+
+.searchPanel{padding-left:10px;}
+.searchBeaf{background-color: #fff;padding:10px 0 10px 10px;margin-bottom: 15px;overflow:hidden;}
+.searchBeaf span{display:inline-block;}
+
+/*在线解答相关*/
+.news{background-color:#fff;padding:10px;word-break:break-all;}
+.showList{clear:both;margin-bottom:10px;}
+.showList ul li{height:30px;line-height:30px;clear:both;border-bottom:1px dashed #ccc;}
+.showList ul li span:nth-child(1){float:left;}
+.showList ul li span:nth-child(2){float:right;}
+.showList ul li a{color:#2d64b6;}
+.showList ul li a:hover{text-decoration:underline;}
+.showList ul li span i{color:#585858;font-size:12px;margin-right:15px;}
+
+/*文章页*/
+.articleRecom b{display:block;margin-bottom:10px;}
+.articleRecom ul li{height:30px;line-height:30px;list-style:inside;}
+.articleRecom ul li a{color:#2d64b6;}
+.articleRecom ul li a:hover{text-decoration:underline;}
+
+/*按钮*/
+.commonBtn{display:inline-block;padding:6px 14px;cursor:pointer;margin-right:15px;background-color:#6bc5a4;color:#fff;font-size:14px;}
+.commonBtn:hover{background-color:#688ac2;}
+.defaultBtn{height:30px;line-height:30px;display:inline-block;padding:0 16px;color:#333;background-color:#f7f7f7;border:1px solid #ddd;font-size:12px;cursor:pointer;}
+.defaultBtn:hover{background-color:#fff;}
+input[type=button]{height:30px;padding:7px 16px;color: #333;background-color: #f7f7f7;border: 1px solid #ddd;font-size: 12px;cursor: pointer;}
+
+/*input选择框*/
+.inpt{width:200px;height:30px;margin-right:15px;background-color:#eaeaec/* #d1e0f9 */;border-radius:6px;}
+
+/*select选择框*/
+.sel{width:150px;height:30px;border:1px solid #eaeaec;border-radius:6px;}
+
+/*关闭按钮*/
+.close{position:absolute;left:50%;margin-left:-28px;}
+
+/*弹出提示窗*/
+.promptBox{width:310px;height:180px;position:fixed;top:30%;left:50%;margin-left:-155px;background:#fff;box-shadow:2px 2px 2px #ccc;display:none;}
+.promptTxt{height:100px;padding-top:10px;}
+.promptTxt p:nth-child(1){height:30px;line-height:30px;padding-left:10px;border-bottom:1px solid #e5e5e5;}
+.promptTxt p:nth-child(2){height:70px;line-height:70px;padding-left:10px;border-bottom:1px solid #e5e5e5;}
+.promptBtn{height:30px;padding-left:70px;padding-top:20px;}
+.fa-exclamation-circle:before{font-size:30px;color:#65cea7;}
+
+/*左右边距*/
+.mb8{margin-bottom:8px;}
+.mr5{margin-right:5px;}
+.mb20{margin-bottom:20px;}
+
+/*动态效果*/
+.active {
+    color: #1278f6;
+    border-bottom: 2px solid #1278f6;
+}
+.hasChoose{
+	background-color:#65cea7;
+	color:#fff;
+}
+
+/*解决angular闪存问题*/
+.ng-cloak{display:none;}
+
+/*解决日历插件加载问题*/
+.calender{display:none;}
+
+.uploadFileWindow{width:100%;max-width:426px;border:1px solid #ccc;background-color:#fff;display:none;position:fixed;top:17%;left:46%;margin-left: -140px;}
+.uploadFileTitle{height:30px;line-height:30px;padding-left:10px;background-color:#76bf64;color:#fff;font-size:12px;}
+.uploadFileContent>p{width:295px;margin:20px auto; font-size:12px;}
+.uploadFileContent>p .searchBtn{margin-left:20px;}

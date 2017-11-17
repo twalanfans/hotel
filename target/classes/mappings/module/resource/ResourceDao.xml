@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.resource.dao.ResourceDao">
+	<resultMap type="com.module.resource.entity.Resource" id="ResourceResultMap">
+		<result jdbcType="INTEGER" property="resourceId" column="RESOURCE_ID"/>
+		<result jdbcType="VARCHAR" property="resourceType" column="RESOURCE_TYPE"/>
+		<result jdbcType="INTEGER" property="relationId" column="RELATION_ID"/>
+		<result jdbcType="VARCHAR" property="resourceName" column="resourceName"/>
+		<result jdbcType="VARCHAR" property="description" column="DESCRIPTION"/>
+		<result jdbcType="VARCHAR" property="href" column="HREF"/>
+		<result jdbcType="VARCHAR" property="permission" column="PERMISSION"/>
+		<result jdbcType="VARCHAR" property="createUser" column="CREATE_BY"/>
+		<result jdbcType="DATE" property="createTime" column="CREATE_TIME"/>
+		<result jdbcType="VARCHAR" property="updateUser" column="UPDATE_BY"/>
+		<result jdbcType="DATE" property="updateTime" column="UPDATE_TIME"/>
+		<result jdbcType="VARCHAR" property="remark" column="REMARK"/>
+</resultMap>
+	<sql id="resourceData">
+			a.resource_id, 
+			a.resource_type, 
+			a.relation_id, 
+			a.description, 
+			a.href, 
+			a.permission, 
+			a.create_by, 
+			a.create_time, 
+			a.update_user, 
+			a.update_time
+	</sql>
+	
+	<select id="courseResource"  resultType="java.lang.String">
+		SELECT a.resource_id FROM  hotel_resource a WHERE a.relation_id=#{courseId}
+	</select>
+	
+	<select id="queryNewGroup" parameterType="Resource" resultType="Resource">
+		SELECT DISTINCT	
+					a.role_id, 
+					a.name AS "roleName"
+		FROM  hotel_role a 
+		LEFT JOIN hotel_role_resource b ON b.role_id = a.role_id			
+		WHERE  a.role_id NOT IN(SELECT c.role_id FROM hotel_role_resource c WHERE c.resource_id=#{resourceId}) AND a.create_by=#{createUser}
+	</select>
+
+	<select id="haveRelationGroup" parameterType="Resource" resultType="Resource">
+		   SELECT   	a.role_id,
+		    				a.resource_id,
+		    				b.name AS "roleName",
+		    				b.create_time,
+		    				d.course_name AS "resourceName"
+		   FROM 
+						hotel_role_resource a
+						LEFT JOIN hotel_role b ON a.role_id = b.role_id
+						LEFT JOIN hotel_resource c ON a.resource_id = c.resource_id
+						LEFT JOIN hotel_course d ON d.course_id = c.relation_id
+		   WHERE   d.course_id=#{courseId}
+	</select>
+	
+	<insert id="insertResourceToRole">
+			INSERT INTO hotel_role_resource (role_id , resource_id) VALUES (#{roleId},#{resourceId})
+	</insert>
+	
+	<insert id="saveNewResource" useGeneratedKeys="true" keyProperty="resourceId">
+			INSERT INTO hotel_resource (resource_type, relation_id, description, create_by, create_time)
+			VALUES (#{resourceType}, #{relationId},#{description},#{createUser}, #{createTime} )
+	</insert>
+	<select id="fetchResourceListByUserid"  resultMap="ResourceResultMap">
+		    SELECT  distinct rs.resource_id, 
+							rs.resource_type, 
+							rs.relation_id, 
+							hc.course_name AS "resourceName",
+							rs.description, 
+							rs.permission, 
+							rs.create_by, 
+							rs.create_time,
+							rs.update_time
+		   FROM 
+		   		hotel_user_role as us 
+		   		left join hotel_role_resource as rr on us.role_id= rr.role_id
+		   		left join hotel_resource  as rs on rr.resource_id= rs.resource_id
+		   		left join hotel_course as hc on rs.relation_id= hc.course_id
+		   		where us.user_id=#{userId}
+		   		<if test="resource.resourceType != null and resource.resourceType !='' ">
+				AND rs.resource_type = #{resource.resourceType}
+				</if>
+		</select>
+		   		
+	<delete id="delete">
+		DELETE FROM hotel_resource WHERE resource_id = #{resourceId}
+	</delete>
+</mapper>

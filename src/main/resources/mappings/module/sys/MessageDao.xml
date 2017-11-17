@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.sys.dao.MessageDao">
+
+	<select id="queryAllMessage" parameterType="Message" resultType="Message">
+			SELECT
+					a.id AS "messageId",
+					a.from_user AS "fromUser",
+					b.user_name AS "fromName",
+					b.photo,
+					a.subject,
+					a.all_message,
+					a.is_read,
+					a.send_time
+			FROM hotel_message a
+			LEFT JOIN hotel_userdetail b ON a.from_user = b.user_id 
+			WHERE a.to_user =#{toUser}
+			<if test="fromUser != null and fromUser !='' ">
+	   		AND b.user_name LIKE CONCAT('%', #{fromUser}, '%')
+			</if>
+			<if test="subject != null and subject !='' ">
+	   		AND a.subject LIKE CONCAT('%', #{subject}, '%')
+			</if>
+			<if test="isRead != null and isRead !='' ">
+	   		AND a.is_read = #{isRead}
+			</if>
+			ORDER BY a.send_time DESC
+	</select>
+	
+	<!-- 查询当前用户发送的所有消息 -->
+	<select id="querySendMessage" parameterType="Message" resultType="Message">
+			SELECT
+				a.id AS "messageId",
+				b.user_name AS "toUser",
+				b.photo,
+				a.subject,
+				a.all_message,
+				a.is_read,
+				a.send_time
+			FROM hotel_message a, hotel_userdetail b
+			WHERE a.from_user = #{fromUser} AND a.to_user = b.user_id
+			<if test="toUser != null and toUser !='' ">
+	   		AND b.user_name LIKE CONCAT('%', #{toUser}, '%')
+			</if>
+			<if test="subject != null and subject !='' ">
+	   		AND a.subject LIKE CONCAT('%', #{subject}, '%')
+			</if>
+			ORDER BY a.send_time DESC
+	</select>
+	
+	<select id="queryUserMessage" parameterType="Message" resultType="Message">
+			SELECT DISTINCT
+					a.id AS "messageId",
+					b.user_name AS "fromName",
+					a.from_user,
+					b.photo,
+					a.subject,
+					a.all_message,
+					a.is_read,
+					a.send_time
+			FROM hotel_message a
+			LEFT JOIN hotel_userdetail b ON b.user_id = a.from_user 
+			WHERE a.to_user =#{toUser} AND a.is_read = '0'
+	</select>
+	<!-- 查询短消息的详细信息 -->
+	<select id="queryMessageDetai" parameterType="Message" resultType="Message">
+			SELECT
+					a.id AS "messageId",
+					b.user_name AS "fromUser",
+					b.photo,
+					a.subject,
+					a.all_message,
+					a.is_read,
+					a.send_time
+			FROM hotel_message a 
+			LEFT JOIN hotel_userdetail b ON a.from_user = b.user_id 
+			WHERE a.id = #{messageId}
+	</select>
+	
+	<update id="updateMsgRead" parameterType="Message">
+			UPDATE hotel_message SET is_read = '1' WHERE id = #{messageId} AND to_user = #{toUser}
+	</update>
+	
+	<!-- 发送信息 -->
+	<insert id="insert"  parameterType="Message" >
+			INSERT INTO hotel_message
+				(	id,
+					from_user, 
+					to_user, 
+					subject, 
+					all_message, 
+					send_time
+				)
+			VALUES
+				(   #{messageId},
+					#{fromUser},
+					#{toUser},
+					#{subject},
+					#{allMessage},
+					#{sendTime}
+				);
+	</insert>
+	
+	<delete id="delete" parameterType="Message">
+			DELETE FROM hotel_message  WHERE id=#{messageId}
+	</delete>
+	</mapper>

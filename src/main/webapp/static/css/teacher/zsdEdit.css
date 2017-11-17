@@ -1,0 +1,14 @@
+/* zsdEdit.css */
+@charset "UTF-8";
+.alreadyCourse{background-color:#fff;padding:10px;margin-bottom:20px;}
+.myCourse{width:180px;padding:10px;border:1px solid #ccc;display:none;position:fixed;z-index:9999;background-color:#fff;}
+.myCourse li{height:30px;line-height:30px;cursor:pointer;border-bottom:1px dashed #ccc;}
+.myCourse li:hover{color:#f00;}
+.zsdContent{background-color:#fff;}
+.uploadModel{width:280px;padding:15px;background-color:#fff;position:fixed;z-index:9999;display:none;}
+@media only screen and (min-width:1000px){
+	.myCourse,.uploadModel{left:50%;}
+}
+@media only screen and (max-width:999px){
+	.alreadyCourseList span{display:block;}
+}

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.course.dao.CourseQuestionDao">
+
+    <select id="queryQuestionListById" parameterType="CourseQuestion" resultType="CourseQuestion">
+      select * from hotel_course_questions where course_id = #{courseId}   
+    </select>
+
+	<select id="queryQuestionList" parameterType="CourseQuestion" resultType="CourseQuestion">
+			SELECT 	a.id AS "questionId", 
+							a.title, 
+							b.teacher_id AS "teacherId",
+							b.teacher_name AS "teacherName", 
+							c.user_name AS "questionName", 
+							b.course_name AS "courseName", 
+							b.course_id AS "courseId",
+							d.id AS "answerId",
+							d.content AS "answerContent",
+							d.create_time AS "answerTime",
+							e.user_name AS "answerName",
+							a.create_time, 
+							a.content, 
+							a.status
+			FROM 
+							hotel_course_questions  a
+			LEFT JOIN hotel_course b ON a.course_id = b.course_id
+			LEFT JOIN hotel_userdetail c ON c.user_id = a.student_id
+			LEFT JOIN hotel_question_answers d ON d.question_id = a.id
+			LEFT JOIN hotel_userdetail e ON e.user_id = d.teacher_id
+			WHERE 1=1
+			<if test="teacherName != null and teacherName !='' ">
+				AND b.teacher_name LIKE CONCAT('%',#{teacherName},'%')
+			</if>
+			<if test="startTime != null and startTime !='' ">
+	   		 	<![CDATA[AND DATE_FORMAT(a.create_time, '%Y-%m-%d')>= DATE_FORMAT(#{startTime}, '%Y-%m-%d')]]>
+			</if>
+			<if test="endTime != null and endTime !='' ">
+	   			<![CDATA[AND DATE_FORMAT(a.create_time, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')]]>
+			</if>
+			<if test="title != null and title !='' ">
+				AND a.title LIKE CONCAT('%',#{title},'%')
+			</if>
+			<if test="courseId != null and courseId !='' ">
+				AND a.course_id = #{courseId}
+			</if>
+			ORDER BY b.course_id,a.create_time DESC
+	</select>
+	
+	<select id="queryCommentByAnswerId" parameterType="CourseQuestion" resultType="CourseQuestion">
+		SELECT			a.id AS "commentId",
+							a.content AS "commentContent",
+							a.create_time AS "commentTime",
+							b.content AS "answerContent",
+							c.user_name AS "commentName"
+		FROM			hotel_question_comment a,
+							hotel_question_answers b,
+							hotel_userdetail c
+		WHERE			a.answer_id = b.id AND a.user_id = c.user_id AND a.answer_id = #{answerId}
+		ORDER BY 	a.create_time DESC
+	</select>
+	
+	<select id="queryQuestionDetail" parameterType="CourseQuestion" resultType="CourseQuestion">
+		SELECT 		d.id AS "answerId",
+							e.id AS "commentId",
+							a.content AS "questionContent", 
+							d.content AS "answerContent",
+							e.content AS "commentContent",
+							a.title, 
+							b.teacher_name AS "teacherName", 
+							c.user_name AS "questionName", 
+							f.user_name AS "answerName",
+							g.user_name AS "commentName",
+							b.course_name, 
+							a.create_time AS "createTime", 
+							d.create_time AS "answerTime",
+							e.create_time AS "commentTime",
+							a.status
+			FROM 
+							hotel_course_questions  a
+			LEFT JOIN hotel_course b ON a.course_id = b.course_id
+			LEFT JOIN hotel_userdetail c ON c.user_id = a.student_id
+			LEFT JOIN hotel_question_answers d ON d.question_id = a.id
+			LEFT JOIN hotel_question_comment e ON e.answer_id = d.id
+			LEFT JOIN hotel_userdetail f ON f.user_id = d.teacher_id
+			LEFT JOIN hotel_userdetail g ON g.user_id = e.user_id
+			WHERE a.id = #{questionId} ORDER BY d.id, d.create_time, e.create_time DESC
+	</select>
+	
+	<select id="queryAnswerDetail" parameterType="CourseQuestion" resultType="CourseQuestion">
+			SELECT 	a.id AS "answerId", 
+							a.content AS "answerContent",
+							a.create_time AS "answerTime", 
+							a.think_good,
+							b.user_name AS "answerName"
+			FROM hotel_question_answers a
+			LEFT JOIN hotel_userdetail b ON a.teacher_id = b.user_id			
+			WHERE a.id=#{answerId}
+	</select>
+	
+	<select id="queryAnswerList" parameterType="CourseQuestion" resultType="CourseQuestion">
+			SELECT 	a.id AS "answerId", 
+							b.user_name AS "answerName", 
+							a.question_id AS "questionId", 
+							a.create_time AS "answerTime", 
+							a.content AS "answerContent", 
+							c.title,
+							a.attach_url, 
+							a.status
+			FROM 
+							hotel_question_answers a
+			LEFT JOIN hotel_userdetail b ON a.teacher_id = b.user_id
+			LEFT JOIN hotel_course_questions c ON c.id = a.question_id 
+			WHERE a.status = '1'
+			<if test="teacherName != null and teacherName !='' ">
+				AND b.user_name LIKE CONCAT('%',#{teacherName},'%')
+			</if>
+			<if test="title != null and title !='' ">
+				AND c.title LIKE CONCAT('%',#{title},'%')
+			</if>
+	</select>
+	
+	<update id="updateUpDown">
+			UPDATE hotel_question_answers 
+			SET 
+			<if test="thinkGood != null and thinkGood !='' ">
+				think_good = #{thinkGood}
+			</if>
+			WHERE id = #{answerId}
+	</update>
+	
+	<insert id="saveQuestionComment">
+			<![CDATA[INSERT INTO hotel_question_comment 
+			(answer_id, user_id, content, create_time, status)
+			VALUES
+			(#{answerId},#{commentName},#{commentContent},#{createTime},'1')]]>
+	</insert>
+	
+	<insert id="saveCourseAskQuestion">
+			INSERT INTO hotel_course_questions(	
+				title, 
+				teacher_id, 
+				student_id, 
+				course_id, 
+				create_time, 
+				content, 
+				status
+			)
+			VALUES(
+				#{title},
+				#{teacherId},
+				#{questionName},
+				#{courseId},
+				#{createTime},
+				#{questionContent},
+				'1'
+			)
+	</insert>
+	
+	<insert id="saveAnswerQuestion" useGeneratedKeys="true" keyProperty="answerId">
+			INSERT INTO hotel_question_answers(	
+				teacher_id, 
+				question_id, 
+				create_time, 
+				content, 
+				status
+			)
+			VALUES(
+				#{teacherId},
+				#{questionId},
+				#{createTime},
+				#{answerContent},
+				'1'
+			)
+	</insert>
+	
+	<select id="queryCommentList" parameterType="CourseQuestion" resultType="CourseQuestion">
+			SELECT 	a.id AS "commentId", 
+							b.user_name AS "commentName", 
+							d.id AS "questionId",
+							a.create_time AS "commentTime", 
+							a.content AS "commentContent", 
+							d.title,
+							a.attach_url, 
+							a.status
+			FROM 
+							hotel_question_comment a
+			LEFT JOIN hotel_userdetail b ON a.user_id = b.user_id
+			LEFT JOIN hotel_question_answers c ON a.answer_id = c.id
+			LEFT JOIN hotel_course_questions d ON d.id = c.question_id 
+			WHERE a.status = '1'
+			<if test="commentName != null and commentName !='' ">
+				AND b.user_name LIKE CONCAT('%',#{commentName},'%')
+			</if>
+			<if test="title != null and title !='' ">
+				AND d.title LIKE CONCAT('%',#{title},'%')
+			</if>
+	</select>
+	
+	<delete id="deleteQuestion" parameterType="CourseQuestion">
+			DELETE FROM hotel_course_questions  WHERE id=#{questionId}
+	</delete>
+	
+	<delete id="deleteAnswer" parameterType="CourseQuestion">
+			DELETE FROM hotel_question_answers  
+			<if test="answerId != null and answerId !='' ">
+				WHERE id=#{answerId}
+			</if>
+			<if test="questionId != null and questionId !='' ">
+				WHERE  question_id=#{questionId}
+			</if>
+	</delete>
+	
+	<delete id="deleteComment" parameterType="CourseQuestion">
+			DELETE FROM hotel_question_comment  
+			<if test="commentId != null and commentId !='' ">
+				WHERE id=#{commentId}
+			</if>
+			<if test="questionId != null and questionId !='' ">
+				WHERE answer_id=(select id from hotel_question_answers where question_id = #{questionId})
+			</if>
+			
+	</delete>
+	
+</mapper>

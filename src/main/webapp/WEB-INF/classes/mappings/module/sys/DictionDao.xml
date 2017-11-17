@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.sys.dao.DictionDao">
+    <resultMap type="com.module.sys.entity.Dictionary" id="DictionaryResultMap">
+		<result column="ID" property="dictId" />
+   		<result column="CODE_ID" property="codeId"  />
+    	<result column="DICT_DESCRIPTION" property="dictDescription"/>
+    	<result column="VALUE" property="value"/>
+    	<result column="LABEL" property="label"/>
+    	<result column="STATUS" property="status"/>
+    	<result column="DICT_INDEX" property="dictIndex"/>
+    	<result column="CREATE_BY" property="createByUser"/>
+    	<result column="CREATE_TIME" property="createTime"/>
+    	<result column="MODIFY_BY" property="modifyBy"/>
+    	<result column="MODIFY_TIME" property="modifyTime"/>
+  </resultMap>
+<sql id="queryDicList">
+		a.code_id,
+		a.label,
+		a.value
+</sql>
+
+<select id="findAllListByCode"  resultMap="DictionaryResultMap">
+	SELECT a.code_id, a.create_time,
+		a.label,
+		a.value  from hotel_diction a WHERE a.CODE_ID = #{codeId}
+</select>
+<insert id="insertDictRecord" parameterType="com.module.sys.entity.Dictionary" >
+    insert into hotel_diction (CODE_ID, DICT_DESCRIPTION, 
+      VALUE, LABEL, STATUS, 
+      DICT_INDEX, CREATE_BY, CREATE_TIME, 
+      MODIFY_BY, MODIFY_TIME)
+    values (#{codeId,jdbcType=VARCHAR}, #{dictDescription,jdbcType=VARCHAR}, 
+      #{value,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{dictIndex,jdbcType=INTEGER}, #{createByUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyBy,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+ 
+<select id="findMaxRecordByCode" parameterType="com.module.sys.entity.Dictionary"  resultMap="DictionaryResultMap">
+	SELECT a.* from hotel_diction a WHERE a.CODE_ID = #{codeId} order by a.value desc limit 1;
+</select>
+  
+  <select id="findAllList"  resultMap="DictionaryResultMap">
+	SELECT a.code_id,
+		a.label,
+		a.value  from hotel_diction a WHERE a.CODE_ID = #{codeId}
+</select> 
+  <sql id="Base_Column_List" >
+    ID, CODE_ID, DICT_DESCRIPTION, VALUE, LABEL, STATUS, DICT_INDEX, CREATE_BY, CREATE_TIME, 
+    MODIFY_BY, MODIFY_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="DictionaryResultMap" parameterType="com.module.sys.entity.Dictionary" >
+    select 
+    <include refid="Base_Column_List" />
+    from hotel_diction
+    where ID = #{dictId,jdbcType=INTEGER}
+      and CODE_ID = #{codeId,jdbcType=VARCHAR}
+      and DICT_DESCRIPTION = #{dictDescription,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.module.sys.entity.Dictionary" >
+    delete from hotel_diction
+    where ID = #{id,jdbcType=INTEGER}
+      and CODE_ID = #{codeId,jdbcType=VARCHAR}
+      and DICT_DESCRIPTION = #{dictDescription,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.module.sys.entity.Dictionary" >
+    insert into hotel_diction (ID, CODE_ID, DICT_DESCRIPTION, 
+      VALUE, LABEL, STATUS, 
+      DICT_INDEX, CREATE_BY, CREATE_TIME, 
+      MODIFY_BY, MODIFY_TIME)
+    values (#{dictId,jdbcType=INTEGER}, #{codeId,jdbcType=VARCHAR}, #{dictDescription,jdbcType=VARCHAR}, 
+      #{value,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{dictIndex,jdbcType=INTEGER}, #{createByUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyBy,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.module.sys.entity.Dictionary" >
+    insert into hotel_diction
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dictId != null" >
+        ID,
+      </if>
+      <if test="codeId != null" >
+        CODE_ID,
+      </if>
+      <if test="dictDescription != null" >
+        DICT_DESCRIPTION,
+      </if>
+      <if test="value != null" >
+        VALUE,
+      </if>
+      <if test="label != null" >
+        LABEL,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="dictIndex != null" >
+        DICT_INDEX,
+      </if>
+      <if test="createByUser != null" >
+        CREATE_BY,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="modifyBy != null" >
+        MODIFY_BY,
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dictId != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="codeId != null" >
+        #{codeId,jdbcType=VARCHAR},
+      </if>
+      <if test="dictDescription != null" >
+        #{dictDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="dictIndex != null" >
+        #{dictIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createByUser != null" >
+        #{createByUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.module.sys.entity.Dictionary" >
+    update hotel_diction
+    <set >
+      <if test="value != null" >
+        VALUE = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        LABEL = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="dictIndex != null" >
+        DICT_INDEX = #{dictIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createByUser != null" >
+        CREATE_BY = #{createByUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{dictId,jdbcType=INTEGER}
+      and CODE_ID = #{codeId,jdbcType=VARCHAR}
+      and DICT_DESCRIPTION = #{dictDescription,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.module.sys.entity.Dictionary" >
+    update hotel_diction
+    set VALUE = #{value,jdbcType=VARCHAR},
+      LABEL = #{label,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      DICT_INDEX = #{dictIndex,jdbcType=INTEGER},
+      CREATE_BY = #{createByUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+    where ID = #{dictId,jdbcType=INTEGER}
+      and CODE_ID = #{codeId,jdbcType=VARCHAR}
+      and DICT_DESCRIPTION = #{dictDescription,jdbcType=VARCHAR}
+  </update>
+</mapper>

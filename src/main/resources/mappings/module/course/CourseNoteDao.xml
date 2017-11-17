@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.course.dao.CourseNoteDao">
+
+<select id="queryNotes" parameterType="CourseNotes"  resultType="CourseNotes">
+			SELECT a.* FROM hotel_course_note a WHERE a.user_id=#{userId} AND a.course_id = #{courseId} ORDER BY a.update_time DESC
+</select>
+	<!-- 课程笔记记录 -->
+<insert id="saveCourseNotes" parameterType="CourseNotes">
+			INSERT INTO hotel_course_note(user_id, course_id, note_content, update_time)
+			VALUES(#{userId}, #{courseId}, #{noteContent},#{updateTime})
+</insert>
+
+</mapper>

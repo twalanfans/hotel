@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.testonline.dao.TestOnlineDao">
+
+<select id="queryTeacherCeshiQuestion" parameterType="TestQuestion" resultType="TestQuestion">
+		SELECT DISTINCT	a.id AS "testId", 
+						a.title AS "questionTitle", 
+						a.class AS "questionClass", 
+						a.type, 
+						a.select_num, 
+						a.file_path, 
+						b.course_name AS "courseName",
+						a.course_id,
+						a.status, 
+						a.create_by, 
+						a.create_time
+		 FROM 
+						(hotel_ceshi_question a, hotel_course b, hotel_ceshi_knowledge c)
+		 WHERE c.question_id = a.id AND a.course_id = b.course_id
+		<if test="createUser != null and createUser !='' ">
+	   		AND a.create_by = #{createUser} 
+		</if>
+		<if test="courseName != null and courseName !='' ">
+	   		AND b.course_name LIKE CONCAT('%', #{courseName}, '%')
+		</if>
+		<if test="knowledgeId != null and knowledgeId !='' ">
+	   		AND c.knowledge_id IN(${knowledgeId})
+		</if>
+		<if test="courseId != null and courseId !='' ">
+	   		AND b.course_id =${courseId}
+		</if>
+		<if test="questionTitle != null and questionTitle !='' ">
+	   		AND a.title LIKE CONCAT('%', #{questionTitle}, '%')
+		</if>
+		<if test="type != null and type !='' ">
+	   		AND a.type =${type}
+		</if>
+		ORDER BY a.create_time DESC
+</select>
+
+<select id="queryQuestionRandom" parameterType="TestQuestion" resultType="TestQuestion">
+		SELECT DISTINCT a.id AS "testId", 
+						a.title AS "questionTitle", 
+						a.class AS "questionClass", 
+						a.type, 
+						a.select_num, 
+						a.file_path AS "questionFilePath", 
+						a.course_id,
+						a.status, 
+						a.create_by, 
+						b.answer_content,
+						a.create_time
+		 FROM 
+						(hotel_ceshi_question a, hotel_ceshi_answers b, hotel_ceshi_knowledge c, hotel_course d)
+		 WHERE c.question_id = a.id AND a.id=b.question_id AND a.course_id = d.course_id AND a.status='1'
+		 <if test="questionClass != null and questionClass !='' ">
+	   		AND a.class = #{questionClass}
+		</if>
+		 <if test="knowledgeId != null and knowledgeId !='' ">
+	   		AND c.knowledge_id IN(${knowledgeId})
+		</if>
+		<if test="courseId != null and courseId !='' ">
+	   		AND a.course_id = #{courseId}
+		</if>
+</select>
+
+<select id="editCeshiQuestion" resultType="TestQuestion">
+		SELECT a.course_id,
+					a.title AS "questionTitle",
+					a.type,
+					a.select_num,
+					a.file_path AS "questionFilePath",
+					b.answer_content,
+					b.add_info AS "answerRemark"
+		FROM hotel_ceshi_question a, hotel_ceshi_answers b
+		WHERE a.id = b.question_id
+		<if test="testId != null and testId !='' ">
+	   		AND a.id = #{testId}
+		</if>
+</select>
+
+<select id="questionDetailList" resultType="TestQuestion">
+	SELECT 			a.id AS "testId",
+					a.title AS "questionTitle",
+					a.type,
+					a.select_num,
+					a.file_path AS "questionFilePath"
+		FROM hotel_ceshi_question a
+		WHERE a.id IN (${testId})
+</select>
+
+<select id="queryTestPaperResult" resultType="TestPaper">
+		SELECT 	DISTINCT
+						a.id AS "noteId",
+						a.question_id,
+						a.standar_answer,
+						a.user_answer,
+						a.is_add_notes,
+						b.file_path AS "questionFilePath",
+						b.type AS "questionType",
+						d.paper_type,
+						e.question_score, 
+						c.status,
+						c.paper_id,
+						c.user_id AS "createUser",
+						c.scorces_total AS "paperScore"
+		FROM 			student_ceshi_detail a 
+		LEFT JOIN 	hotel_ceshi_question b ON a.question_id = b.id 
+		LEFT JOIN 	student_ceshi_paper c ON a.paper_id = c.paper_id AND a.user_id = c.user_id
+		LEFT JOIN		hotel_ceshi_paper d ON c.paper_id = d.paper_id
+		LEFT JOIN 	hotel_ceshi_paper_questions e ON e.paper_id = a.paper_id AND e.question_id = a.question_id
+		WHERE 		a.paper_id=#{paperId} AND a.user_id = #{createUser}
+		ORDER BY b.create_time DESC
+</select>
+
+<insert id="saveCreateTestQuestion"  useGeneratedKeys="true" keyProperty="testId"> 
+		INSERT INTO hotel_ceshi_question(
+				course_id, 
+				title, 
+				class, 
+				type, 
+				select_num, 
+				file_path, 
+				status, 
+				create_by, 
+				create_time
+			) 
+		VALUES (
+				#{courseId}, 
+				#{questionTitle}, 
+				#{questionClass}, 
+				#{type},
+				#{selectNum}, 
+				#{questionFilePath},
+				#{status}, 
+				#{createUser},
+				#{createTime}
+		 )
+</insert>
+  
+<insert id="saveCreateTestAnswer">
+		INSERT INTO hotel_ceshi_answers(
+				question_id, 
+				answer_content, 
+				add_info, 
+				create_by, 
+				create_time
+		)
+		VALUES(
+				#{testId}, 
+				#{answerContent}, 
+				#{answerRemark}, 
+				#{createUser},
+				#{createTime}
+		)
+</insert>
+
+<insert id="saveCreateTestKnowledge">
+		INSERT INTO hotel_ceshi_knowledge(
+				question_id, 
+				knowledge_id
+		)
+		VALUES(
+				#{testId}, 
+				#{knowledgeId}
+		)
+</insert>
+
+<update id="updateTestQuestion">
+		UPDATE hotel_ceshi_question 
+		SET 	course_id = #{courseId},
+				title = #{questionTitle},
+				class = #{questionClass},
+				type = #{type},
+				select_num = #{selectNum},
+				status = #{status},
+			<if test="questionFilePath != null and questionFilePath !='' ">
+				file_path = #{questionFilePath},
+			</if>
+				update_time = #{updateTime}
+		WHERE id = #{testId}
+</update>
+
+<update id="editQuestionScore">
+		UPDATE hotel_ceshi_paper_questions 
+		SET question_score = #{questionScore}
+		WHERE paper_id = #{paperId}
+		AND question_id =#{questionId}
+</update>
+
+<update id="updateTestAnswer">
+		UPDATE hotel_ceshi_answers 
+		SET 	answer_content = #{answerContent}, 
+				add_info = #{answerRemark}, 
+				update_time = #{updateTime}
+		WHERE question_id = #{testId}
+</update>
+
+<delete id="deletTestPaper">
+		DELETE FROM hotel_ceshi_paper WHERE paper_id = #{paperId} AND create_by = #{createUser}
+</delete>
+
+<delete id="deletePaperAndQuestion">
+		DELETE FROM hotel_ceshi_paper_questions WHERE paper_id = #{paperId}
+</delete>
+
+<delete id="deleteUserPaper">
+		DELETE FROM student_ceshi_paper WHERE paper_id = #{paperId} AND user_id = #{createUser}
+</delete>
+
+<delete id="deleteTestQuestion">
+		DELETE FROM hotel_ceshi_question WHERE id = #{testId}
+</delete>
+<delete id="deleteTestAnswer">
+		DELETE FROM hotel_ceshi_answers WHERE question_id = #{testId}
+</delete>
+<delete id="deleteQuestionKnowledge" parameterType="java.lang.String">
+		DELETE FROM hotel_ceshi_knowledge WHERE question_id = #{testId}
+</delete>
+
+</mapper>

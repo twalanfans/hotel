@@ -1,0 +1,21 @@
+/*
+ * @Description:试题篮CSS
+ * @Date:2017-6-12
+ * @Author:陈沐雨、赵一鸣
+*/
+@charset "UTF-8";
+
+.TestListTit{line-height:30px;text-align:center;}
+.addTestListBox{position:fixed;right:-182px;top:100px;border: 1px solid #ee6b52;padding:10px 20px;background-color:#fff;width:160px;border-radius: 4px;}
+.closeBtn{position:absolute;left:-22px;top:-20px;width:40px;height: 40px;line-height: 40px;color: #fff;text-decoration: none;border:1px solid #fff;text-align: center;background:url('../images/shoping.svg') center no-repeat;background-size: cover;border-radius: 50%;}
+.clearTestBtn,.makeTestBtn{padding:4px 10px;margin-right:10px;float:left;display:inline;cursor:pointer;}
+.makeTestBtn{background-color:#febe38;color:#fff;}
+.clearTestBtn{color:#999;}
+.TestListTit p{margin-right: 10px;}
+.searchByKnowledge{width: 100%;max-width: 270px;min-height:300px;overflow:auto;padding: 15px;position: fixed;top:80px;background-color: #fff;}
+.joinBtn{display:inline-block;padding:0 5px;height:28px;line-height:28px;color:#fff;cursor:pointer;}
+.hasJoin{background-color:rgb(153, 153, 153);}
+.notJoin{background-color:#febe38;}
+@media only screen and (min-width:769px){
+	.searchByKnowledge{left:50%;}
+}

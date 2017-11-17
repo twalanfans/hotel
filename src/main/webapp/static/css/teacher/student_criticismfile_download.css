@@ -1,0 +1,19 @@
+/* student_criticismfile_download.css */
+@charset "UTF-8";
+.criticismFile{font-size:16px; color:#b1b111; line-height:27px;}
+.download{font-size:16px; line-height:27px;margin: 10px 10px 0 10px;cursor:pointer;}
+.sTop .sTopRight .mainBox .mainContent .mainWrap .mainWrapBottom .studyInfo .studyInfoContent  li div p{
+	color:#999;
+} 
+.sTop .sTopRight .mainBox .mainContent .mainWrap .mainWrapBottom .studyInfo .studyInfoContent  li  .fileName a{
+	font-size:14px;
+	color:#000;
+}
+.sTop .sTopRight .mainBox .mainContent .mainWrap .mainWrapBottom .studyInfo .studyInfoContent  li .fileSize{
+	line-height:50px;
+	color:#999;
+	margin-left:10px;
+}
+.fileDetail{
+	margin-left:10px;
+}

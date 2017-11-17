@@ -1,0 +1,277 @@
+@CHARSET "UTF-8";
+/*welcomestudent welcomebox start*/
+.welcomebox {
+	height: 100%;
+}
+.welcomebox_l {
+	width: 168px;
+	min-height: 814px;
+	background-color: #eaedf1;
+	/*padding-top:34px;*/
+}
+
+.welcomebox_l li {
+	line-height: 44px;
+	cursor: pointer;
+	display: block;
+	padding-left: 34px;
+}
+
+.welcomebox_l li:hover {
+	background-color: #fff;
+}
+
+.welcomebox_l li a {
+	padding-left: 22px;
+	color: #333;
+}
+
+.welcomebox h4 a {
+	display: block;
+	padding-left: 22px;
+	font-size: 16px;
+	height: 20px;
+	line-height: 20px;
+	border-left: 2px solid #1278f6;
+	color: #333;
+}
+
+.subjectinfo {
+	font-size: 16px;
+}
+
+.subjectinfo p {
+	line-height: 40px;
+	text-align: center;
+}
+
+.subjectinfo p span {
+	line-height: 40px;
+	color: #0066FF;
+}
+
+.subjectlist>li {
+	float: left;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	margin: 0 1% 20px 1%;
+	position: relative;
+	background-color: rgba(0, 0, 0, 0.8);
+	color: #fff;
+}
+
+.subjectlist li span,.subjectlist li a {
+	color: #fff;
+}
+/*welcomestudent welcomebox end*/
+.adminMessage {
+	overflow: hidden;
+	clear: both;
+	/* padding-top:50px; */
+	margin-left:20px;
+}
+.adminBrief {
+	overflow: hidden;
+}
+
+.adminBrief span {
+	display: inline-block;
+	height: 60px;
+	float: left;
+	margin-right: 20px;
+}
+
+.adminBrief img {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+}
+
+.adminBrief span p {
+	height: 20px;
+	line-height: 20px;
+	margin-top: 5px;
+}
+.adminFunc ul li {
+	float: left;
+	margin-right: 20px;
+}
+
+.adminFunc ul li a {
+	display: block;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: #1278f6;
+	color: #fff;
+	text-align: center;
+	line-height: 60px;
+}
+
+.adminFunc ul li a:hover {
+	animation: spin 1s;
+}
+
+@keyframes spin { 
+	0%{
+		transform: rotateY(0deg);
+	}
+
+	100%{
+		transform:rotateY(360deg);
+	}
+}
+/*welcomestudent start*/
+.myhelplistbox {
+	margin: 0 auto;
+}
+.myhelplist_l>h3,.myhelplist_r>h3 {
+	text-align: center;
+	line-height: 34px;
+	height: 34px;
+	border-bottom: 1px solid #000;
+}
+.myhelplist_l>h3,.myhelplist_r>h3 {
+	margin-bottom: 28px;
+}
+.myhelplist_l li {
+	background-color: #d7d7d7;
+	margin-bottom: 10px;
+}
+
+.myhelplist_l>ul>li {
+	padding: 0 24px 0 20px;
+	position: relative;
+	cursor:pointer;
+}
+
+.morebtn {
+	font-size: 50px;
+	position: absolute;
+	right: 24px;
+	top: 4px;
+}
+
+.myhelplist_l li p,.myhelplist_r li p {
+	line-height: 30px;
+}
+
+.myhelplist_r {
+	/* width: 392px; */
+	height: 260px;
+}
+
+.myplan_allbox {
+	overflow-y: auto;
+	width: 100%;
+	height: 100%;
+}
+
+.myplan_all {
+	border-left: 1px solid #000;
+	margin-left: 10px;
+}
+
+.myplan_all>li {
+	padding-left: 16px;
+	position: relative;
+}
+
+.yuanicon {
+	position: absolute;
+	left: -8px;
+	top: 50%;
+	margin-top: -6px;
+	width: 10px;
+	height: 10px;
+	font-size: 16px;
+	border-radius: 50%;
+	border: 2px solid #ccc;
+	background-color: #fff;
+}
+
+.myplan_all>li h4 {
+	line-height: 26px;
+}
+
+.myplanlist li p span,.myplanlist li p a {
+	margin-left: 16px;
+}
+
+.userinfo {
+	margin-left: 44px;
+}
+
+.mapicon {
+	font-size: 20px;
+	color: #FF0000;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+}
+/*welcomestudent end*/
+.ml200 {
+	margin-left: 200px;
+}
+
+.ml10 {
+	margin-left: 10px;
+}
+
+.ml24 {
+	margin: 20px 0 0 24px;
+}
+@media all and (max-width: 767px) {
+	.myhelplist_l,.myhelplist_r {
+		width: 96%;
+		margin: 0 auto;
+	}
+	.myhelplistbox {
+		width: 100%;
+	}
+	.adminMessage {
+		width: 96%;
+		margin: 10px auto 20px;
+	}
+	.adminBrief {
+		margin-bottom: 20px;
+	}
+	.adminFunc {
+		margin-left: 0;
+	}
+	.adminFunc ul li {
+		margin-right: 6px;
+	}
+}
+@media all and (min-width:1024px) {
+	.ml10 {
+		margin-left: 10px;
+	}
+	.myhelplistbox {
+		width: 96%;
+		margin: 0 auto;
+	}
+	.myhelplist_l,.myhelplist_r {
+		width: 45%;
+	}
+	.myhelplist_l {
+		float: left;
+	}
+	.myhelplist_r {
+		float: right;
+	}
+	.adminBrief {
+		overflow: hidden;
+		float: left;
+	}
+	.adminFunc {
+		float: left;
+		margin-left: 20px;
+	}
+	.adminFunc ul li {
+		margin-right: 10px;
+	}
+}
+
+
+

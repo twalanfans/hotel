@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.owncenter.dao.DataAnalysisDao">
+
+  <select id="queryUserCourseStudyTime" resultType="java.lang.String">
+	    SELECT study_timelong
+	    FROM hotel_course_studylog
+	    WHERE user_id=#{userId} 
+	    AND 	<![CDATA[${startTime} < DATE_FORMAT(log_time, '%Y-%m-%d') < ${endTime}]]>
+  </select>
+  
+  <select id="queryTestQuestionNumByDate" resultType="java.lang.String">
+	    SELECT count(1) FROM student_ceshi_detail a WHERE a.user_id = #{userId} 
+	    AND 	<![CDATA[${startTime} < DATE_FORMAT(a.test_time, '%Y-%m-%d') < ${endTime}]]>
+  </select>
+  
+  <select id="queryAskQuestionNumByDate" resultType="java.lang.String">
+  	 	SELECT count(1) FROM hotel_course_questions a WHERE a.student_id = #{userId} 
+	    AND 	<![CDATA[${startTime} < DATE_FORMAT(a.create_time, '%Y-%m-%d') < ${endTime}]]>
+  </select>
+  
+</mapper>

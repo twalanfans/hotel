@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.sys.dao.DepartmentDao">
+
+	<sql id="departData">
+		a.depart_id,
+		a.parent_id,
+		a.level,
+		a.depart_name,
+		a.create_by,
+		a.create_time,
+		a.update_by,
+		a.update_time,
+		a.remark
+	</sql>
+	
+	<select id="get" resultType="Department">
+		SELECT
+			<include refid="departData"/>
+		FROM hotel_department a
+	</select>
+			
+	<select id="findAllList" parameterType="Department" resultType="Department">
+			SELECT
+			<include refid="departData"/>
+		FROM hotel_department a
+	</select>
+	
+	<select id="getDepartNum" resultType="Department">
+		SELECT (SELECT depart_name FROM hotel_department WHERE level='0') AS "departName",(SELECT COUNT(1) FROM hotel_department WHERE level='1') AS "departNum",(SELECT COUNT(1) FROM hotel_department WHERE level='2') AS "proNum",(SELECT COUNT(1) FROM hotel_department WHERE level='3') AS "gradeNum"  FROM hotel_department LIMIT 1
+	</select>
+			
+	<!-- 管理员对部门数据增加 -->	
+	<insert id="insertAndReturn"  parameterType="Department" useGeneratedKeys="true" keyProperty="departId">
+			INSERT INTO hotel_department(parent_id , level , depart_name , create_by , create_time )
+			VALUES ( #{parentId}, #{level} , #{departName} , #{createUser} , #{createTime} )
+	</insert>
+	
+	<!-- 删除部门 -->
+	<delete  id="delete"  parameterType="Department">
+			DELETE FROM hotel_department WHERE depart_id = #{departId}
+	</delete>
+	
+	<!-- 菜单参数修改 -->
+	<update id="update" parameterType="Department">
+		UPDATE hotel_department SET
+			depart_name = #{departName},
+			create_by = #{createUser},
+			update_time = #{updateTime}
+		WHERE depart_id = #{departId}
+	</update>
+</mapper>

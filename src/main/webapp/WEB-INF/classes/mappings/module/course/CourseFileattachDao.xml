@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.module.course.dao.CourseFileattachDao" >
+  <resultMap id="BaseResultMap" type="com.module.course.entity.CourseFileattach" >
+    <id column="attach_id" property="attachId" />
+    <result column="class_id" property="classId" />
+    <result column="file_name" property="fileName" />
+    <result column="file_type" property="fileType" />
+    <result column="file_path" property="filePath" />
+    <result column="file_size" property="fileSize" />
+    <result column="status" property="status" />
+    <result column="create_time" property="createTime"  />
+    <result column="create_by" property="createBy" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    attach_id, class_id, file_name, file_type, file_path, file_size, status, create_time, 
+    create_by
+  </sql>
+  
+  <select id="selectByClassId" resultMap="BaseResultMap" >
+    SELECT 
+    	a.attach_id, a.class_id, a.file_name, a.file_type, a.file_path, a.file_size, a.status, a.create_time, a.create_by 
+    FROM hotel_course_fileattach a, hotel_coursefile_class b
+    WHERE a.class_id = #{classId} AND a.class_id = b.class_id
+    <if test="fileName!='' and fileName!=null">
+     	AND a.file_name LIKE  CONCAT('%', #{fileName}, '%')
+    </if>
+    ORDER BY a.create_time DESC
+  </select>
+  
+  <select id="attachFileDetail" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM hotel_course_fileattach
+    WHERE attach_id = #{attachId}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.module.course.entity.CourseFileattach" >
+    delete from hotel_course_fileattach
+    where attach_id = #{attachId}
+  </delete>
+  
+  <delete id="deleteByCourseFileId" parameterType="com.module.course.entity.CourseFileattach" >
+    DELETE FROM hotel_course_fileattach
+    WHERE course_file_id = #{courseFileId}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.module.course.entity.CourseFileattach" >
+    INSERT INTO hotel_course_fileattach ( 
+    	 class_id, 
+    	 file_name, 
+       	 file_type,
+         file_path, 
+      	 file_size, 
+     	 status, 
+     	 create_time, 
+     	 create_by
+      ) VALUES ( 
+	      #{classId}, 
+	      #{fileName}, 
+	      #{fileType}, 
+	      #{filePath}, 
+	      #{fileSize}, 
+	      '1', 
+	      #{createTime}, 
+	      #{createBy}
+      )
+  </insert>
+  
+</mapper>

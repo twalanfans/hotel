@@ -1,0 +1,196 @@
+/* course_file_manage.css */
+@charset "UTF-8";
+.allEnclosure{width:98%;position:absolute;top:30%;display:none;z-index:1001;background-color:#fff;padding:1%1% 0px 1%;}
+	.allEnclosure ul{width:100%;display:block;clear:both;border:1px solid #ccc;overflow:hidden;}
+	.allEnclosure ul.enclosureTitle{height:30px;background-color:#1278f6;color:#fff;}
+	.allEnclosure ul li{float:left;width:32.93%;height:30px;line-height:30px;border:1px solid #ccc;}
+	.allTable .sourceMenu{background-color:#fdfac9;padding:0;height:auto;border:none;border-left:1px solid #000;border-top:1px solid #000;}
+	.allTable .sourceMenu li:before{width:0;height:0;}
+	.allTable .sourceMenu li{border-bottom:1px solid #000;border-right:1px solid #000;}
+	.allTable .sourceMenu li:hover{background-color:#FFF;font-weight:bold;}
+	.allTable .sourceMenu li a{text-decoration:none;}
+	.closeEnclosure{text-align:center;}
+	.closeEnclosure .addAttachFile{text-align:center;margin-bottom:15px;}
+	@media only screen and (min-width:810px){
+		.allEnclosure{max-width:500px;left:30%;}
+		.videoWindow{width:100%;max-width:600px;left:40%;}
+	}
+	@media only screen and (max-width:809px){
+		.allEnclosure{max-width:389px;left:2%;}
+		.videoWindow{width:100%;left:0%;}
+	}
+	.videoWindow{position:fixed;top:10%;z-index:10000;overflow:hidden;border: 1px solid #ccc;background-color: #fff;}
+	.videoWindow button{float:right;}
+	.videoPlay video{border:1px solid #ccc;}
+	.videoTop{height:30px;background-color:#fafafa;cursor:move;}
+	.closeVideo{width:35px;height:20px;font-size:14px;color:#fff;font-weight:bold;background-color:#c75050;float:right;cursor:pointer;text-align:center;line-height:20px;margin-right:5px;margin-top:5px;}
+	/*�ϴ��ļ�������ʽ*/
+	.saveResult{
+		line-height:175px;
+		background:url(${ctxStatic}/images/loading.gif) center 30px no-repeat  rgba(0,0,0,0.2);
+	}
+	.sourceMenu{border:1px solid #ccc;width:80px;position:absolute;background:#fff;right:-80px;top:10px;display:none;z-index:99;}
+    .sourceMenu a{display:block;height:30px;line-height:30px;}
+    .myIframe{width:100%;max-width:320px;overflow:hidden;display:none;position:fixed;z-index:10000;top:48px;}
+    .myIframe .uploadTitle{height:40px;line-height:40px;background-color:#1278f6;color:#fff;font-size:14px;}
+    .myIframe .uploadTitle span:nth-child(1){padding-left:15px;}
+     .myIframe .uploadTitle span:nth-child(2){float:right;padding-right:10px;cursor:pointer;}
+    #mainFrame{width:100%;border:0;}
+    .clossBox{font-size:19px; color:#eaedf1;}
+    .dataBase{background-color:#fbfaf8;}
+    .courseList{overflow:auto;}
+    .resourceContentlist>li{
+	float:left;
+	width:232px;
+	height:162px;
+	margin-right:32px;
+	padding-top:12px;
+	position:relative;
+	margin-bottom:10px;
+}
+.resourceContentlist li img{
+	border:0;
+	width:100%;
+	height:124px;
+}
+.resourceContentlist .resourcetit{
+	text-align:center;
+	line-height:26px;
+}
+.resourceContentlist .resourcetit a{
+	display:block;
+}
+.resourceContentlist li .playbtn{
+	position:absolute;
+	left:36%;
+	top:44px;
+	width:60px;
+	height:60px;
+	background:url(../../images/playbtn.png) center no-repeat;
+	background-size:100% auto;
+	border-radius:50%;
+	text-indent:-999em;
+	opacity:0.7;
+	filter:alpha(opacity=70);
+}
+.resourceContentlist .helpText{
+	position:absolute;
+	left:4px;
+	top:0;
+	width:100%;
+	height:100%;
+	text-align:center;
+	line-height:174px;
+	background-color:rgba(0,0,0,0.6);
+	font-size:16px;
+	color:#f00;
+	
+}
+.resourceContentlist li .playbtn1{
+	position:absolute;
+	left:36%;
+	top:44px;
+	width:60px;
+	height:60px;
+	background:url(${ctxStatic}/images/uploadimg2.png) center no-repeat;
+	background-size:100% auto;
+	border-radius:50%;
+	text-indent:-999em;
+	opacity:0.7;
+	filter:alpha(opacity=70);
+}
+.navbtn{
+	position: absolute;
+    right: 10px;
+    top: 20px;
+    width: 22px;
+    text-align: center;
+    font-size: 20px;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+.showDetail .sourceMenu li{
+	width:80px;
+	height:30px;
+	line-height:30px;
+	text-align: center;
+}
+.showDetailBox1{
+	position: absolute;
+	left:100%;
+	top:10px;
+	min-width:140px;
+	line-height:30px;
+	background-color:#fff;
+	border-radius:8px;
+	padding:10px;
+	border:1px solid #b0cedd;
+	display:none;
+	z-index: 98;
+}
+.showDetailBox1 li{
+	line-height:20px;
+	width:auto;
+	margin:0;
+	padding:0;
+	
+}
+.allTable ul li{
+	border:0;
+}
+.videoplaybox h3{
+	color:#fff;
+	cursor:move;
+	text-align:center;
+	background-color:#1278f6;
+	line-height:30px;
+	height:30px;
+}
+.videoplaybox h3 a{
+	height:30px;
+	line-height:30px;
+	float:right;
+	width:30px;
+	text-align:center;
+	color:#fff;
+}
+.videoplaybox video{
+    width: 100%;
+    max-height: 300px;
+    background-color: #fff;
+}
+.condition{margin-bottom:10px;}
+.commonIndent{padding-left:30%;}
+.sentmessagebox{position:relative;}
+.saveResult{
+	line-height:100px;
+	background:url(../../images/loading.gif) center 10px no-repeat  rgba(0,0,0,0.2);
+	padding:10px;
+	position:absolute;
+	left:30%;
+	top:10%;
+	display:none;
+}
+.editCourseBox{width:280px;padding:15px;position:fixed;top:10%;z-index:9999;background-color:#fff;}
+.kcjj{margin-bottom:10px;}
+.editTitle{margin-bottom:10px;}
+.courseList{float:left}
+.courseList ul li,.resourceTitle ul li{height:30px;line-height:30px;float:left;padding:0 10px;cursor:pointer;}
+.resourceTitle{overflow:hidden;}
+.alreadyCourseContent,.resourceTitle{margin-bottom:10px;line-height:30px;}
+@media only screen and (min-width:1000px){
+    	.myIframe{left:50%;top:10%;}
+    	.editCourseBox{left:50%;}
+}
+@media only screen and  (max-width:999px){
+	.myIframe{
+		left:0;
+	}
+	.sourceMenu{
+		left:0;
+	}
+	.showDetailBox1{
+		left:0;
+	}
+}

@@ -1,0 +1,7 @@
+/* course_relation_resource.css */
+@charset "UTF-8";
+.uploadFileWindow{width:100%;max-width:300px;/* height:130px; */border:1px solid #ccc;background-color:#fff;display:none;position:fixed;top:32%;left:46%;border-radius:6px;}
+.uploadFileTitle{height:30px;line-height:30px;padding-left:10px;background-color:#76bf64;color:#fff;font-size:12px;border-radius:6px 6px 0 0;}
+.uploadFileContent>p{width:270px;margin:20px auto; font-size:12px;}
+.uploadFileContent>p .searchBtn{margin-left:20px;border-radius:6px;}
+#chooseCourseForm{line-height:40px;}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.course.dao.KnowledgeDao">
+
+	<resultMap type="com.module.course.entity.KnowledgeItem" id="KnowledgeItemResultMap">
+	<result property="id" column="id"/>
+	<result property="courseId" column="course_id"/>
+	<result property="parentId" column="parent_id"/>
+	<result property="level" column="level"/>
+	<result property="title" column="title"/>
+	<result property="filePath" column="file_path"/>
+	<result property="createBy" column="create_by"/>
+	<result property="createTime" column="create_time"/>
+	<result property="updateBy" column="update_by"/>
+	<result property="updateTime" column="update_time"/>
+	<result property="description" column="description"/>
+	<result property="checked" column="checked"/>
+</resultMap>  
+
+     <select id="findKnowledgeItemAllById" parameterType="java.lang.Integer" resultMap="KnowledgeItemResultMap">  
+        select * from hotel_knowledge_item where id=#{id}  
+   	 </select>  
+      
+     <select id="getKnowledgeItemCountByCourseId" resultType="java.lang.Integer" >  
+        select count(id) from hotel_knowledge_item where course_id=#{courseId}  
+   	 </select>  
+     <!-- 根据组件去查询 -->  
+     <select id="findKnowLedgeByParentId" parameterType="java.lang.Integer" resultMap="KnowledgeItemResultMap">  
+        select * from hotel_knowledge_item where parent_id=#{id}  and course_id=#{courseId}
+     </select>  
+	
+  <insert id="saveKnowledgeItem" useGeneratedKeys="true" keyProperty="item.id" >
+	insert into hotel_knowledge_item (course_id, parent_id, level, title, file_path, create_by, create_time, update_by, update_time, description) 
+	values (#{item.courseId}, #{item.parentId}, #{item.level}, #{item.title}, #{item.filePath}, #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime}, #{item.description}) 
+</insert>
+<sql id="Base_Column_List"> id, course_id, parent_id, level, title, file_path, create_by, create_time, update_by, update_time,description </sql>
+<select id="selectKnowledgeById" parameterType="java.lang.Integer" resultMap="KnowledgeItemResultMap">
+ select *  from hotel_knowledge_item where id = #{id} 
+</select>
+
+<select id="selectKnowledgeByCourseId" resultMap="KnowledgeItemResultMap">
+ select  * from hotel_knowledge_item where course_id = #{courseId} 
+</select>
+<select id="selectKnowledgeByParentId" parameterType="java.lang.Integer" resultMap="KnowledgeItemResultMap">
+ select * from hotel_knowledge_item where parent_id = #{parentId} and course_id=#{courseId}
+</select>
+<delete id="deleteKnowledgeById" parameterType="java.lang.Integer">
+ delete from hotel_knowledge_item where id = #{id}
+</delete>
+<delete id="deleteKnowledgeByCourseId" parameterType="java.lang.Integer">
+ delete from hotel_knowledge_item where course_id = #{courseId}
+</delete>
+<select id="getKnowledgeItemListByCourseFileId" parameterType="java.lang.Integer" resultMap="KnowledgeItemResultMap">
+select a.*,IF(ISNULL(b.id),0,1) AS checked from hotel_knowledge_item a 
+	left join (select *  from hotel_coursefile_knowledge where course_file_id=#{courseFileId}) b on a.id=b.knowledge_id 
+where a.course_id = #{courseId}
+</select>
+<!-- 根据试题ID，获取该试题对应的课程知识点树，并标注关联上的知识点--> 
+<select id="getKnowledgeItemListByTestQuestionId" parameterType="java.lang.Integer" resultMap="KnowledgeItemResultMap">
+	select a.*,IF(ISNULL(b.knowledge_id),0,1) AS checked from hotel_knowledge_item a 
+		left join (select *  from hotel_ceshi_knowledge where question_id=#{questionId}) b on a.id=b.knowledge_id 
+	where a.course_id = #{courseId}
+</select>
+ <!-- 根据试题ID，获取该试题对应的知识点-->  
+<select id="getKnowledgeTitleListByTestQuestionId" parameterType="java.lang.Integer" resultMap="KnowledgeItemResultMap">
+	select a.* from hotel_knowledge_item a, hotel_ceshi_knowledge b 
+	  where   a.id=b.knowledge_id 
+ 		and  a.course_id = #{courseId}
+ 		and  b.question_id=#{questionId}
+</select>
+
+<update id="updateKnowledgeItem" parameterType="com.module.course.entity.KnowledgeItem">
+	UPDATE hotel_knowledge_item 
+	SET title = #{title}, update_by = #{updateBy}, update_time = #{updateTime}
+	WHERE id = #{id}
+</update>
+
+</mapper>

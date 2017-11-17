@@ -1,0 +1,24 @@
+/*
+ * @Description:管理员首页
+ * @Date:2017-5-27
+ * @Author:陈沐雨
+ */
+@charset "UTF-8";
+.todo{padding:15px}
+.adminMessage{overflow:hidden;clear:both}
+.adminBrief{overflow:hidden;float:left;margin-bottom:10px;margin-right:10PX}
+.adminBrief span{display:inline-block;height:60px;float:left;margin-right:20px}
+.adminBrief img{width:60px;height:60px;border-radius:50%}
+.adminFunc{float:left;margin-bottom:10px}
+.adminFunc ul li{float:left;margin-right:5px}
+.adminFunc ul li a{display:block;width:60px;height:60px;border-radius:50%;background-color:#1278f6;color:#fff;text-align:center;line-height:60px;font-size:12px}
+.adminFunc ul li a:hover{animation:spin 1s}
+@keyframes spin{
+	0%{
+		transform:rotateY(0);
+	}
+	100%{
+		transform:rotateY(360deg);
+	}
+}
+

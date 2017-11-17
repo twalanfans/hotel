@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.testonline.dao.TestPaperDao">
+  
+<select id="queryPaperByUser"  resultType="TestPaper">
+		SELECT  	a.paper_id, 
+						a.paper_name, 
+						a.paper_score, 
+						a.course_id, 
+						a.questions_total, 
+						a.test_timelong, 
+						a.paper_type, 
+						a.knowledge_list, 
+						a.paper_discription, 
+						a.create_by, 
+						a.create_time, 
+						a.status
+		FROM 		hotel_ceshi_paper a
+		WHERE 	a.create_by = #{createUser}
+		<if test="paperName != null and paperName !='' ">
+			AND a.paper_name LIKE CONCAT('%',#{paperName},'%')
+		</if>
+		ORDER BY a.create_time DESC
+</select>
+
+<select id="queryPaperDetail" resultType="TestPaper">
+		SELECT  	DISTINCT
+					  b.paper_id,
+					  b.paper_name,
+					  d.answer_content AS "standarAnswer",
+					  d.add_info AS "discription",
+					  a.question_id  AS "questionId",
+					  a.question_score,
+					  c.title             AS "questionTitle",
+					  c.file_path         AS "questionFilePath",
+					  c.type              AS "questionType",
+					  c.select_num        AS "selectNum",
+					  c.class 			AS "questionClass",
+					  b.test_timelong,
+					  b.paper_type,
+					  b.knowledge_list,
+					  b.paper_discription,
+					  e.user_name         AS "createUser",
+					  b.create_time,
+					  b.status
+		FROM hotel_ceshi_paper_questions a
+		LEFT JOIN hotel_ceshi_paper b ON b.paper_id=a.paper_id
+		LEFT JOIN hotel_ceshi_question c ON c.id=a.question_id
+		LEFT JOIN hotel_ceshi_answers d ON d.question_id=c.id
+		LEFT JOIN hotel_userdetail e ON e.user_id = b.create_by
+		WHERE a.paper_id = #{paperId}
+		ORDER BY c.type
+</select>
+
+<select id="getPaperScore" resultType="java.lang.String">
+		SELECT sum(question_score) AS "paperScore" FROM hotel_ceshi_paper_questions WHERE paper_id = #{paperId}
+</select>
+
+<select id="queryStudentPaper" resultType="TestPaper">
+		SELECT  	a.id AS "noteId",
+						a.paper_id, 
+						a.user_id 	AS "studentId",
+						b.paper_name, 
+						b.create_by AS "teacherId",
+						b.create_time,
+						b.paper_type,
+						a.scorces_total, 
+						c.user_name AS "createUser",
+						d.user_name AS "studentName",
+						a.status
+		FROM 		student_ceshi_paper a
+		LEFT JOIN 	hotel_ceshi_paper b ON a.paper_id = b.paper_id 
+		LEFT JOIN 	hotel_userdetail c ON b.create_by = c.user_id
+		LEFT JOIN 	hotel_userdetail d ON d.user_id = a.user_id
+		WHERE 1=1
+		<if test="createUser != null and createUser !='' ">
+			AND b.create_by =#{createUser}
+		</if>
+		<if test="studentId != null and studentId !='' ">
+			AND a.user_id =#{studentId}
+		</if>
+		<if test="studentName != null and studentName !='' ">
+			AND d.user_name LIKE CONCAT('%',#{studentName},'%')
+		</if>
+		<if test="paperName != null and paperName !='' ">
+			AND b.paper_name LIKE CONCAT('%',#{paperName},'%')
+		</if>
+		<if test="paperId != null and paperId !='' ">
+			AND b.paper_id =#{paperId}
+		</if>
+		<if test="status != null and status !='' ">
+   		 	AND a.status = #{status}
+		</if>
+		ORDER BY b.create_time DESC
+</select>
+
+<select id="queryMyErrorNotes" resultType="TestPaper">
+		SELECT 		a.title AS "questionTitle", 
+							a.type AS "questionType",
+							a.file_path AS "questionFilePath",
+							b.test_time AS "createTime",
+							b.id AS "noteId",
+							b.question_id,
+							b.user_answer,
+							b.standar_answer,
+							c.add_info AS "discription"
+		FROM 			hotel_ceshi_question a 
+		LEFT JOIN 	student_ceshi_detail b 	ON a.id = b.question_id 
+		LEFT JOIN 	hotel_ceshi_answers c ON c.question_id = a.id
+		WHERE 		b.user_id=#{studentId} AND b.is_add_notes = '1'
+		<if test="questionTitle != null and questionTitle !='' ">
+			AND a.title LIKE CONCAT('%',#{questionTitle},'%')
+		</if>
+		<if test="noteId != null and noteId !='' ">
+			AND b.id = #{noteId}
+		</if>
+		<if test="questionId != null and questionId !='' ">
+			AND b.question_id = #{questionId}
+		</if>
+		<if test="startTime != null and startTime !='' ">
+   		 	<![CDATA[AND DATE_FORMAT(b.test_time, '%Y-%m-%d')>= DATE_FORMAT(#{startTime}, '%Y-%m-%d')]]>
+		</if>
+		<if test="endTime != null and endTime !='' ">
+   			<![CDATA[AND DATE_FORMAT(b.test_time, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')]]>
+		</if>
+		ORDER BY b.test_time DESC
+</select>
+
+<update id="updatePaperScore">
+		UPDATE hotel_ceshi_paper SET paper_score = #{paperScore} WHERE paper_id = #{paperId}
+</update>
+
+<update id="updateTestPaperDetail">
+		UPDATE student_ceshi_paper 
+		SET 
+		<if test="startTime != null and startTime !='' ">
+			start_time = #{startTime},
+		</if>
+		<if test="endTime != null and endTime !='' ">
+			end_time = #{endTime},
+		</if>
+		<if test="paperScore != null and paperScore !='' ">
+			scorces_total = #{paperScore},
+		</if>
+			status = #{status}
+		 WHERE paper_id = #{paperId} AND user_id = #{createUser}
+</update>
+
+<update id="changePaperAnStatus">
+		UPDATE student_ceshi_paper SET status ='2'  WHERE status='1'
+</update>
+
+<update id="updateErrorNotes">
+		UPDATE student_ceshi_detail SET is_add_notes =#{isAddNotes}  WHERE id=#{noteId}
+</update>
+
+<update id="saveEveryAnswerScore">
+		UPDATE student_ceshi_detail SET answer_score = #{answerScore} WHERE id=#{noteId}
+</update>
+
+<insert id="saveAnswerEveryQuestionDetail">
+		INSERT INTO student_ceshi_detail(
+				paper_id, 
+				question_id, 
+				user_answer, 
+				standar_answer, 
+				answer_score, 
+				user_id, 
+				test_time,
+				is_add_notes
+				)
+		VALUES(
+				#{paperId}, 
+				#{questionId}, 
+				#{userAnswer},
+				#{standarAnswer},
+				#{answerScore},
+				#{studentId},
+				#{createTime},
+				#{isAddNotes}
+				);
+</insert>
+
+<insert id="sendPaperToUser" parameterType="TestPaper" >
+		INSERT INTO student_ceshi_paper(
+				paper_id,
+				user_id,
+				status)
+		VALUES(
+				#{paperId},
+				#{createUser},
+				'0')
+</insert>
+
+<insert id="saveTestPaper" parameterType="TestPaper" useGeneratedKeys="true" keyProperty="paperId">
+		INSERT INTO hotel_ceshi_paper(
+				paper_name, 
+				course_id, 
+				questions_total, 
+				test_timelong, 
+				paper_type, 
+				knowledge_list, 
+				paper_discription, 
+				create_by, 
+				create_time, 
+				status
+		)
+		VALUES(
+				#{paperName}, 
+				#{courseId}, 
+				#{questionTotal},
+				#{testTimeLong},
+				#{paperType},
+				#{knowledgeList},
+				#{discription},
+				#{createUser},
+				#{createTime},
+				'1'
+		)
+</insert>
+
+<insert id="savePaperQuestion">
+		INSERT INTO hotel_ceshi_paper_questions(
+				paper_id, 
+				question_id, 
+				question_score
+		)
+		VALUES(
+				#{paperId}, 
+				#{questionId}, 
+				#{questionScore}
+		)
+</insert>
+
+<delete id="deleteErrorQuestion">
+		UPDATE student_ceshi_detail SET is_add_notes='0' WHERE  question_id=#{questionId} AND user_id=#{studentId}
+</delete>
+
+</mapper>
