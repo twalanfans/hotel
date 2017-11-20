@@ -17,4 +17,8 @@ public class SmsTest {
         System.out.println("RequestId=" + sendSms.getRequestId());
         System.out.println("BizId=" + sendSms.getBizId());
 	}
+	@Test
+	public void test2(){
+		System.out.println("1");
+	}
 }
