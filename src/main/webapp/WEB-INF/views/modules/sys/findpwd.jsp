@@ -5,7 +5,7 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-		<title>北京五中教学管理系统</title>
+		<title>酒店服务管理专业管理系统</title>
 		<!--css-->
 		<link rel="stylesheet" type="text/css" href="${ctxStatic}/css/regist.css" />
 		<link rel="stylesheet" type="text/css" href="${ctxStatic}/css/font.css" />

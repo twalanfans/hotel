@@ -11,6 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsResponse;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.exceptions.ClientException;
+import com.common.sms.Sms;
 import com.common.web.BaseController;
 import com.module.sys.service.MailCheckService;
 import com.module.sys.service.SystemService;
@@ -18,9 +22,10 @@ import com.module.sys.utils.UserUtils;
 import com.common.config.Global;
 
 /**
- * @Description  忘记密码
- * @author  yuanzhonglin
- * @CreateDate  2016-6-29
+ * 
+ * @author aprwu
+ * <p>Title</p>FindPasswordController
+ * 2017年11月17日下午6:28:58
  */
 @Controller
 public class FindPasswordController extends BaseController{
@@ -28,6 +33,18 @@ public class FindPasswordController extends BaseController{
 	//  注入SystemService
 	@Autowired
 	private SystemService systemService;
+	
+	//产品名称:云通信短信API产品,开发者无需替换
+    static final String product = "Dysmsapi";
+    //产品域名,开发者无需替换
+    static final String domain = "dysmsapi.aliyuncs.com";
+
+    // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
+    //static final String accessKeyId = "LTAIpmnv1i7nd6wG";
+    static final String accessKeyId = Global.getAccessKeyId();
+    //static final String accessKeySecret = "2TxTiomPsmqtSH3qSUSiKwcX6jmBjs";
+    static final String accessKeySecret = Global.getAccessKeySecret();
+    
 	/**
 	 * @author yuanzhonglin
 	 * @date 2016-6-29
@@ -95,6 +112,46 @@ public class FindPasswordController extends BaseController{
 		}
         return renderString(response,validate);
 	}
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public String SmsCAPTCHA(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		String loginName = request.getParameter("loginName");
+		SendSmsResponse sendSms = Sms.sendSms();
+		System.out.println("短信接口返回的数据----------------");
+        System.out.println("Code=" + sendSms.getCode());
+        System.out.println("Message=" + sendSms.getMessage());
+        System.out.println("RequestId=" + sendSms.getRequestId());
+        System.out.println("BizId=" + sendSms.getBizId());
+      //查明细
+        if(sendSms.getCode() != null && sendSms.getCode().equals("OK")) {
+            QuerySendDetailsResponse querySendDetailsResponse = Sms.querySendDetails(sendSms.getBizId());
+            System.out.println("短信明细查询接口返回数据----------------");
+            System.out.println("Code=" + querySendDetailsResponse.getCode());
+            System.out.println("Message=" + querySendDetailsResponse.getMessage());
+            int i = 0;
+            for(QuerySendDetailsResponse.SmsSendDetailDTO smsSendDetailDTO : querySendDetailsResponse.getSmsSendDetailDTOs())
+            {
+                System.out.println("SmsSendDetailDTO["+i+"]:");
+                System.out.println("Content=" + smsSendDetailDTO.getContent());
+                System.out.println("ErrCode=" + smsSendDetailDTO.getErrCode());
+                System.out.println("OutId=" + smsSendDetailDTO.getOutId());
+                System.out.println("PhoneNum=" + smsSendDetailDTO.getPhoneNum());
+                System.out.println("ReceiveDate=" + smsSendDetailDTO.getReceiveDate());
+                System.out.println("SendDate=" + smsSendDetailDTO.getSendDate());
+                System.out.println("SendStatus=" + smsSendDetailDTO.getSendStatus());
+                System.out.println("Template=" + smsSendDetailDTO.getTemplateCode());
+            }
+            System.out.println("TotalCount=" + querySendDetailsResponse.getTotalCount());
+            System.out.println("RequestId=" + querySendDetailsResponse.getRequestId());
+        }
+		return null;
+	}
+	
 	/**
 	 * 忘记密码第二步
 	 * @param request

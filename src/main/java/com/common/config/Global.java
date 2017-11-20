@@ -33,6 +33,20 @@ public class Global {
 		return endpoint;
 	}
 	
+	public static String getAccessKeyId(){
+		String accessKeyId = getConfig("accessKeyId");
+		return accessKeyId;
+	}
+	
+	public static String getAccessKeySecret(){
+		String accessKeySecret = getConfig("accessKeySecret");
+		return accessKeySecret;
+	}
+	
+	public static String getBucketName(){
+		String bucketName = getConfig("bucketName");
+		return bucketName;
+	}
 	/**
 	 * 获取文件服务器地址
 	 * @return
