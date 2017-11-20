@@ -70,6 +70,9 @@
 		//邮箱验证码url
 		emailValidate : '',
 		
+		//短信验证码url
+		SmsValidate : '',
+		
 		//提交注册信息url
 		registerUser : '',
 		
@@ -84,6 +87,7 @@
 			this.regEmail = registOptions.regEmail;
 			this.checkPhone = registOptions.checkPhone;
 			this.emailValidate = registOptions.emailValidate;
+			this.SmsValidate = registOptions.SmsValidate;
 			this.registerUser = registOptions.registerUser;
 			this.toLogin = registOptions.toLogin;
 			this.chooseUserType();
@@ -226,7 +230,7 @@
 		},
 		
 		//获取验证码
-		getCode : function(){
+		/*getCode : function(){
 			hotelRegist.validateCode.onkeyup = function(){
 				this.value = this.value.replace(/\D/g, '');
 			}
@@ -240,6 +244,33 @@
 					url : hotelRegist.emailValidate,
 					type : 'post',
 					data : 'email='+hotelRegist.email.value,
+					dataType : 'json',
+					success : function(data){
+						if(data != "error"){
+							hotelRegist.validateCodeVal = data;
+							hotelRegist.countDown();
+						}else{
+							alert("验证码发送失败！")
+						}
+					}
+				});
+			}
+		},*/
+		//获取验证码
+		getCode : function(){
+			hotelRegist.validateCode.onkeyup = function(){
+				this.value = this.value.replace(/\D/g, '');
+			}
+			hotelRegist.codeBtn.onclick = function(){
+				if(!(hotelRegist.regEmail).test(hotelRegist.emailVal)){
+					alert('请先输入您的邮箱号码！');
+					return false;
+				}
+				this.disabled = true;
+				$.ajax({
+					url : hotelRegist.SmsValidate,
+					type : 'post',
+					data : 'loginName='+hotelRegist.loginName.value,
 					dataType : 'json',
 					success : function(data){
 						if(data != "error"){

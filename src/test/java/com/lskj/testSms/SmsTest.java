@@ -10,7 +10,7 @@ public class SmsTest {
 	
 	@Test
 	public void test1() throws ClientException{
-		SendSmsResponse sendSms = Sms.sendSms();
+		SendSmsResponse sendSms = Sms.sendSms(null, null);
 		System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + sendSms.getCode());
         System.out.println("Message=" + sendSms.getMessage());

@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsResponse;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
-import com.aliyuncs.exceptions.ClientException;
+import com.common.config.Global;
 import com.common.sms.Sms;
 import com.common.web.BaseController;
 import com.module.sys.service.MailCheckService;
 import com.module.sys.service.SystemService;
 import com.module.sys.utils.UserUtils;
-import com.common.config.Global;
 
 /**
  * 
@@ -113,15 +112,25 @@ public class FindPasswordController extends BaseController{
         return renderString(response,validate);
 	}
 	/**
-	 * 
+	 * 短信验证码
 	 * @param request
 	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
+	@RequestMapping(value = "/SmsValidate")
 	public String SmsCAPTCHA(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		String validate = "";
+        Random random = new Random();
+        for(int i=0; i<=5; i++){
+        	int arrIdx = random.nextInt(9);
+        	int[] num = {0,1,2,3,4,5,6,7,8,9};
+        	String getNum = String.valueOf(num[arrIdx]);
+        	validate += getNum;
+        }
+        System.out.println("validate------"+validate);//用的是这个验证码，在Sms.java中生成的是发送给手机，但是没用
 		String loginName = request.getParameter("loginName");
-		SendSmsResponse sendSms = Sms.sendSms();
+		SendSmsResponse sendSms = Sms.sendSms(loginName, validate);
 		System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + sendSms.getCode());
         System.out.println("Message=" + sendSms.getMessage());
@@ -129,7 +138,7 @@ public class FindPasswordController extends BaseController{
         System.out.println("BizId=" + sendSms.getBizId());
       //查明细
         if(sendSms.getCode() != null && sendSms.getCode().equals("OK")) {
-            QuerySendDetailsResponse querySendDetailsResponse = Sms.querySendDetails(sendSms.getBizId());
+            QuerySendDetailsResponse querySendDetailsResponse = Sms.querySendDetails(sendSms.getBizId(),loginName);
             System.out.println("短信明细查询接口返回数据----------------");
             System.out.println("Code=" + querySendDetailsResponse.getCode());
             System.out.println("Message=" + querySendDetailsResponse.getMessage());
@@ -149,7 +158,8 @@ public class FindPasswordController extends BaseController{
             System.out.println("TotalCount=" + querySendDetailsResponse.getTotalCount());
             System.out.println("RequestId=" + querySendDetailsResponse.getRequestId());
         }
-		return null;
+        
+        return renderString(response,validate);
 	}
 	
 	/**

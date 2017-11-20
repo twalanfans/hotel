@@ -47,7 +47,7 @@ public class RegisterController extends BaseController{
 		DeptManageService dept = new DeptManageService();
 		List<Department> departList = dept.showAllDepart();
 		request.setAttribute("departList", departList);
-		return "modules/sys/sysRegist";
+		return "modules/sys/sysRegist2";
 	}
 	
 	/**
