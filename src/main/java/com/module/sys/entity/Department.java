@@ -5,7 +5,9 @@ package com.module.sys.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import org.apache.commons.lang3.StringUtils;
+
 import com.common.persistence.DataEntity;
 import com.module.sys.utils.UserUtils;
 
@@ -29,10 +31,21 @@ public class Department extends DataEntity<Department>{
 	private String createTime;	// 创建日期
 	private String updateUser;	// 更新者
 	private String updateTime;	// 更新日期
-	
+	private String schoolId;	//学校ID
 	public Department(){
 		super();
 	}
+	
+	
+	public String getSchoolId() {
+		return schoolId;
+	}
+
+
+	public void setSchoolId(String schoolId) {
+		this.schoolId = schoolId;
+	}
+
 
 	public String getDepartId() {
 		return departId;
@@ -135,4 +148,25 @@ public class Department extends DataEntity<Department>{
 		return departName;
 	}
 
+
+	public Department(String departId, String parentId, String departName,
+			String level, String departNum, String proNum, String gradeNum,
+			String remark, String createUser, String createTime,
+			String updateUser, String updateTime, String schoolId) {
+		super();
+		this.departId = departId;
+		this.parentId = parentId;
+		this.departName = departName;
+		this.level = level;
+		this.departNum = departNum;
+		this.proNum = proNum;
+		this.gradeNum = gradeNum;
+		this.remark = remark;
+		this.createUser = createUser;
+		this.createTime = createTime;
+		this.updateUser = updateUser;
+		this.updateTime = updateTime;
+		this.schoolId = schoolId;
+	}
+	
 }

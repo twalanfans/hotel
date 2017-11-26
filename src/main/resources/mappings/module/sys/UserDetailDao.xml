@@ -69,30 +69,30 @@
 	</select>
 	<!-- 用户注册时,保存用户详情信息 -->
 	<insert id="insertUserDetail" parameterType="UserDetail">
-	   INSERT INTO hotel_userdetail (
-	   						user_id, 
-							user_name, 
-							sex, 
-							phone, 
-							email, 
-							birthday, 
-							address, 
-							postcode, 
-							update_time, 
-							remark
-							)
-							VALUES
-							(#{userId}, 
-							#{userName}, 
-							#{sex}, 
-							#{phone}, 
-							#{email}, 
-							#{birthday}, 
-							#{address}, 
-							#{postCode}, 
-							#{updateTime}, 
-							#{remark}
-							);
+	INSERT INTO hotel_userdetail (
+	user_id,
+	user_name,
+	sex,
+	phone,
+	email,
+	birthday,
+	address,
+	postcode,
+	update_time,
+	remark
+	)
+	VALUES
+	(#{userId},
+	#{userName},
+	#{sex},
+	#{phone},
+	#{email},
+	#{birthday},
+	#{address},
+	#{postCode},
+	#{updateTime},
+	#{remark}
+	);
 	</insert>
 	
 	<insert id="insertUser" parameterType="User">

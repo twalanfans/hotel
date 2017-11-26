@@ -11,6 +11,8 @@ public interface SchoolDao  extends CrudDao<School> {
 
 	public List<School> querySchoolList(School s);
 	
+	public List<School> queryAllSchool();
+	
 	public int createSchool(School s);
 
 	public int deleteById(String schoolId);

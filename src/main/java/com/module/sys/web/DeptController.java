@@ -1,5 +1,6 @@
 package com.module.sys.web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.common.utils.DateUtils;
 import com.common.utils.SpringContextHolder;
 import com.common.web.BaseController;
+import com.github.pagehelper.PageInfo;
+import com.module.owncenter.entity.School;
+import com.module.owncenter.service.SchoolService;
 import com.module.sys.entity.Department;
 import com.module.sys.service.DeptManageService;
 import com.module.sys.service.LogService;
@@ -38,13 +42,23 @@ public class DeptController extends BaseController{
 	/**
 	 * 初始化查询部门列表
 	 * @author yuanzhonglin
+	 * @throws Exception 
 	 * @date 2016-7-13
 	 */
 	@SuppressWarnings({ "rawtypes", "static-access" })
 	@RequestMapping(value="${adminPath}/depart/showAllDepart")
-	public String showDepartList(HttpServletRequest request){
+	public String showDepartList(HttpServletRequest request) throws Exception{
+		
+		List<School> school = SchoolService.queryAllSchool();
+		request.setAttribute("school", school);
+		for (School school2 : school) {
+			System.out.println("school------"+school2);
+		}
+		
+		
 		DeptManageService deptManageService = new DeptManageService();
 		List departList = deptManageService.showAllDepart();
+		System.out.println("departList------"+departList);//depart_name
 		Department departNum = deptManageService.getDepartNum();
 		request.setAttribute("departList", departList);
 		request.setAttribute("Department", departNum);
@@ -61,12 +75,14 @@ public class DeptController extends BaseController{
 		String departId = request.getParameter("departId")==null?"":request.getParameter("departId");
 		String departName = request.getParameter("departName")==null?"--":request.getParameter("departName");
 		String level = request.getParameter("level")==null?"":request.getParameter("level");
+		String schoolId = request.getParameter("schoolId")==null?"":request.getParameter("schoolId");
 		Department department = new Department();
 			department.setCreateUser(UserUtils.getUser().toString());
 			department.setCreateTime(DateUtils.getDateTime());
 			department.setDepartName(departName);
 			department.setParentId(departId);
 			department.setLevel(level);
+			department.setSchoolId(schoolId);
 		//  生成新部门插入到表中
 		try {
 			int ret = DeptManageService.insertDepart(department);

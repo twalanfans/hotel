@@ -28,6 +28,7 @@ public class SchoolController extends BaseController{
 		School s = new School();
 			s.setSchoolName(schoolName);
 		List<School> school = SchoolService.querySchoolList(s);
+		
 		request.setAttribute("pageInfo", new PageInfo<School>(school));
 		request.setAttribute("schoolName", schoolName);
 		return "modules/sys/school/school_manage_query";

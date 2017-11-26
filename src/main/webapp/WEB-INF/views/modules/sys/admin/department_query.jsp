@@ -7,17 +7,20 @@
 	<div class="navExplain">
 		<span>系·专业·班级管理</span>
 	</div>
+	<c:forEach items="${school}"  var="school" >
 	<div class="classCount">
-		<span>${Department.departName}</span>&nbsp;&nbsp;共有<span>${Department.departNum}</span>个系，<span>${Department.proNum}</span>个专业，<span>${Department.gradeNum}</span>个班级!
+		<%-- <span class="levelName" departId="1" departLevel="0">${Department.departName}</span> --%>
+		<span>学校名称：${school.schoolName}</span>&nbsp;&nbsp;共有<span>${Department.departNum}</span>个系，<span>${Department.proNum}</span>个专业，<span>${Department.gradeNum}</span>个班级!
 	</div>
 	<div class="level">
 		<div class="schoolName levelExplain clearfix">
-			<span class="levelName" departId="1" departLevel="0">学校名称：${Department.departName}</span>
+			
 			<span class="levelHandle mb8" style="display:inline-block;">
 				<a href="javascript:;" class="addDepart">添加系</a>
 				<a href="javascript:;" class="editDepart">编辑</a>
 			</span>
 		</div>
+		<%-- <c:forEach items="${departList}"  var="depart1" > --%>
 		<c:forEach items="${departList}"  var="depart1" >
 		<c:if test="${depart1.parentId eq '1' }">
 		<div class="level1 levels">
@@ -60,6 +63,7 @@
 		</c:if>
 		</c:forEach>
 	</div>
+	</c:forEach>
 	<!-- 结束 -->
 	<!-- 系、专业、班级编辑框 -->
 	<div class="classEditBox">

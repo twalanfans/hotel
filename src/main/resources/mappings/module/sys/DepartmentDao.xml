@@ -21,13 +21,17 @@
 	</select>
 			
 	<select id="findAllList" parameterType="Department" resultType="Department">
-			SELECT
+		SELECT
 			<include refid="departData"/>
-		FROM hotel_department a
+		FROM hotel_department a 
 	</select>
 	
 	<select id="getDepartNum" resultType="Department">
-		SELECT (SELECT depart_name FROM hotel_department WHERE level='0') AS "departName",(SELECT COUNT(1) FROM hotel_department WHERE level='1') AS "departNum",(SELECT COUNT(1) FROM hotel_department WHERE level='2') AS "proNum",(SELECT COUNT(1) FROM hotel_department WHERE level='3') AS "gradeNum"  FROM hotel_department LIMIT 1
+		SELECT 	(SELECT depart_name FROM hotel_department WHERE level='0') AS "departName",
+				(SELECT COUNT(1) FROM hotel_department WHERE level='1') AS "departNum",
+				(SELECT COUNT(1) FROM hotel_department WHERE level='2') AS "proNum",
+				(SELECT COUNT(1) FROM hotel_department WHERE level='3') AS "gradeNum"  
+		FROM hotel_department LIMIT 1
 	</select>
 			
 	<!-- 管理员对部门数据增加 -->	

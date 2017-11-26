@@ -27,6 +27,11 @@ public class SchoolService {
 		List<School> userList = sDao.querySchoolList(s);
 		return userList;
 	}
+	public static List<School> queryAllSchool(){
+		SchoolDao sDao = SpringContextHolder.getBean(SchoolDao.class);
+		List<School> userList = sDao.queryAllSchool();
+		return userList;
+	}
 	
 	public static int deleteSchool(String schoolId){
 		SchoolDao sDao = SpringContextHolder.getBean(SchoolDao.class);

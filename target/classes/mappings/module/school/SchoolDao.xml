@@ -4,13 +4,22 @@
 
 	<select id="querySchoolList" resultType="School" parameterType="School">
 		SELECT		a.school_id,
-						a.school_name,
-						(select count(1) from key_code where school_id = a.school_id) AS "codeNum"
-		FROM school a
+					a.school_name,
+					(select count(1) from key_code where school_id = a.school_id) AS "codeNum"
+		FROM 		school a 
+		LEFT JOIN 	hotel_department b ON a.school_id = b.school_id
 		WHERE 1=1
 		<if test="schoolName !='' and schoolName !=null">
 			AND a.school_name LIKE CONCAT('%', #{schoolName},'%')
 		</if>
+	</select>
+	
+	<select id="queryAllSchool" resultType="School" >
+		SELECT		*
+		FROM 			school a 
+		LEFT JOIN 	hotel_department b
+		ON 			a.school_id = b.school_id
+		
 	</select>
 	
 	<delete id="deleteById">
