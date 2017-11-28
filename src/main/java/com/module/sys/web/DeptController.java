@@ -52,13 +52,16 @@ public class DeptController extends BaseController{
 		List<School> school = SchoolService.queryAllSchool();
 		request.setAttribute("school", school);
 		for (School school2 : school) {
-			System.out.println("school------"+school2);
+			System.out.println("school------"+school2.getSchoolId());
 		}
 		
 		
 		DeptManageService deptManageService = new DeptManageService();
-		List departList = deptManageService.showAllDepart();
-		System.out.println("departList------"+departList);//depart_name
+		List<Department> departList = deptManageService.showAllDepart();
+		for (Department object : departList) {
+			System.out.println("departList------"+object);//depart_name
+		}
+		
 		Department departNum = deptManageService.getDepartNum();
 		request.setAttribute("departList", departList);
 		request.setAttribute("Department", departNum);
@@ -74,8 +77,10 @@ public class DeptController extends BaseController{
 	public String insertDepart(HttpServletRequest request,HttpServletResponse response){
 		String departId = request.getParameter("departId")==null?"":request.getParameter("departId");
 		String departName = request.getParameter("departName")==null?"--":request.getParameter("departName");
+		System.out.println("departName------"+departName);
 		String level = request.getParameter("level")==null?"":request.getParameter("level");
 		String schoolId = request.getParameter("schoolId")==null?"":request.getParameter("schoolId");
+		System.out.println("schoolId------"+schoolId);
 		Department department = new Department();
 			department.setCreateUser(UserUtils.getUser().toString());
 			department.setCreateTime(DateUtils.getDateTime());
@@ -133,6 +138,7 @@ public class DeptController extends BaseController{
 	@RequestMapping(value="depart/updateDepart")
 	public String update(HttpServletRequest request,HttpServletResponse response){
 		String departId = request.getParameter("departId");	
+		System.out.println("departId------"+departId);
 		String departName = request.getParameter("departName");	
 		try {
 			Department department = new Department();

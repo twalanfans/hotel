@@ -11,7 +11,8 @@
 		a.create_time,
 		a.update_by,
 		a.update_time,
-		a.remark
+		a.remark,
+		a.school_id
 	</sql>
 	
 	<select id="get" resultType="Department">
@@ -36,8 +37,8 @@
 			
 	<!-- 管理员对部门数据增加 -->	
 	<insert id="insertAndReturn"  parameterType="Department" useGeneratedKeys="true" keyProperty="departId">
-			INSERT INTO hotel_department(parent_id , level , depart_name , create_by , create_time )
-			VALUES ( #{parentId}, #{level} , #{departName} , #{createUser} , #{createTime} )
+			INSERT INTO hotel_department(parent_id , level , depart_name , create_by , create_time,school_Id )
+			VALUES ( #{parentId}, #{level} , #{departName} , #{createUser} , #{createTime},#{schoolId} )
 	</insert>
 	
 	<!-- 删除部门 -->

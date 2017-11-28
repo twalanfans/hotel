@@ -7,16 +7,42 @@
 					a.school_name,
 					(select count(1) from key_code where school_id = a.school_id) AS "codeNum"
 		FROM 		school a 
-		LEFT JOIN 	hotel_department b ON a.school_id = b.school_id
-		WHERE 1=1
+		
 		<if test="schoolName !='' and schoolName !=null">
 			AND a.school_name LIKE CONCAT('%', #{schoolName},'%')
 		</if>
 	</select>
-	
-	<select id="queryAllSchool" resultType="School" >
-		SELECT		*
-		FROM 			school a 
+	<resultMap type="School" id="Map">
+    	<id column="aschoolId" property="schoolId"/>
+    	<result column="aschoolName" property="schoolName"/>
+    	<collection property="department" ofType="Department">
+    		<id column="bdepartId" property="departId"/>
+    		<result column="bparentId" property="parentId"/>
+    		<result column="bdepartName" property="departName"/>
+    		<result column="blevel" property="level"/>
+    		<result column="bcreateBy" property="createUser"/>
+    		<result column="bcreateTime" property="createTime"/>
+    		<result column="bupdateTime" property="updateTime"/>
+    		<result column="bupdateBy" property="updateUser"/>
+    		<result column="bremark" property="remark"/>
+    		<result column="bschoolId" property="schoolId"/>
+    	</collection>
+    </resultMap>
+	<select id="queryAllSchool" resultMap="Map" >
+		SELECT		a.school_id aschoolId,
+					a.school_name aschoolName,
+					
+					b.depart_id bdepartId,
+					b.parent_id bparentId,
+					b.depart_name bdepartName,
+					b.level blevel,
+					b.create_by bcreateBy,
+					b.create_time bcreateTime,
+					b.update_time bupdateTime,
+					b.update_by bupdateBy,
+					b.remark bremark,
+					b.school_id bschoolId
+		FROM 		school a 
 		LEFT JOIN 	hotel_department b
 		ON 			a.school_id = b.school_id
 		

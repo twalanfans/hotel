@@ -3,13 +3,7 @@
  */
 package com.module.sys.entity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.common.persistence.DataEntity;
-import com.module.sys.utils.UserUtils;
 
 /**
  * 机构部门Entity
@@ -19,6 +13,7 @@ import com.module.sys.utils.UserUtils;
 public class Department extends DataEntity<Department>{
 
 	private static final long serialVersionUID = 1L;
+	
 	private String departId;  //  部门Id
 	private String parentId;  //  父部门ID
 	private String departName;  //  部门名称
@@ -31,7 +26,7 @@ public class Department extends DataEntity<Department>{
 	private String createTime;	// 创建日期
 	private String updateUser;	// 更新者
 	private String updateTime;	// 更新日期
-	private String schoolId;	//学校ID
+	private String schoolId;  //学校ID
 	public Department(){
 		super();
 	}
@@ -145,7 +140,13 @@ public class Department extends DataEntity<Department>{
 
 	@Override
 	public String toString() {
-		return departName;
+		return "Department [departId=" + departId + ", parentId=" + parentId
+				+ ", departName=" + departName + ", level=" + level
+				+ ", departNum=" + departNum + ", proNum=" + proNum
+				+ ", gradeNum=" + gradeNum + ", remark=" + remark
+				+ ", createUser=" + createUser + ", createTime=" + createTime
+				+ ", updateUser=" + updateUser + ", updateTime=" + updateTime
+				+ ", schoolId=" + schoolId + "]";
 	}
 
 
