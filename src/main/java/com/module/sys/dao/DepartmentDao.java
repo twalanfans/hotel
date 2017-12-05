@@ -5,6 +5,8 @@ package com.module.sys.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.common.persistence.CrudDao;
 import com.common.persistence.annotation.MyBatisDao;
 import com.module.sys.entity.Department;
@@ -25,7 +27,10 @@ public interface DepartmentDao extends CrudDao<Department> {
 	public int insertAndReturn(Department department);
 	
 	public Department getDepartNum();
-	
+	/**
+	 * 
+	 */
+	public List<Department> queryDepartment(@Param("schoolId")String schoolId);
 	/**
 	 * 部门信息插入
 	 * @author yuanzhonglin

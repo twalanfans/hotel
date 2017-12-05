@@ -36,6 +36,9 @@
 		//选中的部门或班级ID
 		departId : '',
 		
+		//选中的学校
+		regSchoolId : '',
+		
 		//邮箱
 		email : document.getElementById('email'),
 		emailVal : '',
@@ -90,10 +93,11 @@
 			this.SmsValidate = registOptions.SmsValidate;
 			this.registerUser = registOptions.registerUser;
 			this.toLogin = registOptions.toLogin;
+			this.regSchoolId=registOptions.regSchoolId;
 			this.chooseUserType();
 			this.chooseDepart();
 			this.blurValidate();
-			this.getCode();
+			/*this.getCode();*/
 			this.toRegist();
 		},
 		
@@ -140,26 +144,26 @@
 			}.bind(hotelRegist);
 			
 			//下拉菜单伸缩
-			$(".xi").click(function(){
+			$(".departOption ").on('click','.xi',function(){
 				$(this).siblings('.xi').find('.zys').stop(true).slideUp('slow');
 				$(this).find(".zys").stop(true).slideDown('slow');	
 			});
-			$(".zy").click(function(){
+			$(".departOption").on('click','.zy',function(){
 				$(this).siblings('.zy').find('.bj').stop(true).slideUp('slow');
 				$(this).find('.bj').stop(true).slideDown("slow");
 			});
-			$(".bj input").click(function(){
+			$(".departOption").on('click','.bj input',function(){
 				$("#chooseDepart").val($(this).parents(".zys").siblings("span").html()+"-"+$(this).parents(".bj").siblings("span").html()+"-"+$(this).siblings("span").html());
 				$(".departOption,#clear").addClass('hide').removeClass('show');
 			});
-			$(".xiInpt").change(function(){
+			$(".departOption").on('change','.xiInpt',function(){
 				$("#chooseDepart").val($(this).siblings("span").html());
 				$(".departOption,#clear").addClass('hide').removeClass('show');
-			})
-			$(".zyInpt").change(function(){
+			});
+			$(".departOption").on('change','.zyInpt',function(){
 				$("#chooseDepart").val($(this).parents(".zys").siblings("span").html()+"-"+$(this).siblings("span").html());
 				$(".departOption,#clear").addClass('hide').removeClass('show');
-			})
+			});
 		},
 		
 		//鼠标失去焦点做格式验证
@@ -171,7 +175,7 @@
 					alert('姓名最多5个汉字！');
 					this.blur();
 				}
-			}
+			};
 			This.loginName.onblur = function(){
 				var loginNamePrompt = document.getElementById('loginNamePrompt');
 				if(!(This.regLoginName).test(this.value)){
@@ -198,35 +202,35 @@
 						}
 					}
 				 });
-			}
+			};
 			This.password.onblur = function(){
 				This.passwordVal = this.value;
 				if(!(This.regPassword).test(this.value)){
 					alert('密码必须大于8位数,且同时包含数字+大小写字母+下划线！');
 					this.blur();
 				}
-			}
+			};
 			This.checkPwd.onblur = function(){
 				This.checkPwdVal = this.value;
 				if(!(This.regPassword).test(this.value) || this.value !== This.passwordVal){
 					alert('两次输入的密码不一致，请重新输入！');
 					this.blur();
 				}
-			}
+			};
 			This.sex.onchange = function(){
 				hotelRegist.sexVal = this.value;
 				if(this.value == '2'){
 					alert('请选择性别！');
 					this.blur();
 				}
-			}
+			};
 			This.email.onblur = function(){
 				This.emailVal = this.value;
 				if(!(This.regEmail).test(this.value)){
 					alert('邮箱格式不正确，请重新输入！');
 					this.blur();
 				}
-			}
+			};
 		},
 		
 		//获取验证码
@@ -257,7 +261,7 @@
 			}
 		},*/
 		//获取验证码
-		getCode : function(){
+		/*getCode : function(){
 			hotelRegist.validateCode.onkeyup = function(){
 				this.value = this.value.replace(/\D/g, '');
 			}
@@ -303,7 +307,7 @@
 			clearInterval(hotelRegist.countTimer);
 			hotelRegist.codeBtn.disabled = false;
 			hotelRegist.codeBtn.value = '获取验证码';
-		},
+		},*/
 		
 		//点击注册
 		toRegist : function(){
@@ -360,16 +364,16 @@
 					alert('邮箱格式不正确，请重新输入！');
 					return false;
 				}
-				if(hotelRegist.validateCode.value == '' || hotelRegist.validateCodeVal != hotelRegist.validateCode.value){
+				/*if(hotelRegist.validateCode.value == '' || hotelRegist.validateCodeVal != hotelRegist.validateCode.value){
 					alert('验证码不正确，请重新输入！');
 					return false;
-				}
+				}*/
 				$.ajax({
 					type : "POST",
 					url : hotelRegist.registerUser,
 					data : "userName="+hotelRegist.userNameVal+"&loginName="+hotelRegist.loginNameVal
 							+"&email="+hotelRegist.emailVal+"&password="+hotelRegist.passwordVal+"&departId="+hotelRegist.departId+"&userType="+hotelRegist.userTypeVal
-							+"&sex="+hotelRegist.sexVal,
+							+"&sex="+hotelRegist.sexVal+"&schoolId="+hotelRegist.regSchoolId,
 					dataType : 'json',
 					cache : false,
 					success:function(data){

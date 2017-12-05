@@ -97,9 +97,9 @@
 	
 	<insert id="insertUser" parameterType="User">
 			INSERT INTO hotel_user(user_id, login_name,password,depart_id,
-				user_type,create_time,status)
+				user_type,create_time,status,schoolId)
 			VALUES(#{userId},#{loginName},#{password},#{departId},
-				#{userType},#{createTime},'1') 	
+				#{userType},#{createTime},'1',#{schoolId}) 	
 	</insert>
 	
 	<select id="queryUserByRole" parameterType="UserDetail" resultType="UserDetail" >

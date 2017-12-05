@@ -51,16 +51,9 @@ public class DeptController extends BaseController{
 		
 		List<School> school = SchoolService.queryAllSchool();
 		request.setAttribute("school", school);
-		for (School school2 : school) {
-			System.out.println("school------"+school2.getSchoolId());
-		}
-		
 		
 		DeptManageService deptManageService = new DeptManageService();
 		List<Department> departList = deptManageService.showAllDepart();
-		for (Department object : departList) {
-			System.out.println("departList------"+object);//depart_name
-		}
 		
 		Department departNum = deptManageService.getDepartNum();
 		request.setAttribute("departList", departList);
@@ -144,7 +137,7 @@ public class DeptController extends BaseController{
 			Department department = new Department();
 			DeptManageService deptManageService = new DeptManageService();
 			department.setUpdateTime(DateUtils.getDateTime()); 
-			department.setUpdateBy(UserUtils.getUser());
+			//department.setUpdateBy(UserUtils.getUser());
 			department.setDepartId(departId);
 			department.setDepartName(departName);
 			deptManageService.update(department);

@@ -28,7 +28,8 @@ define(['app', 'angularAMD', 'truncateFil', 'dateFil'], function(app, angularAMD
 			url : '/teacherCourse/{pageNum}',
 			templateUrl : function($routeParams){
 				var courseName=$("#courseName").val()==undefined ?"":$("#courseName").val();
-				return 'course/teacherCoursePage?courseName='+courseName+'&page='+$routeParams.pageNum;
+				var schoolId = "0";
+				return 'course/teacherCoursePage?courseName='+courseName+'&page='+$routeParams.pageNum+'&schoolId='+schoolId;
 			},
 			controllerUrl : 'myCtr'
 		}))

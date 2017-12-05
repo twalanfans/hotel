@@ -1,28 +1,34 @@
 package com.module.sys.web;
 
+import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.common.config.Global;
+import com.common.mapper.JsonMapper;
 import com.common.utils.DateUtils;
 import com.common.utils.IdGen;
 import com.common.web.BaseController;
+import com.module.owncenter.entity.School;
+import com.module.owncenter.service.SchoolService;
 import com.module.sys.entity.Department;
-import com.module.sys.entity.Role;
 import com.module.sys.entity.User;
 import com.module.sys.entity.UserDetail;
 import com.module.sys.service.DeptManageService;
-import com.module.sys.service.MailCheckService;
 import com.module.sys.service.RegisterService;
-import com.module.sys.service.RoleManageService;
 import com.module.sys.service.SystemService;
 
 /**
@@ -40,16 +46,109 @@ public class RegisterController extends BaseController{
 	@Autowired
 	private SystemService systemService;
 	
+	
 	//  跳转到注册页面
 	@SuppressWarnings("static-access")
 	@RequestMapping(value="/register")
 	public String toRegister(HttpServletRequest request){
 		DeptManageService dept = new DeptManageService();
+		SchoolService schoolService = new SchoolService();
+		List<School> SchoolList = schoolService.queryAllSchool();
+		for (School school : SchoolList) {
+			System.out.println("school------"+school);
+		}
 		List<Department> departList = dept.showAllDepart();
+		System.out.println("departList------"+departList);
+		request.setAttribute("school", SchoolList);
 		request.setAttribute("departList", departList);
 		return "modules/sys/sysRegist2";
 	}
-	
+	/**
+	 * 学校部门联动查询
+	 * @throws Exception 
+	 */
+	@SuppressWarnings("static-access")
+	@RequestMapping(value="/departmentQuery",method=RequestMethod.POST)
+	@ResponseBody
+	public void SchoolToDepartment(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		String schoolId = request.getParameter("schoolId");
+		System.out.println("schoolId------"+schoolId);
+		DeptManageService deptManageService = new DeptManageService();
+		List<Department> departList = deptManageService.queryDepartmentBySchoolId(schoolId);
+		System.out.println("department------"+departList);
+		//request.setAttribute("departList", departList);
+		/*
+		 * [
+	        {
+	            "departId": "53",
+	            "departName": "清华园",
+	            "parentId":"1",
+	            "department": [
+	                {
+	                    "departId": "57",
+	                    "departName": "清华园1",
+	                    "parentId":"53",
+	                    "department": [
+	                        {
+	                            "departId": "99",
+	                            "departName": "清华园12",
+	                            "parentId": "57"
+	                        },
+	                        {
+	                            "departId": "98",
+	                            "departName": "清华园13",
+	                            "parentId": "57"
+	                        }
+	                    ]
+	                },
+	                {
+	                    "departId": "58",
+	                    "departName": "清华园2",
+	                    "parentId":"53",
+	                    "department": [
+	                        {
+	                            "departId": "97",
+	                            "departName": "清华园22",
+	                            "parentId": "58"
+	                        },
+	                        {
+	                            "departId": "96",
+	                            "departName": "清华园23",
+	                            "parentId": "58"
+	                        }
+	                    ]
+	                }
+	            ]
+	        }
+		]
+		*/
+		
+		List<Department> xi = new ArrayList<Department>();//系
+		List<Department> zy = new ArrayList<Department>();//专业
+		List<Department> bj = new ArrayList<Department>();//班级
+		for (int i = 0; i < departList.size(); i++) {
+			if(departList.get(i).getLevel().equals("1")){
+				departList.get(i).setDepartment(zy);
+				xi.add(departList.get(i));
+				
+			}
+			if(departList.get(i).getLevel().equals("2")){
+				departList.get(i).setDepartment(bj);
+				zy.add(departList.get(i));
+				
+			}
+			if(departList.get(i).getLevel().equals("3")){
+				bj.add(departList.get(i));
+			}
+		}
+		//转json
+		String jsonString = JsonMapper.toJsonString(xi);
+		System.out.println("jsonString------"+jsonString);
+		//输出
+		PrintWriter out = response.getWriter();
+		out.print(jsonString);	
+		
+	}
 	/**
 	 * 注册校验手机是否已注册
 	 * @author yuanzhonglin
@@ -57,6 +156,7 @@ public class RegisterController extends BaseController{
 	 */
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/checkPhone")
+	
 	public String checkLoginName(HttpServletRequest request,HttpServletResponse response){
 		String loginName = request.getParameter("loginName");
 		String use = "";
@@ -83,6 +183,8 @@ public class RegisterController extends BaseController{
 	@RequestMapping(value="/registeruser",method = RequestMethod.POST)
 	public  String registerSuccess(HttpServletRequest request, HttpServletResponse response){
 		String userType = request.getParameter("userType").toString();
+		String schoolId = request.getParameter("schoolId");
+		System.out.println("schoolId验证------"+schoolId);
 		//  分别调用对象
 		User user = this.translateRequestToUser(request);
 		UserDetail userDetail = this.translateRequestToUserDetail(request);
@@ -114,6 +216,9 @@ public class RegisterController extends BaseController{
 		user.setPassword(new SystemService().entryptPassword( request.getParameter("password")));  //生成密文密码
 		user.setUserType(request.getParameter("userType")); //用户类型
 		user.setDepartId(request.getParameter("departId"));//所在部门
+		user.setSchoolId(request.getParameter("schoolId"));
+		
+		System.out.println("schoolId注册------"+request.getParameter("schoolId"));
 		return user;
 	}
 	private UserDetail translateRequestToUserDetail(HttpServletRequest request){

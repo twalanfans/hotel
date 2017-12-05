@@ -20,6 +20,13 @@
 			<include refid="departData"/>
 		FROM hotel_department a
 	</select>
+	
+	<select id="queryDepartment" resultType="Department">
+		SELECT
+			<include refid="departData"/>
+		FROM hotel_department a
+		WHERE a.school_id = #{schoolId}
+	</select>
 			
 	<select id="findAllList" parameterType="Department" resultType="Department">
 		SELECT

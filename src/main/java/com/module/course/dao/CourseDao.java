@@ -23,6 +23,6 @@ public interface CourseDao extends CrudDao<Course>{
 	public int insertCourse(Course course);
 	@SuppressWarnings("rawtypes")
 	public List checkIsExist();
-	public List<Course> queryCommonCourse(Course course);
+	public List<Course> queryCommonCourse(Course course);//查询本校课程
 	public List<Course> queryCourseByUserId(Course course);
 }

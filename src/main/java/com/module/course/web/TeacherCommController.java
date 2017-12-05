@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.common.utils.FileOperateUtil;
+import com.common.utils.SpringContextHolder;
 import com.common.utils.WeekdayUtils;
 import com.common.web.BaseController;
 import com.github.pagehelper.PageInfo;
@@ -24,7 +25,10 @@ import com.module.course.service.CourseFileattachService;
 import com.module.course.service.CourseManageService;
 import com.module.course.util.CourseUtils;
 import com.module.owncenter.service.StudentManageService;
+import com.module.sys.dao.UserDao;
+import com.module.sys.dao.UserDetailDao;
 import com.module.sys.entity.Role;
+import com.module.sys.entity.User;
 import com.module.sys.entity.UserDetail;
 import com.module.sys.service.RoleManageService;
 import com.module.sys.utils.QuestionTypeEnum;
@@ -50,6 +54,7 @@ public class TeacherCommController extends BaseController{
 	@Autowired
 	private CourseFileattachService courseFileattachService;
 	
+	
 	/**
 	 * 教师登录默认首页
 	 */
@@ -72,9 +77,20 @@ public class TeacherCommController extends BaseController{
 	@RequestMapping(value="${adminPath}/commResourse/teacherCoursePage")
 	public String queryTeacherCommCourse(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		String courseName = request.getParameter("courseName")==null?"": request.getParameter("courseName");
+		System.out.println("UserUtils里面------"+UserUtils.getUser().toString());//只返回一个UserId
+		
+		UserDao userDao = SpringContextHolder.getBean(UserDao.class);
+		User user2 = new User();
+		user2.setUserId(UserUtils.getUser().toString());
+		User user = userDao.findUserByUserId(user2);
+		String schoolId = user.getSchoolId();
+		System.out.println("查出来的学校ID------"+schoolId);
+		
 		courseName=new String(courseName.getBytes("ISO8859_1"),"UTF-8");
 		Course course = new Course();
-			course.setCourseName(courseName);
+		course.setCourseName(courseName);
+		course.setSchoolId(schoolId);
+		System.out.println("course------"+course);
 		List<Course> list = courseManageService.queryTeacherCommCourse("1",course);
 		request.setAttribute("pageInfo", new PageInfo<Course>(list));
 		return "modules/sys/teacher/commresource/teacher_comm_course";
@@ -97,6 +113,7 @@ public class TeacherCommController extends BaseController{
 				testQuestion.setCourseId(courseId);
 				testQuestion.setType(questionType);
 			List<TestQuestion> quetionList = testOnlineService.queryCommonQuestion(testQuestion);
+			System.out.println("questionList------"+quetionList);
 			List quesType = TranslateUtil.questionTranslate();
 			request.setAttribute("questionType", quesType);
 			request.setAttribute("selectType", questionType);
@@ -108,9 +125,19 @@ public class TeacherCommController extends BaseController{
 			courseFile.setFileName(fileName);
 			courseFile.setStatus("1");
 			List<CourseFile> list  = courseFileService.courseFileListByCourseId(courseFile);
+			System.out.println("courseFileListByCourseId------"+list);
 			request.setAttribute("pageInfo", new PageInfo<CourseFile>(list));
 		}
-		List courseList = courseManageService.queryTeacherCommCourse("0",null);
+		UserDao userDao = SpringContextHolder.getBean(UserDao.class);
+		User user2 = new User();
+		user2.setUserId(UserUtils.getUser().toString());
+		User user = userDao.findUserByUserId(user2);
+		String schoolId = user.getSchoolId();
+		System.out.println("查出来的学校ID2------"+schoolId);
+		Course course = new Course();
+		course.setSchoolId(schoolId);
+		List courseList = courseManageService.queryTeacherCommCourse("0",course);
+		System.out.println("courseList------"+courseList);
 		request.setAttribute("courseList", courseList);
 		request.setAttribute("courseId", courseId);
 		request.setAttribute("courseType", courseType);

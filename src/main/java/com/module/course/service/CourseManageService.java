@@ -2,11 +2,13 @@ package com.module.course.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.noo.pagination.page.PageContext;
 import org.noo.pagination.page.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.common.models.Page;
 import com.common.utils.SpringContextHolder;
 import com.github.pagehelper.PageHelper;
@@ -16,6 +18,8 @@ import com.module.course.dao.CourseNoteDao;
 import com.module.course.entity.Course;
 import com.module.course.entity.CourseNotes;
 import com.module.course.util.CourseUtils;
+import com.module.sys.dao.UserDao;
+import com.module.sys.entity.User;
 import com.module.sys.utils.UserUtils;
 
 /**
@@ -95,6 +99,14 @@ public class CourseManageService {
 	
 	@Transactional(readOnly=false)
 	public static int createCourse(Course course){
+		System.out.println("courseManagerService中------"+course);
+		UserDao userDao = SpringContextHolder.getBean(UserDao.class);
+		User user2 = new User();
+		user2.setUserId(UserUtils.getUser().toString());
+		User user = userDao.findUserByUserId(user2);
+		String schoolId = user.getSchoolId();
+		System.out.println("courseManagerService中查出来的学校ID------"+schoolId);
+		course.setSchoolId(schoolId);
 		CourseUtils cu =new CourseUtils();
 		int ret = cu.insertCourse(course);
 		return ret;

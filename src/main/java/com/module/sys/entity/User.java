@@ -118,5 +118,5 @@ public class User extends DataEntity<User> {
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
-
+	
 }

@@ -23,11 +23,27 @@ public class Course extends DataEntity<Course> {
 	private String playTime; //播放时长
 	private String imgpath; // 图片url
 	private Timestamp createTime; // 课程添加时间
-	private String status; // 状态
+	private String status;  // 状态
 	private String fileName; // 文件名称
 	private String isCommon;  //是否是公共资源 1：是 0:不是
 	private String name;//知识点批量文件名称
+	private String departId;//部门名称
+	private String schoolId;
 	
+	
+	
+	public String getSchoolId() {
+		return schoolId;
+	}
+	public void setSchoolId(String schoolId) {
+		this.schoolId = schoolId;
+	}
+	public String getDepartId() {
+		return departId;
+	}
+	public void setDepartId(String departId) {
+		this.departId = departId;
+	}
 	public Course(){
 	}
 	public Course(String userId){
@@ -123,4 +139,17 @@ public class Course extends DataEntity<Course> {
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Override
+	public String toString() {
+		return "Course [courseId=" + courseId + ", userId=" + userId
+				+ ", courseName=" + courseName + ", teacherId=" + teacherId
+				+ ", teacherName=" + teacherName + ", courseType=" + courseType
+				+ ", introduce=" + introduce + ", timelong=" + timelong
+				+ ", playTime=" + playTime + ", imgpath=" + imgpath
+				+ ", createTime=" + createTime + ", status=" + status
+				+ ", fileName=" + fileName + ", isCommon=" + isCommon
+				+ ", name=" + name + ", departId=" + departId + ", schoolId="
+				+ schoolId + "]";
+	}
+	
 }

@@ -3,6 +3,8 @@
  */
 package com.module.sys.entity;
 
+import java.util.List;
+
 import com.common.persistence.DataEntity;
 
 /**
@@ -10,6 +12,7 @@ import com.common.persistence.DataEntity;
  * @author yuanzhonglin
  * @date 2016-6-21
  */
+
 public class Department extends DataEntity<Department>{
 
 	private static final long serialVersionUID = 1L;
@@ -27,6 +30,19 @@ public class Department extends DataEntity<Department>{
 	private String updateUser;	// 更新者
 	private String updateTime;	// 更新日期
 	private String schoolId;  //学校ID
+	private List<Department> department;//做json用
+	
+	
+	public List<Department> getDepartment() {
+		return department;
+	}
+
+
+	public void setDepartment(List<Department> department) {
+		this.department = department;
+	}
+
+
 	public Department(){
 		super();
 	}

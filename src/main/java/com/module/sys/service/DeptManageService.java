@@ -37,6 +37,21 @@ public class DeptManageService {
 		}
 		return departList;
 	}
+	/**
+	 * 部门列表List
+	 * @return
+	 */
+	@Transactional(readOnly=false)
+	public static List<Department> queryDepartmentBySchoolId(String schoolId){
+		DepartmentDao departmentDao = SpringContextHolder.getBean(DepartmentDao.class);
+		List<Department> departList =null;
+		try {
+			departList = departmentDao.queryDepartment(schoolId);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return departList;
+	}
 
 	/**
 	 * 部门增加

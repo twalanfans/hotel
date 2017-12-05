@@ -11,7 +11,8 @@
 		a.lastlogin_ip,
 		a.lastlogin_time,
 		a.status,
-		a.create_time
+		a.create_time,
+		a.schoolId
     </sql>
 	
 	<select id="get" resultType="User">
@@ -75,10 +76,8 @@
 	
 	<!-- 用户注册时,保存用户信息 -->
 	<insert id="insert">
-		insert into hotel_user(user_id, login_name,password,depart_id,
-				user_type,create_time,status)
-		values(#{userId},#{loginName},#{password},#{departId},
-				#{userType},#{createTime},#{status}) 
+		insert into hotel_user(user_id, login_name,password,depart_id,user_type,create_time,status,schoolId)
+		values(#{userId},#{loginName},#{password},#{departId},#{userType},#{createTime},#{status},#{schoolId}) 
 	</insert>
 	
 	<!-- 删除用户 -->

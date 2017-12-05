@@ -169,7 +169,7 @@ public class SystemService extends BaseService {
 	public static boolean printKeyLoadMessage(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("\r\n======================================================================\r\n");
-		sb.append("\r\n    欢迎使用hotel酒店管理服务系统");
+		sb.append("\r\n    						欢迎使用hotel酒店管理服务系统");
 		sb.append("\r\n======================================================================\r\n");
 		System.out.println(sb.toString());
 		return true;

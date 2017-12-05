@@ -43,6 +43,6 @@ public interface UserDetailDao extends CrudDao<UserDetail>{
 	
 	public int delete(User user);
 	
-	List<UserDetail> fetchUserDetailByUserId(@Param("userId")String userId);
+	public User fetchUserDetailByUserId(@Param("userId")String userId);
 	
 }

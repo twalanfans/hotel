@@ -32,8 +32,7 @@ public class RegisterService extends BaseService {
 	// 保存用户注册信息
 	@Transactional(readOnly = false)
 	public void saveUser(User user, UserDetail userDetail) {
-		UserDetailDao userDetailDao = SpringContextHolder
-				.getBean(UserDetailDao.class);
+		UserDetailDao userDetailDao = SpringContextHolder.getBean(UserDetailDao.class);
 		userDao.insert(user); // 注册用户
 		userDetailDao.insertUserDetail(userDetail); // 保存用户详情
 	}

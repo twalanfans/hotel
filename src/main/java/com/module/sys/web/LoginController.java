@@ -126,7 +126,7 @@ public class LoginController extends BaseController{
 		String indexUrl = "modules/sys/sysLogin";
 		if (userType.equals("0")) { 		//管理员
 			indexUrl = "modules/sys/system_admin_manage";
-		} else if(userType.equals("1")){ 		//学生
+		}else if(userType.equals("1")){ 		//学生
 			indexUrl = "modules/sys/system_student_manage";
 		}else if(userType.equals("2")){ 		//老师
 			indexUrl = "modules/sys/system_teacher_manage";

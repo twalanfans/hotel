@@ -45,6 +45,7 @@
 		FROM 		school a 
 		LEFT JOIN 	hotel_department b
 		ON 			a.school_id = b.school_id
+		WHERE 		a.school_id != "0"
 		
 	</select>
 	
