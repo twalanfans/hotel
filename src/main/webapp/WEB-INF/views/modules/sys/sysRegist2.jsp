@@ -36,7 +36,6 @@
 					
     				<div>
 					<select  class="regSchool"  ng-change="selSchool()" ng-model="schoolValue">
-						<option value="0" >--请选择系、专业以及班级--</option>
 						<c:forEach items="${school}"  var="school"  varStatus="idxStatus">
 							<option value="${school.schoolId}" >${school.schoolName}</option>
     					</c:forEach>
@@ -107,8 +106,9 @@ hotelRegist.init({
 	//emailValidate : '${contextPath}/emailValidate',//邮箱验证码url
 	SmsValidate : '${contextPath}/SmsValidate',//手机验证码url
 	registerUser : '${contextPath}/registeruser',//提交注册信息url
-	toLogin : '${ctx}/login',//注册成功跳转到登录页面url
-	regSchoolId:$('.regSchool').val()
+	regSchoolId:$('.regSchool').val(),
+	toLogin : '${ctx}/login'//注册成功跳转到登录页面url
+	
 });
 	var publicPath = '${ctxStatic}/js/';
 </script>
@@ -117,7 +117,8 @@ hotelRegist.init({
 <script type="text/javascript">
 var userRegist=angular.module('userRegist', []);
 userRegist.controller('userCtr', ['$scope','$http', function($scope,$http) {
-	$scope.schoolValue=0;
+	console.log("$scope.schoolValue------"+$scope.schoolValue);
+	console.log("$('.regSchool').val()------"+$('.regSchool').val());
 	//第一次访问
 	$http({
 			url:'${contextPath}/departmentQuery',

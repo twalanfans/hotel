@@ -217,8 +217,6 @@ public class RegisterController extends BaseController{
 		user.setUserType(request.getParameter("userType")); //用户类型
 		user.setDepartId(request.getParameter("departId"));//所在部门
 		user.setSchoolId(request.getParameter("schoolId"));
-		
-		System.out.println("schoolId注册------"+request.getParameter("schoolId"));
 		return user;
 	}
 	private UserDetail translateRequestToUserDetail(HttpServletRequest request){

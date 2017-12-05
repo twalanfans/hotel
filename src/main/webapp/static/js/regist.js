@@ -368,12 +368,18 @@
 					alert('验证码不正确，请重新输入！');
 					return false;
 				}*/
+				console.log("hotelRegist.regSchoolId---1---"+hotelRegist.regSchoolId);
 				$.ajax({
 					type : "POST",
 					url : hotelRegist.registerUser,
-					data : "userName="+hotelRegist.userNameVal+"&loginName="+hotelRegist.loginNameVal
-							+"&email="+hotelRegist.emailVal+"&password="+hotelRegist.passwordVal+"&departId="+hotelRegist.departId+"&userType="+hotelRegist.userTypeVal
-							+"&sex="+hotelRegist.sexVal+"&schoolId="+hotelRegist.regSchoolId,
+					data : "userName="+hotelRegist.userNameVal+
+							"&loginName="+hotelRegist.loginNameVal+
+							"&email="+hotelRegist.emailVal+
+							"&password="+hotelRegist.passwordVal+
+							"&departId="+hotelRegist.departId+
+							"&userType="+hotelRegist.userTypeVal+
+							"&sex="+hotelRegist.sexVal+
+							"&schoolId="+hotelRegist.regSchoolId,
 					dataType : 'json',
 					cache : false,
 					success:function(data){
