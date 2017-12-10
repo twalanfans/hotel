@@ -31,7 +31,7 @@ public class QuestionOnlineController extends BaseController{
 	@RequestMapping(value="${adminPath}/question/allQuestionOnline")
 	public String allQuestionOnline(HttpServletRequest request) throws Exception{
 		String title = request.getParameter("title")==null?"":request.getParameter("title");
-		title = new String(title.getBytes("ISO8859-1"), "UTF-8");
+		//title = new String(title.getBytes("ISO8859-1"), "UTF-8");
 		String sn = request.getParameter("showNum")==null?"":request.getParameter("showNum");
 		int showNum =15;
 		if(!sn.isEmpty()){
@@ -49,7 +49,7 @@ public class QuestionOnlineController extends BaseController{
 	@RequestMapping(value="${adminPath}/question/myAnswerOnline")
 	public String myAnswerOnline(HttpServletRequest request) throws Exception{
 		String title = request.getParameter("title")==null?"":request.getParameter("title");
-		title = new String(title.getBytes("ISO8859-1"), "UTF-8");
+		//title = new String(title.getBytes("ISO8859-1"), "UTF-8");
 		String sn = request.getParameter("showNum")==null?"":request.getParameter("showNum");
 		int showNum =15;
 		if(!sn.isEmpty()){
@@ -137,7 +137,7 @@ public class QuestionOnlineController extends BaseController{
 		String commentId = request.getParameter("commentId")==null?"":request.getParameter("commentId");
 		String questionId = request.getParameter("questionId");
 		String content = request.getParameter("content"); 
-		content = new String(content.getBytes("ISO8859-1"), "UTF-8");
+		//content = new String(content.getBytes("ISO8859-1"), "UTF-8");
 		try {
 			String userId = UserUtils.getUser().toString();
 			QuestionOnline question = new QuestionOnline();
@@ -176,8 +176,8 @@ public class QuestionOnlineController extends BaseController{
 	
 	@RequestMapping(value="${adminPath}/question/questionOnlinePage")
 	public String showAllQuestion(HttpServletRequest request) throws Exception{
-		String cu = request.getParameter("createUser")==null?"":request.getParameter("createUser");
-		String createUser = new String(cu.getBytes("ISO8859-1"), "UTF-8");
+		String createUser = request.getParameter("createUser")==null?"":request.getParameter("createUser");
+		//String createUser = new String(cu.getBytes("ISO8859-1"), "UTF-8");
 		QuestionOnline question = new QuestionOnline();
 			question.setCreateUser(createUser);
 		List<QuestionOnline> list = questionOnlineService.queryQuestionList(question);
@@ -189,9 +189,9 @@ public class QuestionOnlineController extends BaseController{
 	@RequestMapping(value="${adminPath}/question/commentOnlinePage")
 	public String commentOnline(HttpServletRequest request) throws Exception{
 		String createUser = request.getParameter("createUser")==null?"":request.getParameter("createUser");
-		createUser = new String(createUser.getBytes("ISO8859-1"), "UTF-8");
+		//createUser = new String(createUser.getBytes("ISO8859-1"), "UTF-8");
 		String content = request.getParameter("content")==null?"":request.getParameter("content");
-		content = new String(content.getBytes("ISO8859-1"), "UTF-8");
+		//content = new String(content.getBytes("ISO8859-1"), "UTF-8");
 		QuestionOnline question = new QuestionOnline();
 			question.setCreateUser(createUser);
 			question.setContent(content);

@@ -51,8 +51,8 @@ public class NoticeController extends BaseController {
 	 */
 	@RequestMapping(value="${adminPath}/notice/pubNoticePage")
 	public String pubNotice(HttpServletRequest request) throws Exception{
-		String ti = request.getParameter("title")==null?"":request.getParameter("title");
-		String title = new String(ti.getBytes("ISO8859-1"), "UTF-8");
+		String title = request.getParameter("title")==null?"":request.getParameter("title");
+		//String title = new String(ti.getBytes("ISO8859-1"), "UTF-8");
 		String status = request.getParameter("status")==null?"":request.getParameter("status");   
 		String startTime = request.getParameter("startTime")==null?"":request.getParameter("startTime");   
 		String endTime = request.getParameter("endTime")==null?"":request.getParameter("endTime");   
@@ -75,8 +75,8 @@ public class NoticeController extends BaseController {
 	 */
 	@RequestMapping(value="${adminPath}/common/receiveNoticePage")
 	public String receiveNotice(HttpServletRequest request) throws Exception{
-		String ti = request.getParameter("title")==null?"":request.getParameter("title");
-		String title = new String(ti.getBytes("ISO8859-1"), "UTF-8");
+		String title = request.getParameter("title")==null?"":request.getParameter("title");
+		//String title = new String(ti.getBytes("ISO8859-1"), "UTF-8");
 		String startTime = request.getParameter("startTime")==null?"":request.getParameter("startTime");   
 		String endTime = request.getParameter("endTime")==null?"":request.getParameter("endTime");   
 		Notice notice = new Notice();

@@ -24,7 +24,7 @@
 		SELECT 	DISTINCT
 				<include refid="roleDate"/>
 		FROM 		hotel_role a
-	   	WHERE 	a.create_by =#{userId}
+	   	WHERE 	a.create_by = #{userId}
 	   	ORDER BY a.create_time  DESC
 	</select>
 	

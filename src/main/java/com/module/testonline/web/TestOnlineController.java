@@ -73,7 +73,7 @@ public class TestOnlineController extends BaseController{
 	@RequestMapping(value="${adminPath}/testonline/ajaxGetQuestion",method=RequestMethod.POST)
 	public String getAllquestion(HttpServletResponse response)throws Exception{
 		String courseName = request.getParameter("courseName")==null?"":request.getParameter("courseName");
-		courseName = new String(courseName.getBytes("ISO8859-1"), "UTF-8");
+		//courseName = new String(courseName.getBytes("ISO8859-1"), "UTF-8");
 		System.out.println("得到courseName============="+courseName);
 		String knowledgeId = request.getParameter("knowledgeId")==null?"":request.getParameter("knowledgeId");
 		String pageNo = request.getParameter("page")==null?"":request.getParameter("page");
@@ -432,10 +432,17 @@ public class TestOnlineController extends BaseController{
 		String gradeName = new String(gn.getBytes("ISO8859-1"), "UTF-8");
 		String un = request.getParameter("userName")==null?"":request.getParameter("userName");
 		String userName = new String(un.getBytes("ISO8859-1"), "UTF-8");
+		System.out.println("UserUtils.getUser().getUserId()------"+UserUtils.getUser().getUserId());
+		String schoolId = UserUtils.getUser().getSchoolId();
 		UserDetail userDetail = new UserDetail();
 			userDetail.setProfessionName(professionName);
 			userDetail.setGradeName(gradeName);
 			userDetail.setUserName(userName);
+			userDetail.setSchoolId(schoolId);
+		
+		
+		//List<UserDetail> userList = testOnlineService.querySendPaperUser(schoolId);
+		
 		List<UserDetail> userList = testOnlineService.querySendPaperUser(userDetail);
 		List<Role> roleList = RoleManageService.showAllRole();
 		request.setAttribute("userList", userList);

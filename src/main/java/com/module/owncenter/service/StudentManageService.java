@@ -105,4 +105,13 @@ public class StudentManageService {
 			List<UserDetail> list = studentDao.queryAllStudent(userdetail);
 			return list;
 		}
+		@Transactional(readOnly=true)
+		public List<UserDetail> queryAllStudentBySchoolId(UserDetail userDetail){
+			Pagination pager = PageContext.getPageContext();  //分页
+			int pageNo = pager.getCurrentPage();
+			int pageSize = pager.getPageSize();
+			PageHelper.startPage(pageNo,pageSize);  //拦截器分页开始
+			List<UserDetail> list = studentDao.queryAllStudent(userDetail);
+			return list;
+		}
 }

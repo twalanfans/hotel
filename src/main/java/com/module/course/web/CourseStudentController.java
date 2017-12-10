@@ -154,10 +154,10 @@ public class CourseStudentController extends BaseController{
 	 */
 	@RequestMapping(value="${adminPath}/student/myCourseListPage")
 	public String myCourseListPage(HttpServletRequest request) throws Exception{
-		String cn = request.getParameter("courseName")==null?"":request.getParameter("courseName");
-		String courseName = new String(cn.getBytes("ISO8859-1"), "UTF-8");
-		String tn = request.getParameter("teacherName")==null?"":request.getParameter("teacherName");
-		String teacherName = new String(tn.getBytes("ISO8859-1"), "UTF-8");
+		String courseName = request.getParameter("courseName")==null?"":request.getParameter("courseName");
+		//String courseName = new String(cn.getBytes("ISO8859-1"), "UTF-8");
+		String teacherName = request.getParameter("teacherName")==null?"":request.getParameter("teacherName");
+		//String teacherName = new String(tn.getBytes("ISO8859-1"), "UTF-8");
 		String userId = UserUtils.getUser().toString();
 		Course course = new Course();
 			course.setCourseName(courseName);
@@ -176,7 +176,7 @@ public class CourseStudentController extends BaseController{
 		String courseId = request.getParameter("courseId")==null?"":request.getParameter("courseId");
 		String courseType = request.getParameter("courseType")==null?"":request.getParameter("courseType");
 		String fileName = request.getParameter("fileName")==null?"":request.getParameter("fileName");
-		fileName=new String(fileName.getBytes("ISO8859_1"),"UTF-8");
+		//fileName=new String(fileName.getBytes("ISO8859_1"),"UTF-8");
 		CourseFile courseFile = new CourseFile();
 			courseFile.setCourseId(courseId);
 			courseFile.setCourseType(courseType);
@@ -198,7 +198,7 @@ public class CourseStudentController extends BaseController{
 	@RequestMapping(value="${adminPath}/student/myStudyPlanPage")
 	public String myStudyPlanInit(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		String planName = request.getParameter("planName")==null?"":request.getParameter("planName");
-		planName= new String(planName.getBytes("ISO8859_1"),"UTF-8");
+		//planName= new String(planName.getBytes("ISO8859_1"),"UTF-8");
 		String startDate = request.getParameter("startDate")==null?"":request.getParameter("startDate");
 		String userId = UserUtils.getUser().toString();
 		StudyPlan sp= new StudyPlan();

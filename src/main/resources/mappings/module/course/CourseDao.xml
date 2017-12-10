@@ -29,7 +29,7 @@
 		LEFT JOIN hotel_resource b ON b.relation_id = a.course_id
 		LEFT JOIN hotel_userdetail d ON d.user_id = a.teacher_id
 		LEFT JOIN hotel_user e ON a.schoolId = e.schoolId
-		WHERE  a.status='1' AND a.is_common = '1' AND a.schoolId = #{schoolId}
+		WHERE a.is_common !="0" AND (a.schoolId = "0" OR a.schoolId = #{schoolId})
 		<if test="courseName != null and courseName !='' ">
 	   		AND a.course_name LIKE CONCAT('%', #{courseName}, '%')
 		</if>

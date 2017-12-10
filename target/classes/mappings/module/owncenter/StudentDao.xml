@@ -85,7 +85,7 @@
 		 FROM hotel_userdetail a, hotel_user b, hotel_department c
 		 LEFT JOIN hotel_department d ON d.depart_id=c.parent_id
 		 LEFT JOIN hotel_department e ON e.depart_id=d.parent_id
-		 WHERE a.user_id = b.user_id AND b.depart_id=c.depart_id AND b.user_type = '1'
+		 WHERE a.user_id = b.user_id AND b.depart_id=c.depart_id AND b.user_type = '1' AND schoolId= #{schoolId}
  		<if test="gradeName != null and gradeName !='' ">
 	   		AND c.depart_name LIKE CONCAT('%', #{gradeName}, '%')
 		</if>
@@ -97,13 +97,15 @@
 		</if>
 	</select>
 	
+	
+	
 	<select id="userNameAndId"  parameterType="UserDetail"  resultType="UserDetail">
 			SELECT 
 					a.user_name AS "userName",
 					b.login_name AS "phone"
 			FROM 
 					hotel_userdetail a, hotel_user b
-			WHERE a.user_id = b.user_id	
+			WHERE   a.user_id = b.user_id	
 			<!-- AND		a.user_id = #{userId} -->				
 	</select>
 	

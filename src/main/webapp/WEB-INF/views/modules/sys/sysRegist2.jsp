@@ -35,7 +35,7 @@
 					</select>
 					
     				<div>
-					<select  class="regSchool"  ng-change="selSchool()" ng-model="schoolValue">
+					<select id="school" class="regSchool"  ng-change="selSchool()" ng-model="schoolValue">
 						<c:forEach items="${school}"  var="school"  varStatus="idxStatus">
 							<option value="${school.schoolId}" >${school.schoolName}</option>
     					</c:forEach>
@@ -106,7 +106,7 @@ hotelRegist.init({
 	//emailValidate : '${contextPath}/emailValidate',//邮箱验证码url
 	SmsValidate : '${contextPath}/SmsValidate',//手机验证码url
 	registerUser : '${contextPath}/registeruser',//提交注册信息url
-	regSchoolId:$('.regSchool').val(),
+	regSchoolId : $('.regSchool').val(),	//这个值是固定的   var leve = $("#ddlRegType ").val();
 	toLogin : '${ctx}/login'//注册成功跳转到登录页面url
 	
 });
@@ -117,9 +117,8 @@ hotelRegist.init({
 <script type="text/javascript">
 var userRegist=angular.module('userRegist', []);
 userRegist.controller('userCtr', ['$scope','$http', function($scope,$http) {
-	console.log("$scope.schoolValue------"+$scope.schoolValue);
-	console.log("$('.regSchool').val()------"+$('.regSchool').val());
 	//第一次访问
+	console.log($scope.schoolValue);
 	$http({
 			url:'${contextPath}/departmentQuery',
 			method:'post',
@@ -135,7 +134,7 @@ userRegist.controller('userCtr', ['$scope','$http', function($scope,$http) {
 	}); 
 	//学校ID改变访问
 	$scope.selSchool = function(schoolValue) {
-		console.log("schoolId------"+$scope.schoolValue);
+		console.log($scope.schoolValue);
 		$http({
 			url:'${contextPath}/departmentQuery',
 			method:'post',

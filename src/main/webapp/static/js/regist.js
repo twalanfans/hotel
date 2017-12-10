@@ -368,7 +368,11 @@
 					alert('验证码不正确，请重新输入！');
 					return false;
 				}*/
+				
 				console.log("hotelRegist.regSchoolId---1---"+hotelRegist.regSchoolId);
+				hotelRegist.regSchoolId = $("#school ").val();
+				console.log("hotelRegist.regSchoolId---2---"+hotelRegist.regSchoolId);
+				
 				$.ajax({
 					type : "POST",
 					url : hotelRegist.registerUser,

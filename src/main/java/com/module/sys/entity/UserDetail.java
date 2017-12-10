@@ -22,6 +22,7 @@ public class UserDetail extends DataEntity<UserDetail> {
 	private String email;  //  邮箱
 	private String birthday;  //  出生年月
 	private String photo;  //  头像路径
+	private String schoolId;
 	private String collegeName;  //  所在学校
 	private String departName;  //  所在系
 	private String professionName;  //  所在专业
@@ -34,7 +35,14 @@ public class UserDetail extends DataEntity<UserDetail> {
 	private Timestamp createTime; 
 	private Timestamp updateTime; 
 	private String remark;  
-
+	
+	
+	public String getSchoolId() {
+		return schoolId;
+	}
+	public void setSchoolId(String schoolId) {
+		this.schoolId = schoolId;
+	}
 	public UserDetail(){
 		super();
 	}

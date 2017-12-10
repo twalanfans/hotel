@@ -41,7 +41,7 @@ public class RoleController extends BaseController{
 	public String haveRelationGroup(HttpServletRequest request)  throws Exception{
 		String courseId = request.getParameter("courseId")==null?"":request.getParameter("courseId").toString();
 		ResourceService resourceService = new ResourceService();
-		List<Resource> list = resourceService.haveRelationGroup(courseId);
+		List<Resource> list = resourceService.haveRelationGroup(courseId);		
 		List reList = resourceService.courseResource(courseId);
 		int num = reList.size();		//是否加入课程资源
 		String resourceId="";
