@@ -111,7 +111,7 @@ public class CourseTeacherController extends BaseController{
 		String courseId = request.getParameter("courseId")==null?"":request.getParameter("courseId");
 		String courseType = request.getParameter("courseType")==null?"":request.getParameter("courseType");
 		String fileName = request.getParameter("fileName")==null?"":request.getParameter("fileName");
-		//fileName=new String(fileName.getBytes("ISO8859_1"),"UTF-8");
+		fileName=new String(fileName.getBytes("ISO8859_1"),"UTF-8");
 		CourseFile courseFile = new CourseFile();
 			courseFile.setCourseId(courseId);
 			courseFile.setCourseType(courseType);
@@ -130,7 +130,7 @@ public class CourseTeacherController extends BaseController{
 	public String addCourseFile(HttpServletRequest request) throws Exception{
 		String courseId = request.getParameter("courseId")==null?"":request.getParameter("courseId");
 		String courseName = request.getParameter("courseName")==null?"":request.getParameter("courseName");
-		//courseName=new String(courseName.getBytes("ISO8859_1"),"UTF-8");
+		courseName=new String(courseName.getBytes("ISO8859_1"),"UTF-8");
 		request.setAttribute("courseId", courseId);
 		request.setAttribute("courseName", courseName);
 		return "modules/sys/teacher/owncenter/teacher_upload_courseFile";

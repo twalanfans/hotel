@@ -179,8 +179,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 			}
 		}
 		// 取出截取字符串中的HTML标记
-		String temp_result = result.toString().replaceAll("(>)[^<>]*(<?)",
-				"$1$2");
+		String temp_result = result.toString().replaceAll("(>)[^<>]*(<?)","$1$2");
 		// 去掉不需要结素标记的HTML标记
 		temp_result = temp_result
 				.replaceAll(

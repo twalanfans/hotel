@@ -55,10 +55,10 @@ private static LogService log = SpringContextHolder.getBean(LogService.class);
 	 */
 	@RequestMapping(value="${adminPath}/user/showAllUserPage")
 	public String queryUserList(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String userName = request.getParameter("userName")==null?"":request.getParameter("userName");
-		//String userName = new String(na.getBytes("ISO8859-1"), "UTF-8");
-		String loginName = request.getParameter("loginName")==null?"":request.getParameter("loginName");
-		//String loginName = new String(ln.getBytes("ISO8859-1"), "UTF-8");
+		String na = request.getParameter("userName")==null?"":request.getParameter("userName");
+		String userName = new String(na.getBytes("ISO8859-1"), "UTF-8");
+		String ln = request.getParameter("loginName")==null?"":request.getParameter("loginName");
+		String loginName = new String(ln.getBytes("ISO8859-1"), "UTF-8");
 		String userType = request.getParameter("userType")==null?"":request.getParameter("userType");
 		UserDetail userDetail = new UserDetail();
 			userDetail.setUserName(userName);
@@ -189,7 +189,7 @@ private static LogService log = SpringContextHolder.getBean(LogService.class);
 	@RequestMapping(value="/user/queryDataAnalysis")
 	public String queryDataAnalysis(HttpServletRequest request)throws Exception{
 		String content = request.getParameter("content")==null?"":request.getParameter("content");
-		//content = new String(content.getBytes("ISO8859-1"), "UTF-8");
+		content = new String(content.getBytes("ISO8859-1"), "UTF-8");
 		if(!content.equals("")){
 			String text = content.substring(0, 1);
 			UserDetail ud = new UserDetail();

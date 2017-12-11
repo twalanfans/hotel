@@ -13,6 +13,8 @@
 		<link rel="stylesheet" type="text/css" href="${ctxStatic}/css/comStyle.css" />
 		<link rel="stylesheet" type="text/css" href="${ctxStatic}/css/main.css" />
 		<link rel="stylesheet" type="text/css" href="${ctxStatic}/css/font.css" />
+		<!-- 日历插件 -->
+		<link rel="stylesheet" type="text/css" href="${ctxStatic}/css/calendar.css" />
 		<!-- jquery -->
 		<script type="text/javascript" src="${ctxStatic}/js/jquery.min.js" ></script>
 		<!-- echarts -->

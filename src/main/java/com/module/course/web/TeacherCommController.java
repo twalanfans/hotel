@@ -86,7 +86,7 @@ public class TeacherCommController extends BaseController{
 		String schoolId = user.getSchoolId();
 		System.out.println("查出来的学校ID------"+schoolId);
 		
-		//courseName=new String(courseName.getBytes("ISO8859_1"),"UTF-8");
+		courseName=new String(courseName.getBytes("ISO8859_1"),"UTF-8");
 		Course course = new Course();
 		course.setCourseName(courseName);
 		course.setSchoolId(schoolId);
@@ -105,7 +105,7 @@ public class TeacherCommController extends BaseController{
 		String courseId = request.getParameter("courseId")==null?"":request.getParameter("courseId");
 		String courseType = request.getParameter("courseType")==null?"":request.getParameter("courseType");
 		String fileName = request.getParameter("fileName")==null?"":request.getParameter("fileName");
-		//fileName=new String(fileName.getBytes("ISO8859_1"),"UTF-8");
+		fileName=new String(fileName.getBytes("ISO8859_1"),"UTF-8");
 		String questionType = request.getParameter("questionType")==null?"":request.getParameter("questionType");
 		if(courseType.equals("0")){
 			TestOnlineService testOnlineService = new TestOnlineService();
@@ -228,9 +228,9 @@ public String studentGroupManage(HttpServletRequest request) throws Exception{
 @RequestMapping(value="ownCenter/allStudentQueryPage")
 public String allStudentQuery(HttpServletRequest request) throws Exception{
 	String gradeName = request.getParameter("gradeName")==null?"":request.getParameter("gradeName");
-	//gradeName = new String(gradeName.getBytes("ISO8859-1"), "UTF-8");
+	gradeName = new String(gradeName.getBytes("ISO8859-1"), "UTF-8");
 	String userName = request.getParameter("userName")==null?"":request.getParameter("userName");
-	//userName = new String(userName.getBytes("ISO8859-1"), "UTF-8");
+	userName = new String(userName.getBytes("ISO8859-1"), "UTF-8");
 	UserDetail userdetail = new UserDetail();
 		userdetail.setGradeName(gradeName);
 		userdetail.setUserName(userName);
@@ -249,7 +249,7 @@ public String allStudentQuery(HttpServletRequest request) throws Exception{
 @RequestMapping(value="ownCenter/groupStudentPage")
 public String groupStudent(HttpServletRequest request) throws Exception{
 	String studentName = request.getParameter("studentName")==null?"":request.getParameter("studentName");
-	//studentName = new String(studentName.getBytes("ISO8859-1"), "UTF-8");
+	studentName = new String(studentName.getBytes("ISO8859-1"), "UTF-8");
 	String roleId = request.getParameter("roleId")==null?"":request.getParameter("roleId");
 	UserDetail userdetail = new UserDetail();
 		userdetail.setRoleId(roleId);

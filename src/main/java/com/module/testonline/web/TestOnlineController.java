@@ -73,7 +73,7 @@ public class TestOnlineController extends BaseController{
 	@RequestMapping(value="${adminPath}/testonline/ajaxGetQuestion",method=RequestMethod.POST)
 	public String getAllquestion(HttpServletResponse response)throws Exception{
 		String courseName = request.getParameter("courseName")==null?"":request.getParameter("courseName");
-		//courseName = new String(courseName.getBytes("ISO8859-1"), "UTF-8");
+		courseName = new String(courseName.getBytes("ISO8859-1"), "UTF-8");
 		System.out.println("得到courseName============="+courseName);
 		String knowledgeId = request.getParameter("knowledgeId")==null?"":request.getParameter("knowledgeId");
 		String pageNo = request.getParameter("page")==null?"":request.getParameter("page");

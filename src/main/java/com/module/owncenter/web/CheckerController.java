@@ -43,8 +43,8 @@ public class CheckerController extends BaseController{
 	 */
 	@RequestMapping(value="${adminPath}/checker/queryCheckFilePage")
 	public String queryCheckFile(HttpServletRequest request) throws Exception{
-		String fileName = request.getParameter("fileName")==null?"":request.getParameter("fileName");
-		//String fileName = new String(fn.getBytes("ISO8859-1"), "UTF-8");
+		String fn = request.getParameter("fileName")==null?"":request.getParameter("fileName");
+		String fileName = new String(fn.getBytes("ISO8859-1"), "UTF-8");
 		String status = request.getParameter("status")==null?"":request.getParameter("status");
 		CourseFile file = new CourseFile();
 			file.setFileName(fileName);

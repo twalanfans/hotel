@@ -193,10 +193,10 @@ public class StudentController extends BaseController{
 	 */
 	@RequestMapping(value="${adminPath}/common/receiveMessagePage")
 	public String showMessageList(HttpServletRequest request) throws Exception{
-		String fromUser = request.getParameter("fromUser")==null?"":request.getParameter("fromUser");
-		//String fromUser = new String(fu.getBytes("ISO8859-1"), "UTF-8");
-		String subject = request.getParameter("subject")==null?"":request.getParameter("subject");
-		//String subject = new String(sb.getBytes("ISO8859-1"), "UTF-8");
+		String fu = request.getParameter("fromUser")==null?"":request.getParameter("fromUser");
+		String fromUser = new String(fu.getBytes("ISO8859-1"), "UTF-8");
+		String sb = request.getParameter("subject")==null?"":request.getParameter("subject");
+		String subject = new String(sb.getBytes("ISO8859-1"), "UTF-8");
 		String isRead = request.getParameter("isRead")==null?"":request.getParameter("isRead");   //查看状态：1：已查看 0：未查看
 		String userId = UserUtils.getUser().toString();
 		Message message = new Message();
