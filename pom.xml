@@ -315,7 +315,6 @@
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-		<!-- CACHE begin -->
 		<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache-core -->
 		<dependency>
     		<groupId>net.sf.ehcache</groupId>

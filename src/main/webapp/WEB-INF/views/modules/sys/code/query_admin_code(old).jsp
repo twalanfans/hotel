@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
-<!doctype html>
+<link rel="stylesheet" type="text/css" href="${ctxStatic}/css/calendar.css" />
+<%-- <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
@@ -9,7 +10,7 @@
 		<title>激活码管理详情页</title>
 		<link rel="stylesheet" type="text/css" href="${ctxStatic}/css/comStyle.css" />
 	    <link rel="stylesheet" type="text/css" href="${ctxStatic}/css/teacher/sendTestPaper.css" />
-	    <link rel="stylesheet" type="text/css" href="${ctxStatic}/css/font.css" />
+	    <link rel="stylesheet" type="text/css" href="${ctxStatic}/css/font.css" /> --%>
 		<style type="text/css">
 			.showIframeBox{position:fixed;left:0;top:0;display:none;z-index:99;width:100%;height:100%;}
 			.shadowBox{width:100%;height:100%;background-color:rgba(0,0,0,0.6);position:absolute;left:0;top:0;}
@@ -18,8 +19,8 @@
 			.userName{display:inline-block;padding:6px 14px;background-color:#fff;color:black;font-size:17px;}
 			.logoutBtn{display:inline-block;padding:6px 14px;cursor:pointer;background-color:#f43d36;color:#fff;font-size:17px;}
 		</style>
-	</head>
-	<body>
+	<!-- </head>
+	<body> -->
 	<div class="welcome">
 		<span class="userName">你好，${userDetail.userName}</span>&nbsp;&nbsp;
 		<span onclick="logOut()" class="logoutBtn">退出</span>
@@ -99,8 +100,8 @@
 		<div class="closeBox">激活码打印页<span class="fa fa-times-circle-o quxiao"></span></div>
 		<iframe  src=""  id="codeFrame" frameborder="0"  width="100%" height="500px"></iframe>	
 	</div>
-</body>
-</html>
+<!-- </body>
+</html> -->
 <script type="text/javascript" src="${ctxStatic}/js/jquery.min.js"></script>
 <script type="text/javascript">
 $("#useNum option[value='${useNum}']").attr("selected","selected");

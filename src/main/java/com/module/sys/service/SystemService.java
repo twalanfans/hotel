@@ -4,28 +4,28 @@
 package com.module.sys.service;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
+
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import  com.common.security.Digests;
-import  com.common.security.shiro.session.SessionDAO;
-import  com.common.service.BaseService;
+
+import com.common.security.Digests;
+import com.common.security.shiro.session.SessionDAO;
+import com.common.service.BaseService;
 import com.common.utils.DateUtils;
-import  com.common.utils.Encodes;
-import com.common.utils.SpringContextHolder;
-import  com.common.utils.StringUtils;
-import  com.common.web.Servlets;
-import  com.module.sys.dao.MenuDao;
-import  com.module.sys.dao.RoleDao;
-import  com.module.sys.dao.UserDao;
-import  com.module.sys.entity.Menu;
-import  com.module.sys.entity.Role;
-import  com.module.sys.entity.User;
-import  com.module.sys.security.SystemAuthorizingRealm;
-import  com.module.sys.utils.UserUtils;
+import com.common.utils.Encodes;
+import com.common.utils.StringUtils;
+import com.common.web.Servlets;
+import com.module.sys.dao.MenuDao;
+import com.module.sys.dao.RoleDao;
+import com.module.sys.dao.UserDao;
+import com.module.sys.entity.Menu;
+import com.module.sys.entity.Role;
+import com.module.sys.entity.User;
+import com.module.sys.security.SystemAuthorizingRealm;
+import com.module.sys.utils.UserUtils;
 
 /**
  * 系统管理，安全相关实体的管理类,包括用户、角色、菜单.

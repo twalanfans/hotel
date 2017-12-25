@@ -37,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.OSSObject;
 import com.common.config.Global;
+import com.common.persistence.annotation.Comment;
 import com.common.utils.DateUtils;
 import com.common.utils.QrcodeMade;
 import com.common.utils.SpringContextHolder;
@@ -208,23 +209,24 @@ public class KeyCodeService {
 		Field[] fields = keyClass.getDeclaredFields();
 
 		// 遍历
-		/*
-		 * for (int i = 0; i < fields.length; i++) {
-		 * 
-		 * Comment comment = fields[i].getAnnotation(Comment.class);
-		 * 
-		 * // 把名字赋值单元格 Cell createCell = firstRow.createCell(i);
-		 * createCell.setCellValue(comment.value());//null
-		 * createCell.setCellStyle(cellStyle);
-		 * 
-		 * }
-		 */
+		
+		 for (int i = 0; i < fields.length; i++) {
+		  
+		  Comment comment = fields[i].getAnnotation(Comment.class);
+		  
+		  //把名字赋值单元格
+		  Cell createCell = firstRow.createCell(i);
+		  createCell.setCellValue(comment.value());//null
+		  createCell.setCellStyle(cellStyle);
+		  
+		  }
+		 
 		/**
 		 * 创建数据行
 		 */
 		// 根据集合元素个数创建行,跳过标题行
 
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 1; i < list.size(); i++) {
 			Row row = sheet.createRow(i);
 			// 根据属性个数创建单元格
 			// 4 创建cell并赋值
@@ -244,6 +246,9 @@ public class KeyCodeService {
 							.format(val);
 					cell.setCellValue(format);
 				} else {
+					if(val == null){
+						break;
+					}
 					cell.setCellValue(val.toString());
 				}
 			}

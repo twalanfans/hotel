@@ -3,14 +3,10 @@
  */
 package com.module.sys.entity;
 
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.common.persistence.DataEntity;
 
 /**

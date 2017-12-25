@@ -69,6 +69,7 @@
 							<li><a ui-sref="schoolManageQuery({pageNum : 1})" ui-sref-opts="{reload:true}" class="router">学校列表</a></li>
 							<!-- <li><a ui-sref="queryAdminCode({pageNum : 1})" ui-sref-opts="{reload:true}" class="router">管理员列表</a></li> -->
 							<li><a ui-sref="queryCodeListPage({pageNum : 1})" ui-sref-opts="{reload:true}" class="router">激活码生成</a></li>
+							<li><a ui-sref="queryStudentCodeListPage({pageNum : 1})" ui-sref-opts="{reload:true}" class="router">学籍号管理</a></li>
 						</ul>
 					</li>
 				</ul>

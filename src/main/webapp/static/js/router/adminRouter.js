@@ -138,6 +138,17 @@ define(['app', 'angularAMD'], function(app, angularAMD){
 			controllerUrl : 'sendMsgCtr'
 			})
 		)
+		//学籍号
+		.state('queryStudentCodeListPage',angularAMD.route({
+			url:'/queryStudentCodeListPage/{pageNum}',
+			templateUrl : function($routeParams){
+				var keyId=$("#searchkeyId").val()==undefined ?"":$("#searchkeyId").val();
+				var useNum=$("#searchuseNum").val()==undefined ?"":$("#searchuseNum").val();
+				return 'code/queryStudentCodeListPage?page='+$routeParams.pageNum+'&keyId='+keyId+'&useNum='+useNum;
+			},
+			controllerUrl : 'sendMsgCtr'
+			})
+		)
 		//管理员列表
 		/*.state('queryAdminCode',angularAMD.route({
 			url:'/queryAdminCode/{pageNum}',

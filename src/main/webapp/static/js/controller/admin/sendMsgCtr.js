@@ -25,6 +25,8 @@ define([], function(){
 		$scope.pageTurn1=function(pageNum){
 			$state.go('schoolManageQuery',{'pageNum':pageNum});
 		};
-		
+		$scope.pageTurn1=function(pageNum){
+			$state.go('queryStudentCodeListPage',{'pageNum':pageNum});
+		};
 	}];
 });

@@ -32,61 +32,6 @@ define([], function(){
 		$scope.endPage=function(pageNum){
 			$state.go('usermanagement', {'pageNum' : pageNum});
 		};
-		//学校与系联动
-		//首次运行加载
-		$http({
-			url:'${contextPath}/departmentQuery',
-			method:'post',
-			data:{ 'schoolId' : $scope.schoolValue },
-			/*dataType:'json'*/
-			
-		}).then(function successCallback(data){
-			$scope.schoolList=data;
-
-		},function errorCallback(data){
-			alert("数据出错!");
-		});
-		//后续schoolValue变化数据加载
-		$scope.selSchool=function(schoolValue){
-			$http({
-				url:'${contextPath}/departmentQuery',
-				method:'post',
-				data:{ 'schoolId' :schoolValue },
-				/*dataType:'json'*/
-				
-			}).then(function successCallback(data){
-				console.log(data);
-				$scope.schoolList=data;
-
-			},function errorCallback(data){
-				alert("数据出错!");
-			});
-			
-			
-		};
-		/*angular.module('myApp', [])
-		.controller('myCtrl', ['$scope','$http', function($scope,$http) {
-			$scope.selSchool = function(data) {
-				$http({
-					url:'${contextPath}/departmentQuery',
-					method:'post',
-					data:{ 'schoolId' : $scope.schoolValue },
-					dataType:'json',
-				}).then(function successCallback(jsonString){
-					$scope.schoolList=jsonString;
-		
-				},function errorCallback(jsonString){
-					console.log("error2"+jsonString);
-					alert("数据出错!");
-				});
-					
-			   };
-			}]
-		);*/
-		
-		
-		
-		
 		
 	}];
 });

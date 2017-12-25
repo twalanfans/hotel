@@ -1,6 +1,9 @@
 package com.module.code.web;
 
 import java.io.Writer;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.common.utils.DateUtils;
 import com.common.web.BaseController;
 import com.github.pagehelper.PageInfo;
 import com.module.code.entity.KeyCode;
@@ -31,6 +35,7 @@ public class KeyCodeController extends BaseController{
 	@RequestMapping(value="${adminPath}/code/queryCodeListPage")
 	public String queryCodeList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String keyId = request.getParameter("keyId")==null?"":request.getParameter("keyId");
+		System.out.println("keyId------"+keyId);
 		String useNum = request.getParameter("useNum")==null?"":request.getParameter("useNum");
 		KeyCode key = new KeyCode();
 			key.setKeyId(keyId);
@@ -53,8 +58,34 @@ public class KeyCodeController extends BaseController{
 		int num =Integer.parseInt(codeNum);
 		KeyCode code = new KeyCode();
 			code.setUseNum(3);
-			code.setStatus("0");;
+			code.setStatus("0");
 			code.setSchoolId(schoolId);
+			code.setIsCeshi("1");
+		int ret=0;
+		try {
+			for(int i=0; i<num; i++){
+				ret += KeyCodeService.createKeyCode(code);	
+			}
+			if(ret>0){
+				return renderString(response, ret);				
+			}else{
+				return renderString(response, "error");				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return renderString(response, "error");
+		}
+	}
+	@RequestMapping(value="${adminPath}/code/createCeshiKeyCode")
+	public String createKeyCode2(HttpServletRequest request,HttpServletResponse response){
+		String codeNum = request.getParameter("codeNum");
+		String schoolId = request.getParameter("schoolId")==null?"0":request.getParameter("schoolId");
+		int num =Integer.parseInt(codeNum);
+		KeyCode code = new KeyCode();
+			code.setUseNum(3);
+			code.setStatus("0");
+			code.setSchoolId(schoolId);
+			code.setIsCeshi("0");
 		int ret=0;
 		try {
 			for(int i=0; i<num; i++){
@@ -78,7 +109,7 @@ public class KeyCodeController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value="${adminPath}/code/insertKeyCode")
-	public String createKeyCode2(HttpServletRequest request,HttpServletResponse response){
+	public String createKeyCode3(HttpServletRequest request,HttpServletResponse response){
 		String codeNum = request.getParameter("codeNum");
 		String schoolId = request.getParameter("schoolId")==null?"0":request.getParameter("schoolId");
 		int num =Integer.parseInt(codeNum);
@@ -100,7 +131,7 @@ public class KeyCodeController extends BaseController{
 	
 	@RequestMapping(value="/code/checkKeyCode")
 	public void checkKeyCode(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String keyId = request.getParameter("keyId")==null?"":request.getParameter("keyId");		
+		/*String keyId = request.getParameter("keyId")==null?"":request.getParameter("keyId");		
 		String tip = request.getParameter("tip")==null?"":request.getParameter("tip");		//软件扫描标识
 		Writer out = response.getWriter();
 		System.out.println("check-Start....-----code:"+keyId+"-----tip--------"+tip);
@@ -140,7 +171,84 @@ public class KeyCodeController extends BaseController{
 			e.printStackTrace();
 			out.write("error");
 		}
-	}
+	}*/
+		//http://localhost:8989/3DGlobe/code/checkKeyCode?keyId=0099-1755-1636-4859
+		//http://www.lushangznkj.com/3DGlobe/code/checkKeyCode?keyId=0099-1755-1636-4859
+			String keyId = request.getParameter("keyId")==null?"":request.getParameter("keyId");		
+			String tip = request.getParameter("tip")==null?"":request.getParameter("tip");		//软件扫描标识
+			//String isCeshi = request.getParameter("ceshi")==null?"":request.getParameter("ceshi");
+			Writer out = response.getWriter();
+			System.out.println("check-Start....-----code:"+keyId+"-----tip--------"+tip);
+			//System.out.println("isCeshi------"+isCeshi);
+			try {
+				KeyCode code = KeyCodeService.getCodeById(keyId);
+				System.out.println("code------"+code);
+				if(code!=null){
+					int num = code.getUseNum();
+					//测试版
+					if("0".equals(code.getIsCeshi()) && num>0){
+						System.out.println("获取到当前系统时间------"+Timestamp.valueOf(DateUtils.getDateTime()));
+						KeyCode key = new KeyCode();
+							key.setKeyId(keyId);
+							key.setUseNum(0);
+							key.setStatus("1");
+							key.setFirstLogin(Timestamp.valueOf(DateUtils.getDateTime()));
+						KeyCodeService.updateCodeInfo(key);
+						out.write("剩余"+19+"天");
+					}else if("0".equals(code.getIsCeshi()) && num == 0){
+						//系统当前时间
+						System.out.println("获取到激活码第一次激活时间------"+code.getFirstLogin());
+						System.out.println("code------"+code);
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						String lastLogin = format.format(Timestamp.valueOf(DateUtils.getDateTime()));
+						String firstLogin = format.format(code.getFirstLogin());
+						Date fromDateFitstLogin = format.parse(firstLogin); 
+						long from = fromDateFitstLogin.getTime();  
+						Date fromDateTimeUp = format.parse(lastLogin); 
+						long to = fromDateTimeUp.getTime();  
+						//激活第一天也算一天
+						int hasUsedDays = (int) ((to - from)/(1000 * 60 * 60 * 24)+1);
+						//剩余的天数
+						int lest = 20-hasUsedDays;
+						System.out.println("days------"+hasUsedDays);
+						if(hasUsedDays > 20){
+							System.out.println("Times up");
+							out.write("Times up");
+						}else{
+							System.out.println("剩余"+lest+"天");
+							out.write("剩余"+lest+"天");
+						}
+					}
+					//正式版
+					else{
+						int useNum = num-1;
+						if(num>0){
+							KeyCode key = new KeyCode();
+								key.setKeyId(keyId);
+								key.setUseNum(useNum);
+								key.setStatus("1");
+							KeyCodeService.updateCodeInfo(key);
+							System.out.println("还剩："+useNum+" 次激活。。。");
+							out.write(useNum+"");
+						}else {
+							KeyCode key = new KeyCode();
+								key.setKeyId(keyId);
+								key.setUseNum(0);
+								key.setStatus("2");
+							KeyCodeService.updateCodeInfo(key);
+							System.out.println("useOut");
+							out.write("useOut");
+						}
+					}
+				}else{
+					//无效的激活码
+					out.write("invalid");
+				}				
+				out.flush(); 
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 	
 	@RequestMapping(value="${adminPath}/code/printKeyCode")
 	public String printKeyCode(HttpServletRequest request, HttpServletResponse response) throws Exception{

@@ -76,6 +76,7 @@ public class FindPasswordController extends BaseController{
 			e.printStackTrace();
 			return renderString(response, "error");
 		}
+        System.out.println();
         return renderString(response,"success");
 	}
 	
