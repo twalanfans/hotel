@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.code.dao.StudentCodeDao">
+
+	<select id="queryCodeList" resultType="StudentCode" >
+		SELECT		a.studentCode,
+					a.studentName,
+					a.appleId,
+					a.andriodId,
+					a.pc,
+					a.schoolId,
+					b.school_name
+		FROM student_code a
+		LEFT JOIN school b ON a.schoolId = b.school_id
+		WHERE 1=1
+	</select>
+	
+	<select id="queryStudentCodeById" resultType="StudentCode" >
+		SELECT 	studentCode,
+				studentName,
+				appleId,
+				andriodId,
+				pc,
+				schoolId
+		FROM 	student_code
+		WHERE 	studentCode = #{studentCode} 
+		AND 	studentName = #{studentName}
+	</select>
+	
+	<delete id="deleteById">
+		DELETE FROM student_code WHERE studentCode = #{studentCode}
+	</delete>
+	
+	<insert id="insertStudentCode">
+		INSERT INTO student_code(studentCode,studentName,appleId,andriodId,pc,schoolId)
+		VALUES(#{studentCode},#{studentName},#{appleId},#{andriodId},#{pc},#{schoolId}) 
+	</insert>
+	
+	<update id="updateCodeInfo">
+		UPDATE 	student_code
+		<set>
+			<if test="studentCode != '' and studentCode != null">
+				studentCode = #{studentCode},
+			</if>
+			<if test="studentName != '' and studentName != null">
+				studentName = #{studentName},
+			</if>
+			<if test="appleId != '' and appleId != null">
+				appleId = #{appleId},
+			</if>
+			<if test="pc != '' and pc != null">
+				pc = #{pc},
+			</if>
+			<if test="andriodId != '' and andriodId != null">
+				andriodId = #{andriodId},
+			</if>
+			<if test="schoolId != '' and schoolId != null">
+				schoolId = #{schoolId},
+			</if>
+		</set>
+		WHERE 	studentCode = #{studentCode}
+	</update>
+	
+</mapper>
