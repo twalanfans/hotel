@@ -63,7 +63,7 @@
 				<div class="cate2 cates">
 					<p>
 						<span class="waistband" status="false">+</span>
-						<a href="javascript:;" class="cname" onclick="showFileDetail(${class2.classId},'${class1.className}/${class2.className}','${class1.createUser}',this);"><span class="fa fa-folder-open folder"></span>${class2.className}</a>
+						<a href="javascript:;" class="cname" onclick="showFileDetail(${class2.classId},'${class1.className}/${class2.className}','${class1.createUser}',this)"><span class="fa fa-folder-open folder"></span>${class2.className}</a>
 						<c:if test="${isCommon=='2357abv48xc'}">
 						<ul class="menu">
 							<li class="addCate" onclick="addClass(${class2.classId},3);">新建文件夹</li>

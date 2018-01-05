@@ -15,7 +15,7 @@
 		<div class="registWrap">
 			<h1>用户注册</h1>
 			<div class="registContent">
-				<div class="logo"><img src="${ctxStatic}/images/login-logo.png" alt="logo" width="118" height="113" /></div>
+				<div class="logo"><img src="${ctxStatic}/images/login-logo.png" alt="logo" width="300"  /></div>
 				<div class="promptTxt">请填写您的注册信息：</div>
 				<div class="registMessage">
 					<input type="text" placeholder="姓名(最多5个汉字)" id="userName" maxlength="5"  autocomplete="off"/>

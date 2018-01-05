@@ -16,7 +16,7 @@
 		<div class="registWrap">
 			<h1>用户登录</h1>
 			<div class="registContent">
-				<div class="logo"><img src="${ctxStatic}/images/login-logo.png" alt="logo" width="118" height="113" /></div>
+				<div class="logo"><img src="${ctxStatic}/images/login-logo.png" alt="logo" width="300" /></div>
 				<div class="registMessage">
 					<form action="${ctx}/login" method="post" autocomplete="off" id="loginForm">
 						<input type="text" id="username" name="username" placeholder="手机号码" />

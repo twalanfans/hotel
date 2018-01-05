@@ -646,6 +646,10 @@ public class CourseTeacherController extends BaseController{
 			file.setDataType(type);
 			file.setCourseId(courseId);
 		List<CoursefileKnowledge> fileClass = coursefileKnowledgeService.showFileClass(file);
+		for (CoursefileKnowledge coursefileKnowledge : fileClass) {
+			System.out.println("coursefileKnowledge------"+coursefileKnowledge);
+		}
+		System.out.println("fileClass------"+fileClass);
 		request.setAttribute("fileClassList", fileClass);
 		request.setAttribute("dataType", type);
 		request.setAttribute("isCommon", isCommon);
@@ -659,7 +663,7 @@ public class CourseTeacherController extends BaseController{
 	//展示类别下的所有资料文件
 	@RequestMapping(value="courseFile/showFileDetailPage")
 	public String showFileDetail(HttpServletRequest request) throws Exception{
-		String classId = request.getParameter("classId");			//操作  1：查看类下面的文件 
+		String classId = request.getParameter("classId");		//操作  1：查看类下面的文件 
 		String dataType = request.getParameter("dataType");
 		String filePath = request.getParameter("filePath");
 		filePath=new String(filePath.getBytes("ISO8859_1"),"UTF-8");
@@ -676,6 +680,8 @@ public class CourseTeacherController extends BaseController{
 			file.setClassId(classId);
 			file.setFileName(fileName);
 		List<CourseFileattach> fileList = courseFileattachService.listFileattach(file);
+		
+		
 		request.setAttribute("pageInfo",new PageInfo<CourseFileattach>(fileList));
 		request.setAttribute("dataType",dataType);
 		request.setAttribute("classId",classId);

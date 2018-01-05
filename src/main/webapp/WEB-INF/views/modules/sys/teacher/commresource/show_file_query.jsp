@@ -200,7 +200,7 @@ $('.imgDetail').click(function(){
 	var adress = $(this).attr("src");
 	var tool ='height=567,width=1000,top=20,left=400,menubar=yes, alwaysRaised=yes';
  	window.open(adress,'图片浏览',tool);
-})
+});
 
 function uploadFile(){
 	$('.uploadFileWindow').fadeIn();
