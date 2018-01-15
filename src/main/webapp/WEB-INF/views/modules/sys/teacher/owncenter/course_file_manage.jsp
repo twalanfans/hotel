@@ -26,7 +26,7 @@
 		<div class="resourceTitle clearfix">
 			<span class="fl">资源：</span>
 			<ul class="fl">
-				<li class="resourceChoose" ng-click="chooseCourseType(1);">微客视频</li>
+				<li class="resourceChoose" ng-click="chooseCourseType(1);">微课视频</li>
 				<c:if test="${courseId!=''}"><li class="dataBase" onclick="chooseCourseType(1,'${courseId}');">课件资料</li></c:if>
 			</ul>
 		</div>

@@ -21,4 +21,11 @@ public class SmsTest {
 	public void test2(){
 		System.out.println("1");
 	}
+	
+	@Test
+	public void test3(){
+		String s = "123";
+		Integer valueOf = Integer.valueOf(s);
+		System.out.println(valueOf);
+	}
 }

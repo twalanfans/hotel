@@ -17,6 +17,7 @@ import com.common.config.Global;
 import com.common.sms.Sms;
 import com.common.web.BaseController;
 import com.module.sys.service.MailCheckService;
+import com.module.sys.service.MailUtil;
 import com.module.sys.service.SystemService;
 import com.module.sys.utils.UserUtils;
 
@@ -86,7 +87,7 @@ public class FindPasswordController extends BaseController{
 	 */
 	@RequestMapping(value = "/emailValidate")
 	public  String emailValidate(HttpServletRequest request,HttpServletResponse response){
-		String email = request.getParameter("email").toString()==null?"":request.getParameter("email").toString();
+		/*String email = request.getParameter("email").toString()==null?"":request.getParameter("email").toString();
 	  	String smtp = Global.getConfig("email.smtp");// smtp邮箱服务器
         String from = Global.getConfig("email.from");// 发件人
         String to = email; //收件人 ַ
@@ -107,10 +108,27 @@ public class FindPasswordController extends BaseController{
         try {
 			MailCheckService.sendAndCc(smtp, from, to, copyto, subject, content, username, password);
 		} catch (Exception e) {
-			e.printStackTrace();
-			return renderString(response, "error");
-		}
+			
+			
+		}*/
+		String email = request.getParameter("email").toString()==null?"":request.getParameter("email").toString();
+		String validate = "";
+        Random random = new Random();
+        for(int i=0; i<=5; i++){
+            int arrIdx = random.nextInt(9);
+            int[] num = {0,1,2,3,4,5,6,7,8,9};
+            String getNum = String.valueOf(num[arrIdx]);
+            validate += getNum;
+        }
+        String content = "【路上科技】尊敬的用户：你好！你本次的【验证码】是："+validate;
+        try{
+        	MailUtil.sendEmil(email,content);
+        }catch(Exception e){
+        	e.printStackTrace();
+        	return renderString(response, "error");
+        }
         return renderString(response,validate);
+       
 	}
 	/**
 	 * 短信验证码

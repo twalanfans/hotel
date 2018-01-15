@@ -28,8 +28,8 @@
 				<b>教师资源：</b>
 			</span>
 			<ul>
-				<c:if test="${courseType=='1' || courseType==''}"><li class="hasChoose resourceChoose" ng-click="chooseCourseType(1);">微客视频</li></c:if>
-				<c:if test="${courseType!='1' && courseType!=''}"><li ng-click="chooseCourseType(1);">微客视频</li></c:if>
+				<c:if test="${courseType=='1' || courseType==''}"><li class="hasChoose resourceChoose" ng-click="chooseCourseType(1);">微课视频</li></c:if>
+				<c:if test="${courseType!='1' && courseType!=''}"><li ng-click="chooseCourseType(1);">微课视频</li></c:if>
 				<c:if test="${courseId!=''}"><li class="dataBase" onclick="chooseCourseType(1,'${courseId}');">教师课件</li></c:if>
 			</ul>
 		</div>

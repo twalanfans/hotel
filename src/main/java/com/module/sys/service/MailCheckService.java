@@ -119,8 +119,7 @@ public class MailCheckService {
         if (copyto == null)
             return false;
         try {
-            mimeMsg.setRecipients(Message.RecipientType.CC, (Address[]) InternetAddress
-                    .parse(copyto));
+            mimeMsg.setRecipients(Message.RecipientType.CC, (Address[]) InternetAddress.parse(copyto));
             return true;
         } catch (Exception e) {
             return false;

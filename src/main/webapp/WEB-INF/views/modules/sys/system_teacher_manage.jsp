@@ -55,12 +55,12 @@
 							<li><a ui-sref="fetchCommonCourseList({courseName : '', pageNum : 1})" ui-sref-opts="{reload:true}" class="router">公共资源</a></li>
 						</ul>
 					</li>
-					<li>
+					<!-- <li>
 						<a href="javascript:;" class="router tmp slide"><span><i class="fa fa-hacker-news"></i>职业考试</span></a>
 						<ul class="navList">
 							<li><a ui-sref="criticismService" ui-sref-opts="{reload:true}" class="router">考试资料</a></li>
 						</ul>
-					</li>
+					</li> -->
 					<li>
 						<a href="javascript:;" class="tmp slide"><i class="fa fa-check-square-o"></i>我的中心</a>
 						<ul class="navList">

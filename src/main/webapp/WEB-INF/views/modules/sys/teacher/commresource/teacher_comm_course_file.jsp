@@ -48,8 +48,8 @@
 			<ul>
 				<c:if test="${courseType=='0'}"><li ng-click="chooseCourseType(0);" class="resourceChoose">试题库</li></c:if>
 				<c:if test="${courseType!='0'}"><li ng-click="chooseCourseType(0);">试题库</li></c:if>
-				<c:if test="${courseType=='1' || courseType==''}"><li class="resourceChoose" ng-click="chooseCourseType(1);">微客视频</li></c:if>
-				<c:if test="${courseType!='1' && courseType!=''}"><li ng-click="chooseCourseType(1);">微客视频</li></c:if>
+				<c:if test="${courseType=='1' || courseType==''}"><li class="resourceChoose" ng-click="chooseCourseType(1);">微课视频</li></c:if>
+				<c:if test="${courseType!='1' && courseType!=''}"><li ng-click="chooseCourseType(1);">微课视频</li></c:if>
 				<c:if test="${courseId!=''}"><li class="dataBase" onclick="chooseCourseType(1,'${courseId}');">教师课件</li></c:if>
 			</ul>
 		</div>
@@ -196,7 +196,7 @@
 	})();
 
 	//系统资源颜色切换
-	$('.dataBase').on('click', function(){
+	$(document).on('click','.dataBase', function(){
 		$(this).addClass('hasChoose').siblings('li').removeClass('hasChoose');
 	});
 	if('${courseType}'=="0"){

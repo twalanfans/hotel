@@ -76,15 +76,32 @@
 					<c:if test="${class3.parentId == class2.classId }">
 						<div class="cate3 cates">
 							<p>
-								<input type="hidden" class="waistband" />
+								<span class="waistband" status="false">+</span>
 								<a href="javascript:;" class="cname" onclick="showFileDetail(${class3.classId},'${class1.className}/${class2.className}/${class3.className}','${class1.createUser}',this);"><span class="fa fa-folder-open folder"></span>${class3.className}</a>
 								<c:if test="${isCommon=='2357abv48xc'}">
 								<ul class="menu">
+									<li class="addCate" onclick="addClass(${class3.classId},4);">新建文件夹</li>
 									<li class="updateCate" onclick="editClass(${class3.classId})">重命名</li>
 									<li class="deleteCate" onclick="deleteClass(${class3.classId})">删除</li>
 								</ul>
 								</c:if>
 							</p>
+							<c:forEach items="${fileClassList}"  var="class4" >
+							<c:if test="${class4.parentId == class3.classId }">
+								<div class="cate4 cates">
+									<p>
+										<input type="hidden" class="waistband" />
+										<a href="javascript:;" class="cname" onclick="showFileDetail(${class4.classId},'${class1.className}/${class2.className}/${class3.className}/${class4.className}','${class1.createUser}',this);"><span class="fa fa-folder-open folder"></span>${class4.className}</a>
+										<c:if test="${isCommon=='2357abv48xc'}">
+										<ul class="menu">
+											<li class="updateCate" onclick="editClass(${class4.classId})">重命名</li>
+											<li class="deleteCate" onclick="deleteClass(${class4.classId})">删除</li>
+										</ul>
+										</c:if>
+									</p>
+								</div>
+							</c:if>
+							</c:forEach>
 						</div>
 					</c:if>
 					</c:forEach>
@@ -115,21 +132,50 @@
 	 	$('.show_file_query').load(url);
 	}
 	
-	$('.cname').on('contextmenu',function(ev){
+	/* $('.cname').on('contextmenu',function(ev){
 		var ev = ev || winow.event;
 			$('.menu').hide();
 			$(this).parent().siblings('.menu').show();
 			return false;
+	}); */
+	//初始化菜单，判断是否有子级
+	$('.cate1').each(function(){
+		var $this = $(this);
+		if($this.find('.cates').length==0){
+			$this.find('.waistband').text('-');
+			$this.find('.waistband').attr('status','true');
+		}
 	});
-	
+	$('.cate2').each(function(){
+		var $this = $(this);
+		if($this.find('.cates').length==0){
+			$this.find('.waistband').text('-');
+			$this.find('.waistband').attr('status','true');
+		}
+	});
+	$('.cate3').each(function(){
+		var $this = $(this);
+		if($this.find('.cates').length==0){
+			$this.find('.waistband').text('-');
+			$this.find('.waistband').attr('status','true');
+		}
+	});
+	$('.cate4').each(function(){
+		var $this = $(this);
+		if($this.find('.cates').length==0){
+			$this.find('.waistband').text('-');
+			$this.find('.waistband').attr('status','true');
+		}
+	});
 	//次级栏目显示或隐藏
 	$('.waistband').click(function(){
 		var $this = $(this);
+		console.log($this.parent().parent().children().find('.cates').length);
 		if($this.attr('status')=='false'){
 			$this.parent('p').siblings('.cates').show();
 			$this.text('-');
 			$this.attr('status','true');
-		}else{
+		}else if($this.attr('status')){
 			$this.parent('p').siblings('.cates').hide();
 			$this.text('+');
 			$this.attr('status','false');

@@ -25,6 +25,7 @@
 		.cate2,.cate3{padding-top:10px;}
 		.cate2{margin-left:15px;display:none;}
 		.cate3{margin-left:30px;display:none;}
+		.cate4{margin-left:35px;display:none;}
 		.addCateWindow{width:300px;height:90px;border:1px solid #ccc;background-color:#fff;position:fixed;top:30%;left:50%;margin-left:-45px;z-index:2;display:none;}
 		.mask{width:100%;height:100%;position:fixed;top:0px;right:0px;bottom:0px;left:0px;background:rgba(0,0,0,0.5);z-index:1;display:none;}
 		.databases{clear:both;}

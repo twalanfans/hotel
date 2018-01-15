@@ -97,7 +97,7 @@
 			this.chooseUserType();
 			this.chooseDepart();
 			this.blurValidate();
-			/*this.getCode();*/
+			this.getCode();
 			this.toRegist();
 		},
 		
@@ -206,7 +206,7 @@
 			This.password.onblur = function(){
 				This.passwordVal = this.value;
 				if(!(This.regPassword).test(this.value)){
-					alert('密码必须大于8位数,且同时包含数字+大小写字母+下划线！');
+					alert('密码必须大于8位数,且同时包含数字+大小写字母！');
 					this.blur();
 				}
 			};
@@ -261,7 +261,7 @@
 			}
 		},*/
 		//获取验证码
-		/*getCode : function(){
+		getCode : function(){
 			hotelRegist.validateCode.onkeyup = function(){
 				this.value = this.value.replace(/\D/g, '');
 			}
@@ -281,7 +281,7 @@
 							hotelRegist.validateCodeVal = data;
 							hotelRegist.countDown();
 						}else{
-							alert("验证码发送失败！")
+							alert("验证码发送失败！");
 						}
 					}
 				});
@@ -307,7 +307,7 @@
 			clearInterval(hotelRegist.countTimer);
 			hotelRegist.codeBtn.disabled = false;
 			hotelRegist.codeBtn.value = '获取验证码';
-		},*/
+		},
 		
 		//点击注册
 		toRegist : function(){
@@ -364,10 +364,10 @@
 					alert('邮箱格式不正确，请重新输入！');
 					return false;
 				}
-				/*if(hotelRegist.validateCode.value == '' || hotelRegist.validateCodeVal != hotelRegist.validateCode.value){
+				if(hotelRegist.validateCode.value == '' || hotelRegist.validateCodeVal != hotelRegist.validateCode.value){
 					alert('验证码不正确，请重新输入！');
 					return false;
-				}*/
+				}
 				
 				console.log("hotelRegist.regSchoolId---1---"+hotelRegist.regSchoolId);
 				hotelRegist.regSchoolId = $("#school ").val();

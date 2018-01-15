@@ -82,10 +82,10 @@
 						</ul>
 					</div>
 					<input type="text" placeholder="邮箱" id="email" />
-					<!-- <div class="getCode clear">
+					<div class="getCode clear">
 						<input type="text" placeholder="请填写验证码" id="validateCode" maxlength="6" />
 						<input type="button" id="codeBtn" value="获取验证码" />
-					</div> -->
+					</div>
 					<div class="registBtn" id="registBtn"><i class="fa fa-check"></i></div>
 				</div>
 			</div>
@@ -100,13 +100,13 @@
 hotelRegist.init({
 	regUserName : /^[\u4e00-\u9fa5]{2,5}$/,//用户名正则
 	regLoginName : /^((13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8})$/,//手机号正则
-	regPassword : /(?=.*\d+)(?=.*[a-z])(?=.*[A-Z])(?=.*_).{8,}/,//密码正则
+	regPassword : /(?=.*\d+)(?=.*[a-z])(?=.*[A-Z])(?=.*).{8,}/,//密码正则
 	regEmail : /\w+@(qq|163|126|sina|gmail)(\.[A-Za-z])(\.[A-Za-z])?/,//邮箱正则
 	checkPhone : '${contextPath}/checkPhone',//检查手机号是否被注册url
 	//emailValidate : '${contextPath}/emailValidate',//邮箱验证码url
 	SmsValidate : '${contextPath}/SmsValidate',//手机验证码url
 	registerUser : '${contextPath}/registeruser',//提交注册信息url
-	regSchoolId : $('.regSchool').val(),	//这个值是固定的   var leve = $("#ddlRegType ").val();
+	regSchoolId : $('.regSchool').val(),	//   var leve = $("#ddlRegType ").val();
 	toLogin : '${ctx}/login'//注册成功跳转到登录页面url
 	
 });

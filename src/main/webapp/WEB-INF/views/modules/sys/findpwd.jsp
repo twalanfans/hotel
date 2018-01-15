@@ -33,7 +33,7 @@
 <script type="text/javascript">
 	findPwd.init({
 		regLoginName : /^((13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8})$/,
-		regEmail : /\w+@(qq|163|126|sina|google)(\.[A-Za-z])(\.[A-Za-z])?/,
+		regEmail : /\w+@(qq|163|126|sina|gmail)(\.[A-Za-z])(\.[A-Za-z])?/,
 		getCodeUrl : '${contextPath}/emailValidate',
 		checkPhoneAndEmail : '${contextPath}/checkPhoneAndEmail',
 		resetPwdUrl : '${contextPath}/forgetPassword_2?loginName='

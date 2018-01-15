@@ -55,7 +55,7 @@ public class VersioinControler extends BaseController{
 		String v = request.getParameter("version");
 		//查询出所有历代版本
 		List<Version> allLostVersion = versionService.queryAllLostVersion();
-		//传入进来的版本与历代版本进行比较，一个都不没有的则是审核版，返回0
+		//传入进来的版本与历代版本进行比较，一个都没有的则是审核版，返回0
 		for (Version version : allLostVersion) {
 			if(v.equals(version.getVersion())){
 				a++;
