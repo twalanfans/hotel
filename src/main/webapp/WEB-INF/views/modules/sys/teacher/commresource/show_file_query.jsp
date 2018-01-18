@@ -39,7 +39,7 @@
 				<span><img src="${ctxStatic}/images/noplan.png" width="48" height="48" /></span>
 				<span>文件列</span>
 			</div>
-			<p>抱歉，该文件夹下尚未发现文件！您可以：</p>
+			<p>抱歉，该文件夹下尚未发现文件！</p>
 			<c:if test="${isShow=='yes'}">
 			<p>
 				<a href="javascript:;" onclick="uploadFile();" class="commonBtn">上传文件</a>
@@ -183,7 +183,7 @@
 <iframe id="ifile" style="display:none"></iframe> 
 </body>
 <script type="text/javascript">
-$(document).scrollTop(0);
+/* $(document).scrollTop(0); */
 function refresh(){
 	$('.show_file_query').load("${contextPath}/courseFile/showFileDetailPage?classId=${classId}"+"&dataType=${dataType}"+"&filePath=${classFilePath}"+"&fileName=${fileName}"+"&u-si=${userId}");
 }

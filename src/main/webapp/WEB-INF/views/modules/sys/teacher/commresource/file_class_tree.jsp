@@ -16,8 +16,14 @@
 		.addFileTitle{height:30px;line-height:30px;padding-left:10px;background-color:#76bf64;color:#fff;font-size:12px;border-radius:6px 6px 0 0;}
 		.addFileContent>p{width:270px;margin:20px auto; font-size:12px;}
 		.addFileContent>p .searchBtn{margin-left:20px;border-radius:6px;}
-		.cateTit h3{font-size:14px;line-height:30px;height:30px;text-align:center;background-color:#4b89e6;color:#fff;margin-bottom:10px;}
+		.cateTit h3{font-size:16px;height:30px;line-height:30px;text-align:center;background-color:#1a19a0;color:#fff;margin-bottom:10px;}
 		.cateTit .searchBtn{margin-left:10px;}
+		.cate1{padding-left:20px;}
+		.cname{line-height:30px;padding:0 6px;}
+		.selCname{background-color:rgba(26, 25, 160, 0.4);border-radius:4px;}
+		.waistband,.cname{color:#fff;float:left;display:inline;}
+		.cate .waistband{width:20px;text-align:center;font-size:26px;}
+		.folderIcon{margin-top:2px;width:26px;}
 	</style>
 </head>
 <body>
@@ -47,9 +53,9 @@
 	<c:forEach items="${fileClassList}"  var="class1" >
 	<c:if test="${class1.parentId eq '0' }">
 		<div class="cate1 cates">
-			<p>
+			<p class="clearfix">
 				<span class="waistband" status="false">+</span>
-				<a href="javascript:;" class="cname" onclick="showFileDetail(${class1.classId},'${class1.className}','${class1.createUser}',this);"><span class="fa fa-folder-open folder"></span>${class1.className}</a>
+				<a href="javascript:;" class="cname clearfix" onclick="showFileDetail(${class1.classId},'${class1.className}','${class1.createUser}',this);"><span class="fa fa-folder-open folder fl folderIcon"></span><span class="fl">${class1.className}</span></a>
 				<c:if test="${isCommon=='2357abv48xc'}">
 				<ul class="menu">
 					<li class="addCate" onclick="addClass(${class1.classId},2);">新建文件夹</li>
@@ -61,9 +67,9 @@
 			<c:forEach items="${fileClassList}"  var="class2">
 			<c:if test="${class2.parentId == class1.classId }">	
 				<div class="cate2 cates">
-					<p>
+					<p class="clearfix">
 						<span class="waistband" status="false">+</span>
-						<a href="javascript:;" class="cname" onclick="showFileDetail(${class2.classId},'${class1.className}/${class2.className}','${class1.createUser}',this)"><span class="fa fa-folder-open folder"></span>${class2.className}</a>
+						<a href="javascript:;" class="cname clearfix" onclick="showFileDetail(${class2.classId},'${class1.className}/${class2.className}','${class1.createUser}',this);"><span class="fa fa-folder-open folder fl folderIcon"></span><span class="fl">${class2.className}</span></a>
 						<c:if test="${isCommon=='2357abv48xc'}">
 						<ul class="menu">
 							<li class="addCate" onclick="addClass(${class2.classId},3);">新建文件夹</li>
@@ -75,9 +81,9 @@
 					<c:forEach items="${fileClassList}"  var="class3" >
 					<c:if test="${class3.parentId == class2.classId }">
 						<div class="cate3 cates">
-							<p>
+							<p class="clearfix">
 								<span class="waistband" status="false">+</span>
-								<a href="javascript:;" class="cname" onclick="showFileDetail(${class3.classId},'${class1.className}/${class2.className}/${class3.className}','${class1.createUser}',this);"><span class="fa fa-folder-open folder"></span>${class3.className}</a>
+								<a href="javascript:;" class="cname clearfix" onclick="showFileDetail(${class3.classId},'${class1.className}/${class2.className}/${class3.className}','${class1.createUser}',this);"><span class="fa fa-folder-open folder fl folderIcon"></span><span class="fl">${class3.className}</span></a>
 								<c:if test="${isCommon=='2357abv48xc'}">
 								<ul class="menu">
 									<li class="addCate" onclick="addClass(${class3.classId},4);">新建文件夹</li>
@@ -89,9 +95,9 @@
 							<c:forEach items="${fileClassList}"  var="class4" >
 							<c:if test="${class4.parentId == class3.classId }">
 								<div class="cate4 cates">
-									<p>
+									<p class="clearfix">
 										<input type="hidden" class="waistband" />
-										<a href="javascript:;" class="cname" onclick="showFileDetail(${class4.classId},'${class1.className}/${class2.className}/${class3.className}/${class4.className}','${class1.createUser}',this);"><span class="fa fa-folder-open folder"></span>${class4.className}</a>
+										<a href="javascript:;" class="cname clearfix" onclick="showFileDetail(${class4.classId},'${class1.className}/${class2.className}/${class3.className}/${class4.className}','${class1.createUser}',this);"><span class="fa fa-folder-open folder folderIcon fl"></span><span class="fl">${class4.className}</span></a>
 										<c:if test="${isCommon=='2357abv48xc'}">
 										<ul class="menu">
 											<li class="updateCate" onclick="editClass(${class4.classId})">重命名</li>
@@ -126,8 +132,8 @@
 <script type="text/javascript">
 	//文件详情
 	function showFileDetail(classId,filePath,user,obj){
-		$('.cname').css({'background':'none'});
-		$(obj).css({'display':'inline-block','background-color':'#e497e6'});
+		$('.cname').removeClass('selCname');
+		$(obj).addClass('selCname');
 		var url = "${contextPath}/courseFile/showFileDetailPage?classId="+classId+"&dataType=${dataType}"+"&filePath="+filePath+"&fileName="+"&u-si="+user;
 	 	$('.show_file_query').load(url);
 	}
@@ -167,15 +173,15 @@
 			$this.find('.waistband').attr('status','true');
 		}
 	});
+
 	//次级栏目显示或隐藏
 	$('.waistband').click(function(){
 		var $this = $(this);
-		console.log($this.parent().parent().children().find('.cates').length);
 		if($this.attr('status')=='false'){
 			$this.parent('p').siblings('.cates').show();
 			$this.text('-');
 			$this.attr('status','true');
-		}else if($this.attr('status')){
+		}else{
 			$this.parent('p').siblings('.cates').hide();
 			$this.text('+');
 			$this.attr('status','false');

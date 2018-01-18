@@ -17,23 +17,23 @@
 			clear:both;
 			overflow:hidden;
 		}
+		.fl{float:left;display:inline;}
 		.clearfix{zoom:1;}
-		.databases{background:url('${ctxStatic}/images/databasebg3.jpg') center repeat-y;background-size:100% 100%;}
-		.cate span,.addCateWindow span{cursor:pointer;font-size:20px;}
+		.file_class_tree{background:#3c65cf;background-size:100% 100%;}
+		.show_file_query{background:url('${ctxStatic}/images/show_file_queryBg.jpg') left top no-repeat;background-size:100% 100%;}
+		.showDatabases{height:100%;}
+		.cate span,.addCateWindow span{cursor:pointer;font-size:16px;line-height:30px;}
 		.cate>.searchBtn{margin-left:20px;}
-		.cate1{padding-left:20px;padding-top:20px;}
-		.cate2,.cate3{padding-top:10px;}
 		.cate2{margin-left:15px;display:none;}
 		.cate3{margin-left:30px;display:none;}
-		.cate4{margin-left:35px;display:none;}
+		.cate4{margin-left:40px;display:none;}
 		.addCateWindow{width:300px;height:90px;border:1px solid #ccc;background-color:#fff;position:fixed;top:30%;left:50%;margin-left:-45px;z-index:2;display:none;}
 		.mask{width:100%;height:100%;position:fixed;top:0px;right:0px;bottom:0px;left:0px;background:rgba(0,0,0,0.5);z-index:1;display:none;}
 		.databases{clear:both;}
-		.cname{font-size:16px;}
 		@media all and (min-width:1000px){
-			.file_class_tree{width:29%;overflow-y:auto;height:1000px;}
-			.file_class_tree,.show_file_query{float:left;padding-bottom:2000px;margin-bottom:-2000px;}
-			.show_file_query{width:70%;border-left:1px solid #000;height:100%;overflow-y:auto;}
+			.file_class_tree{width:30%;overflow-y:auto;height:720px;}
+			.file_class_tree,.show_file_query{float:left;display:inline;}
+			.show_file_query{width:70%;height:100%;overflow-y:auto;}
 		}
 		.menu{width:100px;display:none;border-left:1px solid #000;border-top:1px solid #000; background-color:#fdfac9;}
 		.menu li{width:100%;height:30px;line-height:30px;text-align:center; cursor:pointer;border-right:1px solid #000;border-bottom:1px solid #000;list-style:none;}
@@ -41,7 +41,7 @@
 	</style>
 </head>
 <body class="databases">
-<div class=" clearfix">
+<div class="showDatabases clearfix">
 	<div class="file_class_tree">
 		<%@ include file="file_class_tree.jsp"%>
 	</div>

@@ -12,10 +12,10 @@ define([], function(){
 		};
 		
 		//课程资源
-		$scope.chooseCourseType=function(courseType){
+		$scope.chooseCourseType=function($event,courseType){
+			$($event.target).addClass('hasChoose').siblings('li').removeClass('hasChoose');
 			$state.go('fetchCourseFile', {pageNum : 1, courseType : courseType, fileName : ''});
 		};
-		
 		//课件搜索
 		$scope.searchFile=function(courseId,courseType){
 			var fileName = document.getElementById("fileName").value;

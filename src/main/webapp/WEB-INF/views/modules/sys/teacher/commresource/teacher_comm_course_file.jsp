@@ -46,20 +46,20 @@
 		<div class="resourceTitle clearfix">
 			<span style="float:left;display:inline-block;height:30px;line-height:30px;"><b>教师资源：</b></span>
 			<ul>
-				<c:if test="${courseType=='0'}"><li ng-click="chooseCourseType(0);" class="resourceChoose">试题库</li></c:if>
-				<c:if test="${courseType!='0'}"><li ng-click="chooseCourseType(0);">试题库</li></c:if>
-				<c:if test="${courseType=='1' || courseType==''}"><li class="resourceChoose" ng-click="chooseCourseType(1);">微课视频</li></c:if>
-				<c:if test="${courseType!='1' && courseType!=''}"><li ng-click="chooseCourseType(1);">微课视频</li></c:if>
-				<c:if test="${courseId!=''}"><li class="dataBase" onclick="chooseCourseType(1,'${courseId}');">教师课件</li></c:if>
+				<c:if test="${courseType=='0'}"><li ng-click="chooseCourseType($event,0);" class="resourceChoose">试题库</li></c:if>
+				<c:if test="${courseType!='0'}"><li ng-click="chooseCourseType($event,0);">试题库</li></c:if>
+				<c:if test="${courseType=='1' || courseType==''}"><li class="resourceChoose" ng-click="chooseCourseType($event,1);">微客视频</li></c:if>
+				<c:if test="${courseType!='1' && courseType!=''}"><li ng-click="chooseCourseType($event,1);">微客视频</li></c:if>
+				<c:if test="${courseId!=''}"><li class="dataBase" onclick="chooseCourseType(1,'${courseId}',this);">教师课件</li></c:if>
 			</ul>
 		</div>
 		<div class="resourceTitle clearfix">
 			<span style="float:left;display:inline-block;height:30px;line-height:30px;"><b>系统资源：</b></span>
 			<ul>
-				<li class="dataBase" onclick="chooseCourseType(2,'');">案例库</li>
-				<li class="dataBase" onclick="chooseCourseType(3,'');">图片库</li>	
-				<li class="dataBase" onclick="chooseCourseType(4,'');">标准工作流程库</li>	
-				<li class="dataBase" onclick="chooseCourseType(5,'');">法律法规及规范标准库</li>	
+				<li class="dataBase" onclick="chooseCourseType(2,'',this);">案例库</li>
+				<li class="dataBase" onclick="chooseCourseType(3,'',this);">图片库</li>	
+				<li class="dataBase" onclick="chooseCourseType(4,'',this);">标准工作流程库</li>	
+				<li class="dataBase" onclick="chooseCourseType(5,'',this);">法律法规及规范标准库</li>	
 			</ul>
 		</div>
 		<c:if test="${courseType!='0'}">
@@ -196,9 +196,9 @@
 	})();
 
 	//系统资源颜色切换
-	$(document).on('click','.dataBase', function(){
+	/* $(document).on('click','.dataBase', function(){
 		$(this).addClass('hasChoose').siblings('li').removeClass('hasChoose');
-	});
+	}); */
 	if('${courseType}'=="0"){
 		optionDict('questionType');   //试题题型的数据字典取值
 		$("#questionType option[value='${selectType}']").attr("selected","selected");
@@ -219,12 +219,13 @@
 		}
 	});
 	
-	function chooseCourseType(type,courseId){
+	function chooseCourseType(type,courseId,obj){
 		var courseName = $(".hasChoose").html();
 		var url = "${contextPath}/courseFile/dataBaseQuery?type="+type+"&is_cmn=2a57b8v48xc"+"&cos_id="+courseId+"&courseName="+courseName;
-		var tool ='height=720,width=1500,top=40,left=200,menubar=yes, alwaysRaised=yes'
+		var tool ='height=720,width=1500,top=40,left=200,menubar=yes, alwaysRaised=yes';
+		$(obj).addClass('hasChoose').siblings('li').removeClass('hasChoose');
 	 	window.open(url,'资料库',tool);
-	}
+	};
 	
 	//在线播放
 	var totalTime;  //视频总时长
